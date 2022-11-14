@@ -1,3 +1,4 @@
+import { ObjetosLiterales } from "./typescript/ObjetosLiterales";
 import { TiposBasicos } from "./typescript/TiposBasicos";
 
 export const App = () => {
@@ -5,7 +6,8 @@ export const App = () => {
     <>
       <h1 className="mt-2">Introduccion a React con Typescript</h1>
       <hr />
-      <TiposBasicos />
+      {/* <TiposBasicos /> */}
+      <ObjetosLiterales />
     </>
   );
 };
