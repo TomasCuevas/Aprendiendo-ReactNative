@@ -5,6 +5,7 @@ import { Usuarios } from "./components/Usuarios";
 import { Funciones } from "./typescript/Funciones";
 import { ObjetosLiterales } from "./typescript/ObjetosLiterales";
 import { TiposBasicos } from "./typescript/TiposBasicos";
+import { Formularios } from "./components/Formularios";
 
 export const App = () => {
   return (
@@ -17,7 +18,8 @@ export const App = () => {
       {/* <Contador /> */}
       {/* <ContadorConHook /> */}
       {/* <Login /> */}
-      <Usuarios />
+      {/* <Usuarios /> */}
+      <Formularios />
     </>
   );
 };
