@@ -27,7 +27,25 @@ export const Usuarios = () => {
             <th>Email</th>
           </tr>
         </thead>
-        <tbody></tbody>
+        <tbody>
+          {users.map((user) => (
+            <tr key={user.id}>
+              <th>
+                <img
+                  style={{ width: 60, borderRadius: 100 }}
+                  src={user.avatar}
+                  alt={user.first_name}
+                />
+              </th>
+              <th>
+                <h4>{`${user.first_name} ${user.last_name}`}</h4>
+              </th>
+              <th>
+                <span>{user.email}</span>
+              </th>
+            </tr>
+          ))}
+        </tbody>
       </table>
     </>
   );
