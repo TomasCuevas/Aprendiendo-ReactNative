@@ -7,9 +7,9 @@ interface IAuth {
   validando: boolean;
 }
 
-type IAuthAction = {
-  type: "logout";
-};
+type IAuthAction =
+  | { type: "logout" }
+  | { type: "login"; payload: { username: string; name: string } };
 
 const initialState: IAuth = {
   name: undefined,
@@ -28,13 +28,33 @@ const authReducer = (state: IAuth, action: IAuthAction): IAuth => {
         validando: false,
       };
 
+    case "login":
+      return {
+        name: action.payload.name,
+        token: "ABC123",
+        username: action.payload.username,
+        validando: false,
+      };
+
     default:
       return state;
   }
 };
 
 export const Login = () => {
-  const [{ validando }, dispatch] = useReducer(authReducer, initialState);
+  const [{ validando, token, name }, dispatch] = useReducer(
+    authReducer,
+    initialState
+  );
+
+  const login = () => {
+    dispatch({
+      type: "login",
+      payload: { name: "Tomas", username: "tomascoding" },
+    });
+  };
+
+  const logout = () => dispatch({ type: "logout" });
 
   useEffect(() => {
     setTimeout(() => {
@@ -53,10 +73,24 @@ export const Login = () => {
 
   return (
     <>
-      <div className="alert alert-danger">No autenticado</div>
-      <div className="alert alert-success">Autenticado</div>
-      <button className="btn btn-primary m-1">Login</button>
-      <button className="btn btn-danger m-1">Logout</button>
+      <h3>Login</h3>
+      {token ? (
+        <>
+          <div className="alert alert-success">
+            Autenticado como: <b>{name}</b>
+          </div>
+          <button onClick={logout} className="btn btn-danger m-1">
+            Logout
+          </button>
+        </>
+      ) : (
+        <>
+          <div className="alert alert-danger">No autenticado</div>
+          <button onClick={login} className="btn btn-primary m-1">
+            Login
+          </button>
+        </>
+      )}
     </>
   );
 };
