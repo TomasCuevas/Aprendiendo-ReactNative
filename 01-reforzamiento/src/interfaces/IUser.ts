@@ -1,9 +1,9 @@
-export interface IUser {
+export interface IUsersResponse {
   page: number;
   per_page: number;
   total: number;
   total_pages: number;
-  data: Datum[];
+  data: IUser[];
   support: Support;
 }
 
@@ -12,7 +12,7 @@ interface Support {
   text: string;
 }
 
-interface Datum {
+export interface IUser {
   id: number;
   email: string;
   first_name: string;

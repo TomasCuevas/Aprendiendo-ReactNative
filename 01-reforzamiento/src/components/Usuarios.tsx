@@ -1,13 +1,18 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 //* axios *//
 import { reqResApi } from "../axios/reqRes";
 
+//* interfaces *//
+import { IUser, IUsersResponse } from "../interfaces/IUser";
+
 export const Usuarios = () => {
+  const [users, setUsers] = useState<IUser[]>([]);
+
   useEffect(() => {
     reqResApi
-      .get("/users")
-      .then(({ data }) => console.log(data.data))
+      .get<IUsersResponse>("/users")
+      .then(({ data: { data } }) => setUsers(data))
       .catch((err) => console.log(err));
   }, []);
 
