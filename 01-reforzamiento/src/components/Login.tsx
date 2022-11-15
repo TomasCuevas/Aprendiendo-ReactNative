@@ -1,4 +1,30 @@
+import { useReducer } from "react";
+
+interface IAuth {
+  name: string | undefined;
+  token: string | undefined;
+  username: string | undefined;
+  validando: boolean;
+}
+
+type IAuthAction = {
+  type: "logout";
+};
+
+const initialState: IAuth = {
+  name: undefined,
+  token: undefined,
+  username: undefined,
+  validando: true,
+};
+
+const authReducer = (state: IAuth, action: IAuthAction): IAuth => {
+  return state;
+};
+
 export const Login = () => {
+  const [state, dispatch] = useReducer(authReducer, initialState);
+
   return (
     <>
       <h3>Login</h3>
