@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useUsers } from "../hooks/useUsers";
 
 export const Usuarios = () => {
-  const { loadUsers, users } = useUsers();
+  const { loadUsers, users, nextPage, previousPage } = useUsers();
 
   useEffect(() => {
     loadUsers();
@@ -41,8 +41,11 @@ export const Usuarios = () => {
           ))}
         </tbody>
       </table>
-      <button onClick={loadUsers} className="btn btn-primary">
-        Cargar mas usuarios
+      <button onClick={() => previousPage()} className="btn btn-primary m-1">
+        Anterior
+      </button>
+      <button onClick={() => nextPage()} className="btn btn-primary m-1">
+        Siguiente
       </button>
     </>
   );
