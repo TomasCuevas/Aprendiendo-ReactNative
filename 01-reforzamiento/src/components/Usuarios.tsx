@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 //* axios *//
 import { reqResApi } from "../axios/reqRes";
@@ -8,12 +8,27 @@ import { IUser, IUsersResponse } from "../interfaces/IUser";
 
 export const Usuarios = () => {
   const [users, setUsers] = useState<IUser[]>([]);
+  const pageRef = useRef<number>(1);
+
+  const loadUsers = async () => {
+    const {
+      data: { data },
+    } = await reqResApi.get<IUsersResponse>(`/users`, {
+      params: {
+        page: pageRef.current,
+      },
+    });
+
+    if (data.length > 0) {
+      setUsers(data);
+      pageRef.current++;
+    } else {
+      alert("No hay mas usuarios");
+    }
+  };
 
   useEffect(() => {
-    reqResApi
-      .get<IUsersResponse>("/users")
-      .then(({ data: { data } }) => setUsers(data))
-      .catch((err) => console.log(err));
+    loadUsers();
   }, []);
 
   return (
@@ -47,6 +62,9 @@ export const Usuarios = () => {
           ))}
         </tbody>
       </table>
+      <button onClick={loadUsers} className="btn btn-primary">
+        Cargar mas usuarios
+      </button>
     </>
   );
 };
