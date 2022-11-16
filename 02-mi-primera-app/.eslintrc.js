@@ -7,6 +7,7 @@ module.exports = {
     'prettier/prettier': 0,
     'react-native/no-inline-styles': 'off',
     'react/react-in-jsx-scope': 'off',
+    '@typescript-eslint/no-unused-vars': 'warn',
   },
   overrides: [
     {
