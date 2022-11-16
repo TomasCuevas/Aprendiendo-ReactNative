@@ -6,6 +6,7 @@ module.exports = {
   rules: {
     'prettier/prettier': 0,
     'react-native/no-inline-styles': 'off',
+    'react/react-in-jsx-scope': 'off',
   },
   overrides: [
     {
