@@ -7,9 +7,18 @@ export const ContadorScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Contador: {contador}</Text>
-      <TouchableOpacity onPress={() => setContador(prev => prev + 1)}>
-        <View style={styles.buttonContainer}>
-          <Text style={styles.buttonText}>+1</Text>
+      <TouchableOpacity
+        style={styles.fabLocationL}
+        onPress={() => setContador(prev => prev - 1)}>
+        <View style={styles.fab}>
+          <Text style={styles.fabText}>-1</Text>
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.fabLocationR}
+        onPress={() => setContador(prev => prev + 1)}>
+        <View style={styles.fab}>
+          <Text style={styles.fabText}>+1</Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -25,15 +34,28 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 35,
   },
-  buttonContainer: {
-    backgroundColor: 'red',
-    borderRadius: 100,
-    height: 30,
-    justifyContent: 'center',
+  fabLocationR: {
+    position: 'absolute',
+    right: 20,
+    bottom: 20,
   },
-  buttonText: {
-    textAlign: 'center',
+  fabLocationL: {
+    position: 'absolute',
+    left: 20,
+    bottom: 20,
+  },
+  fab: {
+    backgroundColor: '#5856d6',
+    borderRadius: 100,
+    height: 60,
+    width: 60,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  fabText: {
     color: 'white',
+    fontSize: 20,
     fontWeight: '700',
   },
 });
