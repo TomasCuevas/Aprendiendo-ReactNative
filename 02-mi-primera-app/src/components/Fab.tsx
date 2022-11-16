@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, TouchableNativeFeedback } from 'react-native';
 
 interface Props {
   position: 'left' | 'right';
@@ -8,25 +8,31 @@ interface Props {
 
 export const Fab: React.FC<Props> = ({ onPress, position, title }) => {
   return (
-    <TouchableOpacity
-      style={position === 'left' ? styles.fabLocationL : styles.fabLocationR}
-      onPress={onPress}>
-      <View style={styles.fab}>
-        <Text style={styles.fabText}>{title}</Text>
-      </View>
-    </TouchableOpacity>
+    <View
+      style={[
+        styles.fabLocation,
+        position === 'left' ? styles.fabLocationL : styles.fabLocationR,
+      ]}>
+      <TouchableNativeFeedback
+        onPress={onPress}
+        background={TouchableNativeFeedback.Ripple('#afafff', false, 30)}>
+        <View style={styles.fab}>
+          <Text style={styles.fabText}>{title}</Text>
+        </View>
+      </TouchableNativeFeedback>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   fabLocationR: {
-    position: 'absolute',
     right: 20,
-    bottom: 20,
   },
   fabLocationL: {
-    position: 'absolute',
     left: 20,
+  },
+  fabLocation: {
+    position: 'absolute',
     bottom: 20,
   },
   fab: {
