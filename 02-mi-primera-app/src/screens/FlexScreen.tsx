@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     height: 100,
     lineHeight: 100,
     backgroundColor: 'green',
+    alignSelf: 'center',
   },
   caja3: {
     borderWidth: 2,
@@ -40,5 +41,6 @@ const styles = StyleSheet.create({
     height: 100,
     lineHeight: 100,
     backgroundColor: 'blue',
+    alignSelf: 'flex-start',
   },
 });
