@@ -9,7 +9,7 @@ import { TareaScreen } from './src/screens/TareaScreen';
 
 export const App = () => {
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#28425b' }}>
+    <SafeAreaView style={{ flex: 1 }}>
       {/* <HolaMundoScreen />
       <ContadorScreen /> */}
       {/* <BoxObjectModelScreen /> */}
