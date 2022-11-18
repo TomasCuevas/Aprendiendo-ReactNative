@@ -24,14 +24,13 @@ export const CalculadoraScreen = () => {
       return;
     }
 
-    // no aceptar 0 si solo existe 0 o -0
-    if ((numero === '0' || numero === '-0') && numeroTexto === '0') {
+    if (numero.startsWith('0') || numero.startsWith('-0')) {
+      if (numeroTexto === '.' || numero.includes('.')) {
+        setNumero(numero + numeroTexto);
+      } else {
+        setNumero(numeroTexto);
+      }
       return;
-    }
-
-    // insertar valor y sacar el 0 inicial si el valor ingresado es diferente de '.'
-    if ((numero === '0' || numero === '-0') && numeroTexto !== '.') {
-      return setNumero(numeroTexto);
     }
 
     // concatenar todos los demas inputs
@@ -46,6 +45,18 @@ export const CalculadoraScreen = () => {
     }
   };
 
+  const eliminarUltimo = () => {
+    if (numero.length === 1) {
+      return setNumero('0');
+    }
+
+    if (numero.includes('-') && numero.length === 2) {
+      return setNumero('0');
+    }
+
+    setNumero((prev) => prev.substring(0, prev.length - 1));
+  };
+
   return (
     <View style={styles.calculadoraContainer}>
       <Text style={styles.resultadoPequeno}>
@@ -58,7 +69,7 @@ export const CalculadoraScreen = () => {
       <View style={styles.fila}>
         <BotonCalc text="C" color="#9b9b9b" accion={limpiar} />
         <BotonCalc text="+/-" color="#9b9b9b" accion={positivoNegativo} />
-        <BotonCalc text="del" color="#9b9b9b" />
+        <BotonCalc text="del" color="#9b9b9b" accion={eliminarUltimo} />
         <BotonCalc text="/" color="#ff9427" />
       </View>
       <View style={styles.fila}>
