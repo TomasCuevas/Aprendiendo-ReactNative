@@ -1,10 +1,10 @@
-import {SafeAreaView, StatusBar} from 'react-native';
+import { SafeAreaView, StatusBar } from 'react-native';
 
 //* screens *//
-import {CalculadoraScreen} from './src/screens/CalculadoraScreen';
+import { CalculadoraScreen } from './src/screens/CalculadoraScreen';
 
 //* styles *//
-import {styles} from './src/theme/appTheme';
+import { styles } from './src/theme/appTheme';
 
 const App = () => {
   return (

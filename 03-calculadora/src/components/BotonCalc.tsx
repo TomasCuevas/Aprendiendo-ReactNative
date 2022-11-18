@@ -1,18 +1,20 @@
-import {Text, View, StyleSheet, TouchableOpacity} from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 
 interface Props {
   text: string;
   color?: string;
   ancho?: boolean;
+  accion: () => void;
 }
 
 export const BotonCalc: React.FC<Props> = ({
   text,
   color = '#2d2d2d',
   ancho = false,
+  accion,
 }) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={accion}>
       <View
         style={{
           ...styles.boton,
@@ -23,7 +25,7 @@ export const BotonCalc: React.FC<Props> = ({
           style={{
             ...styles.botonTexto,
             color:
-              color === '#2d2d2d' || color === '#ff9427' ? 'white' : 'black',
+              color === '#2d2d2d' || color === '#ff9427' ? 'white' : '#2d2d2d',
             textAlign: ancho ? 'left' : 'center',
             paddingLeft: ancho ? 30 : 0,
           }}>
