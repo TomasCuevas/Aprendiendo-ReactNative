@@ -22,8 +22,7 @@ export const styles = StyleSheet.create({
   },
   fila: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     marginBottom: 15,
-    paddingHorizontal: 10,
   },
 });
