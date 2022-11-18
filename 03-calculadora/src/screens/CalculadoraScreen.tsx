@@ -19,7 +19,31 @@ export const CalculadoraScreen = () => {
   };
 
   const armarNumero = (numeroTexto: string) => {
+    // no aceptar doble punto
+    if (numero.includes('.') && numeroTexto === '.') {
+      return;
+    }
+
+    // no aceptar 0 si solo existe 0 o -0
+    if ((numero === '0' || numero === '-0') && numeroTexto === '0') {
+      return;
+    }
+
+    // insertar valor y sacar el 0 inicial si el valor ingresado es diferente de '.'
+    if ((numero === '0' || numero === '-0') && numeroTexto !== '.') {
+      return setNumero(numeroTexto);
+    }
+
+    // concatenar todos los demas inputs
     setNumero(prev => prev + numeroTexto);
+  };
+
+  const positivoNegativo = () => {
+    if (numero.includes('-')) {
+      setNumero(prev => prev.replace('-', ''));
+    } else {
+      setNumero(prev => '-' + prev);
+    }
   };
 
   return (
@@ -33,7 +57,7 @@ export const CalculadoraScreen = () => {
 
       <View style={styles.fila}>
         <BotonCalc text="C" color="#9b9b9b" accion={limpiar} />
-        <BotonCalc text="+/-" color="#9b9b9b" />
+        <BotonCalc text="+/-" color="#9b9b9b" accion={positivoNegativo} />
         <BotonCalc text="del" color="#9b9b9b" />
         <BotonCalc text="/" color="#ff9427" />
       </View>
