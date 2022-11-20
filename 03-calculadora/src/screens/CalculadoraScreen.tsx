@@ -8,7 +8,10 @@ import { BotonCalc } from '../components/BotonCalc';
 import { styles } from '../theme/appTheme';
 
 enum Operadores {
-  sumar, restar, multiplicar, dividir
+  sumar,
+  restar,
+  multiplicar,
+  dividir,
 }
 
 export const CalculadoraScreen = () => {
@@ -40,14 +43,14 @@ export const CalculadoraScreen = () => {
     }
 
     // concatenar todos los demas inputs
-    setNumero(prev => prev + numeroTexto);
+    setNumero((prev) => prev + numeroTexto);
   };
 
   const positivoNegativo = () => {
     if (numero.includes('-')) {
-      setNumero(prev => prev.replace('-', ''));
+      setNumero((prev) => prev.replace('-', ''));
     } else {
-      setNumero(prev => '-' + prev);
+      setNumero((prev) => '-' + prev);
     }
   };
 
@@ -74,24 +77,51 @@ export const CalculadoraScreen = () => {
   };
 
   const botonDividir = () => {
-    cambiarNumeroPorAnterior()
+    cambiarNumeroPorAnterior();
     ultimaOperacion.current = Operadores.dividir;
-  }
+  };
 
   const botonMultiplicar = () => {
-    cambiarNumeroPorAnterior()
+    cambiarNumeroPorAnterior();
     ultimaOperacion.current = Operadores.multiplicar;
-  }
+  };
 
   const botonRestar = () => {
-    cambiarNumeroPorAnterior()
+    cambiarNumeroPorAnterior();
     ultimaOperacion.current = Operadores.restar;
-  }
+  };
 
   const botonSumar = () => {
-    cambiarNumeroPorAnterior()
+    cambiarNumeroPorAnterior();
     ultimaOperacion.current = Operadores.sumar;
-  }
+  };
+
+  const calcular = () => {
+    const num1 = Number(numero);
+    const num2 = Number(numeroAnterior);
+
+    switch (ultimaOperacion.current) {
+      case Operadores.sumar:
+        setNumero(`${(num2 + num1).toFixed(2)}`);
+        break;
+      case Operadores.restar:
+        setNumero(`${(num2 - num1).toFixed(2)}`);
+        break;
+      case Operadores.multiplicar:
+        setNumero(`${(num2 * num1).toFixed(2)}`);
+        break;
+      case Operadores.dividir:
+        if (num1 === 0 && num2 === 0) {
+          setNumero('0');
+        } else {
+          setNumero(`${(num2 / num1).toFixed(2)}`);
+        }
+        break;
+      default:
+    }
+
+    setNumeroAnterio(undefined);
+  };
 
   return (
     <View style={styles.calculadoraContainer}>
@@ -129,7 +159,7 @@ export const CalculadoraScreen = () => {
       <View style={styles.fila}>
         <BotonCalc text="0" accion={() => armarNumero('0')} ancho />
         <BotonCalc text="." accion={() => armarNumero('.')} />
-        <BotonCalc text="=" color="#ff9427" />
+        <BotonCalc text="=" color="#ff9427" accion={calcular} />
       </View>
     </View>
   );
