@@ -16,10 +16,12 @@ import { SettingsScreen } from '../screens/SettingsScreen';
 
 //* stack navigator *//
 import { StackNavigator } from './StackNavigator';
-import { styles } from '../theme/appTheme';
 
 //* drawer *//
 const Drawer = createDrawerNavigator();
+
+//* styles *//
+import { styles } from '../theme/appTheme';
 
 export const MenuLateral = () => {
   const { width } = useWindowDimensions();
