@@ -25,7 +25,7 @@ export const MenuLateralBasico = () => {
         component={StackNavigator}
       />
       <Drawer.Screen
-        name="Article"
+        name="SettingsScreen"
         options={{ title: 'Settings' }}
         component={SettingsScreen}
       />
