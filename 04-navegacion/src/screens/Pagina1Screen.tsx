@@ -1,4 +1,4 @@
-import { Text, View, Button } from 'react-native';
+import { Text, View, Button, TouchableOpacity } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 
 //* styles *//
@@ -15,6 +15,18 @@ export const Pagina1Screen: React.FC<Props> = ({ navigation }) => {
         title="Ir pagina 2"
         onPress={() => navigation.navigate('Pagina2Screen')}
       />
+
+      <Text>Navegar con argumentos</Text>
+
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('PersonaScreen', {
+            id: 1,
+            nombre: 'Pedro',
+          })
+        }>
+        <Text>Pedro</Text>
+      </TouchableOpacity>
     </View>
   );
 };
