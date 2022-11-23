@@ -2,6 +2,9 @@ import { Platform, Text } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
+//* styles *//
+import { colores } from '../theme/appTheme';
+
 //* screens *//
 import { Tab1Screen } from '../screens/Tab1Screen';
 import { Tab2Screen } from '../screens/Tab2Screen';
@@ -9,7 +12,9 @@ import { Tab3Screen } from '../screens/Tab3Screen';
 
 //* stack navigator *//
 import { StackNavigator } from './StackNavigator';
-import { colores } from '../theme/appTheme';
+
+//* top tap navigator *//
+import { TopTapNavigator } from './TopTap';
 
 export const Tabs = () => {
   return Platform.OS === 'ios' ? <TabsIOS /> : <TabsAndroid />;
@@ -37,7 +42,7 @@ const TabsIOS = () => {
             case 'Tab1Screen':
               iconName = 'T1';
               break;
-            case 'Tab2Screen':
+            case 'TopTapNavigator':
               iconName = 'T2';
               break;
             case 'StackNavigator':
@@ -59,9 +64,9 @@ const TabsIOS = () => {
         component={Tab1Screen}
       />
       <BottomTabIOS.Screen
-        name="Tab2Screen"
+        name="TopTapNavigator"
         options={{ title: 'Tab2' }}
-        component={Tab2Screen}
+        component={TopTapNavigator}
       />
       <BottomTabIOS.Screen
         name="StackNavigator"
@@ -91,7 +96,7 @@ const TabsAndroid = () => {
             case 'Tab1Screen':
               iconName = 'T1';
               break;
-            case 'Tab2Screen':
+            case 'TopTapNavigator':
               iconName = 'T2';
               break;
             case 'StackNavigator':
@@ -109,9 +114,9 @@ const TabsAndroid = () => {
         component={Tab1Screen}
       />
       <BottomTabAndroid.Screen
-        name="Tab2Screen"
+        name="TopTapNavigator"
         options={{ title: 'Tab2' }}
-        component={Tab2Screen}
+        component={TopTapNavigator}
       />
       <BottomTabAndroid.Screen
         name="StackNavigator"
