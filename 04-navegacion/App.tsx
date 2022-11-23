@@ -1,3 +1,4 @@
+import { StatusBar } from 'react-native';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 
@@ -9,6 +10,7 @@ import { MenuLateral } from './src/navigator/MenuLateral';
 const App = () => {
   return (
     <NavigationContainer>
+      <StatusBar backgroundColor="white" barStyle="dark-content" />
       {/* <StackNavigator /> */}
       {/* <MenuLateralBasico /> */}
       <MenuLateral />

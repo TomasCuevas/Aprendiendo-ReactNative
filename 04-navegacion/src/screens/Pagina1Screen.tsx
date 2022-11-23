@@ -18,7 +18,7 @@ export const Pagina1Screen: React.FC<Props> = ({ navigation }) => {
         onPress={() => navigation.navigate('Pagina2Screen')}
       />
 
-      <Text>Navegar con argumentos</Text>
+      <Text style={{ marginTop: 15 }}>Navegar con argumentos</Text>
 
       <View style={{ flexDirection: 'row' }}>
         <TouchableOpacity

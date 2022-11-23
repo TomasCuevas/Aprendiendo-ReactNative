@@ -17,6 +17,9 @@ import { SettingsScreen } from '../screens/SettingsScreen';
 //* stack navigator *//
 import { StackNavigator } from './StackNavigator';
 
+//* tabs navigator *//
+import { Tabs } from './Tabs';
+
 //* drawer *//
 const Drawer = createDrawerNavigator();
 
@@ -32,7 +35,7 @@ export const MenuLateral = () => {
       screenOptions={{
         drawerType: width >= 768 ? 'permanent' : 'front',
       }}>
-      <Drawer.Screen name="StackNavigator" component={StackNavigator} />
+      <Drawer.Screen name="Tabs" component={Tabs} />
       <Drawer.Screen name="SettingsScreen" component={SettingsScreen} />
     </Drawer.Navigator>
   );
@@ -55,7 +58,7 @@ const MenuInterno: React.FC<Props> = ({ navigation }) => {
       <View style={styles.menuContainer}>
         <TouchableOpacity
           style={styles.menuBoton}
-          onPress={() => navigation.navigate('StackNavigator')}>
+          onPress={() => navigation.navigate('Tabs')}>
           <Text style={styles.menuTexto}>Navegacion</Text>
         </TouchableOpacity>
         <TouchableOpacity
