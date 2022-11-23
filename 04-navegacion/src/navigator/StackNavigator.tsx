@@ -22,9 +22,7 @@ export const StackNavigator = () => {
     <Stack.Navigator
       initialRouteName="Pagina1Screen"
       screenOptions={{
-        headerStyle: {
-          shadowColor: 'transparent',
-        },
+        headerShown: false,
         cardStyle: {
           backgroundColor: 'white',
         },
