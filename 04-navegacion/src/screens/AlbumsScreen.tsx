@@ -5,8 +5,8 @@ import { styles } from '../theme/appTheme';
 
 export const AlbumsScreen = () => {
   return (
-    <View>
-      <Text style={styles.title}>AlbumsScreen</Text>
+    <View style={styles.globalMargin}>
+      <Text style={styles.title}>Albums Screen</Text>
     </View>
   );
 };

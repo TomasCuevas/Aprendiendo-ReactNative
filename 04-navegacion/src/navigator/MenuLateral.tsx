@@ -14,9 +14,6 @@ import {
 //* screens *//
 import { SettingsScreen } from '../screens/SettingsScreen';
 
-//* stack navigator *//
-import { StackNavigator } from './StackNavigator';
-
 //* tabs navigator *//
 import { Tabs } from './Tabs';
 
@@ -24,7 +21,8 @@ import { Tabs } from './Tabs';
 const Drawer = createDrawerNavigator();
 
 //* styles *//
-import { styles } from '../theme/appTheme';
+import { colores, styles } from '../theme/appTheme';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 export const MenuLateral = () => {
   const { width } = useWindowDimensions();
@@ -34,6 +32,8 @@ export const MenuLateral = () => {
       drawerContent={(props) => <MenuInterno {...props} />}
       screenOptions={{
         drawerType: width >= 768 ? 'permanent' : 'front',
+        headerShown: false,
+        headerTitle: '',
         headerStyle: {
           elevation: 0,
         },
@@ -60,13 +60,31 @@ const MenuInterno: React.FC<Props> = ({ navigation }) => {
 
       <View style={styles.menuContainer}>
         <TouchableOpacity
-          style={styles.menuBoton}
+          style={{
+            ...styles.menuBoton,
+            flexDirection: 'row',
+          }}
           onPress={() => navigation.navigate('Tabs')}>
+          <Icon
+            name="airplane-outline"
+            color={colores.primary}
+            size={30}
+            style={{ marginRight: 10 }}
+          />
           <Text style={styles.menuTexto}>Navegacion</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          style={styles.menuBoton}
+          style={{
+            ...styles.menuBoton,
+            flexDirection: 'row',
+          }}
           onPress={() => navigation.navigate('SettingsScreen')}>
+          <Icon
+            name="settings-outline"
+            color={colores.primary}
+            size={30}
+            style={{ marginRight: 10 }}
+          />
           <Text style={styles.menuTexto}>Ajustes</Text>
         </TouchableOpacity>
       </View>

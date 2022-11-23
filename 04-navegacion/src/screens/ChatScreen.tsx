@@ -5,8 +5,8 @@ import { styles } from '../theme/appTheme';
 
 export const ChatScreen = () => {
   return (
-    <View>
-      <Text style={styles.title}>ChatScreen</Text>
+    <View style={styles.globalMargin}>
+      <Text style={styles.title}>Chat Screen</Text>
     </View>
   );
 };

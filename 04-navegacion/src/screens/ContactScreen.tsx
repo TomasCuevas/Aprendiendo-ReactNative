@@ -5,8 +5,8 @@ import { styles } from '../theme/appTheme';
 
 export const ContactScreen = () => {
   return (
-    <View>
-      <Text style={styles.title}>ContactScreen</Text>
+    <View style={styles.globalMargin}>
+      <Text style={styles.title}>Contact Screen</Text>
     </View>
   );
 };

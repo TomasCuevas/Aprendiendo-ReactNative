@@ -13,7 +13,7 @@ export const SettingsScreen = () => {
         ...styles.globalMargin,
         marginTop: insets.top,
       }}>
-      <Text style={styles.title}>SettingsScreen</Text>
+      <Text style={styles.title}>Settings Screen</Text>
     </View>
   );
 };

@@ -8,6 +8,7 @@ import { AlbumsScreen } from '../screens/AlbumsScreen';
 import { ChatScreen } from '../screens/ChatScreen';
 import { ContactScreen } from '../screens/ContactScreen';
 import { Text } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const TopTap = createMaterialTopTabNavigator();
 
@@ -27,17 +28,23 @@ export const TopTapNavigator = () => {
           borderTopWidth: 0,
         },
         tabBarIcon: (props) => {
-          let iconName: string = '';
+          let iconName: React.ReactNode = '';
 
           switch (route.name) {
             case 'Chat':
-              iconName = 'CH';
+              iconName = (
+                <Icon name="chatbox-outline" color={props.color} size={20} />
+              );
               break;
             case 'Contact':
-              iconName = 'CO';
+              iconName = (
+                <Icon name="people-outline" color={props.color} size={20} />
+              );
               break;
             case 'Albums':
-              iconName = 'AL';
+              iconName = (
+                <Icon name="grid-outline" color={props.color} size={20} />
+              );
               break;
           }
 

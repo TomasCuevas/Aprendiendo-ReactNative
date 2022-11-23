@@ -14,7 +14,6 @@ export const styles = StyleSheet.create({
   },
   botonGrande: {
     width: 100,
-    height: 50,
     backgroundColor: '#ccc',
     borderRadius: 20,
     alignItems: 'center',
