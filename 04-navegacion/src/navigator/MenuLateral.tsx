@@ -34,6 +34,9 @@ export const MenuLateral = () => {
       drawerContent={(props) => <MenuInterno {...props} />}
       screenOptions={{
         drawerType: width >= 768 ? 'permanent' : 'front',
+        headerStyle: {
+          elevation: 0,
+        },
       }}>
       <Drawer.Screen name="Tabs" component={Tabs} />
       <Drawer.Screen name="SettingsScreen" component={SettingsScreen} />
