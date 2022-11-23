@@ -7,7 +7,8 @@ import { Tab3Screen } from '../screens/Tab3Screen';
 
 //* stack navigator *//
 import { StackNavigator } from './StackNavigator';
-import { colores, styles } from '../theme/appTheme';
+import { colores } from '../theme/appTheme';
+import { Text } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -17,14 +18,37 @@ export const Tabs = () => {
       sceneContainerStyle={{
         backgroundColor: 'white',
       }}
-      screenOptions={{
+      screenOptions={({ route }) => ({
         tabBarActiveTintColor: colores.primary,
         tabBarStyle: { borderTopWidth: 0, elevation: 0 },
         headerShown: false,
-      }}>
+        tabBarLabelStyle: { fontSize: 15 },
+        tabBarIcon: (props) => {
+          let iconName: string = '';
+
+          switch (route.name) {
+            case 'Tab1Screen':
+              iconName = 'T1';
+              break;
+            case 'Tab2Screen':
+              iconName = 'T2';
+              break;
+            case 'StackNavigator':
+              iconName = 'ST';
+              break;
+          }
+          return (
+            <Text style={{ color: props.color, fontSize: props.size }}>
+              {iconName}
+            </Text>
+          );
+        },
+      })}>
       <Tab.Screen
         name="Tab1Screen"
-        options={{ title: 'Tab1' }}
+        options={{
+          title: 'Tab1',
+        }}
         component={Tab1Screen}
       />
       <Tab.Screen
