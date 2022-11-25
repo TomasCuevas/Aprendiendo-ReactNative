@@ -6,14 +6,17 @@ import { NavigationContainer } from '@react-navigation/native';
 import { StackNavigator } from './src/navigator/StackNavigator';
 import { MenuLateralBasico } from './src/navigator/MenuLateralBasico';
 import { MenuLateral } from './src/navigator/MenuLateral';
+import { AuthProvider } from './src/context/AuthContext';
 
 const App = () => {
   return (
     <NavigationContainer>
-      <StatusBar backgroundColor="white" barStyle="dark-content" />
-      {/* <StackNavigator /> */}
-      {/* <MenuLateralBasico /> */}
-      <MenuLateral />
+      <AuthProvider>
+        <StatusBar backgroundColor="white" barStyle="dark-content" />
+        {/* <StackNavigator /> */}
+        {/* <MenuLateralBasico /> */}
+        <MenuLateral />
+      </AuthProvider>
     </NavigationContainer>
   );
 };
