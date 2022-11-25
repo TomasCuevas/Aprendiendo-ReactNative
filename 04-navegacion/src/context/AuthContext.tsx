@@ -5,6 +5,7 @@ import { createContext, useState } from 'react';
 interface AuthContextProps {
   authState: IAuthState;
   onChangeFavIcon: (iconName: string) => void;
+  onLogout: () => void;
   onSignIn: () => void;
 }
 
@@ -12,6 +13,12 @@ export const AuthContext = createContext({} as AuthContextProps);
 
 //* PROVIDER *//
 //* PROVIDER *//
+const authInitialState: IAuthState = {
+  isLoggin: false,
+  favoriteIcon: undefined,
+  username: undefined,
+};
+
 interface AuthProviderProps {
   children: React.ReactNode;
 }
@@ -23,11 +30,7 @@ interface IAuthState {
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
-  const [authState, setAuthState] = useState<IAuthState>({
-    favoriteIcon: undefined,
-    isLoggin: false,
-    username: undefined,
-  });
+  const [authState, setAuthState] = useState<IAuthState>(authInitialState);
 
   const onSignIn = () => {
     setAuthState((prev) => ({
@@ -36,6 +39,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       username: 'no-username-yet',
     }));
   };
+
+  const onLogout = () => setAuthState(authInitialState);
 
   const onChangeFavIcon = (iconName: string) => {
     setAuthState((prev) => ({
@@ -51,8 +56,9 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         authState,
 
         // methods
-        onSignIn,
         onChangeFavIcon,
+        onLogout,
+        onSignIn,
       }}>
       {children}
     </AuthContext.Provider>
