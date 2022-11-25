@@ -4,6 +4,7 @@ import { createContext, useState } from 'react';
 //* CONTEXT *//
 interface AuthContextProps {
   authState: IAuthState;
+  onChangeFavIcon: (iconName: string) => void;
   onSignIn: () => void;
 }
 
@@ -17,26 +18,42 @@ interface AuthProviderProps {
 
 interface IAuthState {
   isLoggin: boolean;
-  username: string;
-  favoriteIcon: string;
+  username?: string;
+  favoriteIcon?: string;
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [authState, setAuthState] = useState<IAuthState>({
-    favoriteIcon: '',
+    favoriteIcon: undefined,
     isLoggin: false,
-    username: '',
+    username: undefined,
   });
 
-  const onSignIn = () =>
+  const onSignIn = () => {
     setAuthState((prev) => ({
       ...prev,
       isLoggin: true,
       username: 'no-username-yet',
     }));
+  };
+
+  const onChangeFavIcon = (iconName: string) => {
+    setAuthState((prev) => ({
+      ...prev,
+      favoriteIcon: iconName,
+    }));
+  };
 
   return (
-    <AuthContext.Provider value={{ authState, onSignIn }}>
+    <AuthContext.Provider
+      value={{
+        // getters
+        authState,
+
+        // methods
+        onSignIn,
+        onChangeFavIcon,
+      }}>
       {children}
     </AuthContext.Provider>
   );
