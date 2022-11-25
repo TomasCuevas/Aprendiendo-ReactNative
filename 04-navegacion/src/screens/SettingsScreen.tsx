@@ -1,11 +1,16 @@
+import { useContext } from 'react';
 import { View, Text } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+//* context *//
+import { AuthContext } from '../context/AuthContext';
 
 //* styles *//
 import { styles } from '../theme/appTheme';
 
 export const SettingsScreen = () => {
   const insets = useSafeAreaInsets();
+  const { authState } = useContext(AuthContext);
 
   return (
     <View
@@ -14,6 +19,7 @@ export const SettingsScreen = () => {
         marginTop: insets.top,
       }}>
       <Text style={styles.title}>Settings Screen</Text>
+      <Text>{JSON.stringify(authState, null, 4)}</Text>
     </View>
   );
 };
