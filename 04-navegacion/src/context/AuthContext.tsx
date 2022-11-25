@@ -28,7 +28,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     username: '',
   });
 
-  const onSignIn = () => {};
+  const onSignIn = () =>
+    setAuthState((prev) => ({
+      ...prev,
+      isLoggin: true,
+      username: 'no-username-yet',
+    }));
 
   return (
     <AuthContext.Provider value={{ authState, onSignIn }}>
