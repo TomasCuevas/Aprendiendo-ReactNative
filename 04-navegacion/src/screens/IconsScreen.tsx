@@ -1,8 +1,8 @@
 import { View, Text } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
 
 //* styles *//
-import { styles, colores } from '../theme/appTheme';
+import { styles } from '../theme/appTheme';
+import { TouchableIcon } from '../components/TouchableIcon';
 
 export const IconsScreen = () => {
   return (
@@ -16,24 +16,16 @@ export const IconsScreen = () => {
       }}>
       <Text style={styles.title}>Iconos</Text>
       <View style={{ flexDirection: 'row', flexWrap: 'wrap' }}>
-        <Icon name="rocket" color={colores.primary} size={55} />
-        <Icon name="airplane-outline" color={colores.primary} size={55} />
-        <Icon name="aperture-outline" color={colores.primary} size={55} />
-        <Icon name="bookmarks-outline" color={colores.primary} size={55} />
-        <Icon name="chevron-back-outline" color={colores.primary} size={55} />
-        <Icon
-          name="chevron-forward-outline"
-          color={colores.primary}
-          size={55}
-        />
-        <Icon name="eye-outline" color={colores.primary} size={60} />
-        <Icon name="eyedrop-outline" color={colores.primary} size={60} />
-        <Icon name="leaf-outline" color={colores.primary} size={60} />
-        <Icon
-          name="game-controller-outline"
-          color={colores.primary}
-          size={60}
-        />
+        <TouchableIcon iconName="rocket" />
+        <TouchableIcon iconName="airplane-outline" />
+        <TouchableIcon iconName="aperture-outline" />
+        <TouchableIcon iconName="bookmarks-outline" />
+        <TouchableIcon iconName="chevron-back-outline" />
+        <TouchableIcon iconName="chevron-forward-outline" />
+        <TouchableIcon iconName="eye-outline" />
+        <TouchableIcon iconName="eyedrop-outline" />
+        <TouchableIcon iconName="leaf-outline" />
+        <TouchableIcon iconName="game-controller-outline" />
       </View>
     </View>
   );
