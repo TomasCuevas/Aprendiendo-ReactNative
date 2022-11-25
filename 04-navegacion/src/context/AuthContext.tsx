@@ -5,6 +5,7 @@ import { createContext, useState } from 'react';
 interface AuthContextProps {
   authState: IAuthState;
   onChangeFavIcon: (iconName: string) => void;
+  onChangeUsername: (username: string) => void;
   onLogout: () => void;
   onSignIn: () => void;
 }
@@ -42,6 +43,13 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const onLogout = () => setAuthState(authInitialState);
 
+  const onChangeUsername = (username: string) => {
+    setAuthState((prev) => ({
+      ...prev,
+      username,
+    }));
+  };
+
   const onChangeFavIcon = (iconName: string) => {
     setAuthState((prev) => ({
       ...prev,
@@ -57,6 +65,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
         // methods
         onChangeFavIcon,
+        onChangeUsername,
         onLogout,
         onSignIn,
       }}>
