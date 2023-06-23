@@ -8,6 +8,7 @@ import {
   PersonScreen,
 } from "../screens";
 
+//* STACK PARAMS *//
 export type RootStackParams = {
   Page1Screen: undefined;
   Page2Screen: undefined;
@@ -15,6 +16,7 @@ export type RootStackParams = {
   PersonScreen: { id: number; name: string };
 };
 
+//* STACK INSTANCE *//
 const Stack = createStackNavigator<RootStackParams>();
 
 export const StackNavigator = () => {

@@ -1,12 +1,17 @@
 import { NavigationContainer } from "@react-navigation/native";
+import "react-native-gesture-handler";
 
-//* STACK NAVIGATOR *//
-import { StackNavigator } from "./src/navigator/Stack.navigator";
+//* DRAWER NAVIGATOR *//
+// import { StackNavigator } from "./src/navigator/Stack.navigator.tsx";
+// import { BasicDrawerNavigator } from "./src/navigator/BasicDrawer.navigator";
+import { DrawerNavigator } from "./src/navigator/Drawer.navigator copy";
 
 const App: React.FC = () => {
   return (
     <NavigationContainer>
-      <StackNavigator />
+      {/* <StackNavigator /> */}
+      {/* <BasicDrawerNavigator /> */}
+      <DrawerNavigator />
     </NavigationContainer>
   );
 };

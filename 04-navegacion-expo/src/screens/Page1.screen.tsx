@@ -1,5 +1,7 @@
+import { useEffect } from "react";
 import { View, Text, Button, TouchableOpacity } from "react-native";
-import { StackScreenProps } from "@react-navigation/stack";
+import { DrawerScreenProps } from "@react-navigation/drawer";
+// import { StackScreenProps } from "@react-navigation/stack";
 
 //* THEME *//
 import { styles } from "../theme";
@@ -7,9 +9,18 @@ import { styles } from "../theme";
 //* INTERFACE *//
 import { RootStackParams } from "../navigator/Stack.navigator";
 
-interface Props extends StackScreenProps<RootStackParams, "Page1Screen"> {}
+// interface Props extends StackScreenProps<RootStackParams, "Page1Screen"> {}
+interface Props extends DrawerScreenProps<RootStackParams, "Page1Screen"> {}
 
 export const Page1Screen: React.FC<Props> = ({ navigation }) => {
+  useEffect(() => {
+    navigation.setOptions({
+      headerLeft: () => (
+        <Button title="Menú" onPress={() => navigation.toggleDrawer()} />
+      ),
+    });
+  }, []);
+
   return (
     <View style={styles.globalMargin}>
       <Text style={styles.title}>Page1 Screen</Text>
@@ -18,7 +29,9 @@ export const Page1Screen: React.FC<Props> = ({ navigation }) => {
         onPress={() => navigation.navigate("Page2Screen")}
       />
 
-      <Text>Navegar con argumentos</Text>
+      <Text style={{ marginVertical: 20, fontSize: 20 }}>
+        Navegar con argumentos
+      </Text>
 
       <View style={{ flexDirection: "row", gap: 10 }}>
         <TouchableOpacity
