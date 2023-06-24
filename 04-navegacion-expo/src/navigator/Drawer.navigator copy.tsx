@@ -16,7 +16,7 @@ import {
 import { SettingsScreen } from "../screens";
 
 //* NAVIGATOR *//
-import { StackNavigator } from "./Stack.navigator";
+import { BottomTabs } from "./BottomTabs.navigator";
 
 //* DRAWER INSTANCE *//
 const Drawer = createDrawerNavigator();
@@ -34,9 +34,9 @@ export const DrawerNavigator: React.FC = () => {
       }}
     >
       <Drawer.Screen
-        name="StackNavigator"
+        name="BottomTabs"
         options={{ title: "Home" }}
-        component={StackNavigator}
+        component={BottomTabs}
       />
       <Drawer.Screen
         name="SettingsScreen"
@@ -65,10 +65,10 @@ const DrawerContent: React.FC<DrawerContentComponentProps> = ({
       {/* MENU OPTIONS */}
       <View style={styles.menu__container}>
         <TouchableOpacity
-          onPress={() => navigation.navigate("StackNavigator")}
+          onPress={() => navigation.navigate("BottomTabs")}
           style={styles.menu__button}
         >
-          <Text style={styles.menu__text}>Home</Text>
+          <Text style={styles.menu__text}>Navegación</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => navigation.navigate("SettingsScreen")}
