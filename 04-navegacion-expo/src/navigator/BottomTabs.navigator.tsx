@@ -1,5 +1,6 @@
 import { Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Icon from "@expo/vector-icons/Ionicons";
 
 //* THEME COLORS *//
 import { colors } from "../theme";
@@ -34,28 +35,28 @@ export const BottomTabs: React.FC = () => {
         tabBarLabelStyle: {
           fontSize: 14,
         },
-        tabBarIcon: ({ color, focused, size }) => {
-          let iconName: string = "";
+        tabBarIcon: ({ color }) => {
+          let iconName: any = "airplane-outline";
 
           switch (route.name) {
-            case "Tab1Screen":
-              iconName = "T1";
+            case "Iconos":
+              iconName = "bandage-outline";
               break;
             case "TopTabNavigator":
-              iconName = "TOP";
+              iconName = "basketball-outline";
               break;
             case "StackNavigator":
-              iconName = "ST";
+              iconName = "bookmarks-outline";
               break;
           }
 
-          return <Text style={{ color: color }}>{iconName}</Text>;
+          return <Icon name={iconName} size={25} color={color} />;
         },
       })}
     >
       <BottomTab.Screen
-        name="Tab1Screen"
-        options={{ title: "Tab 1" }}
+        name="Iconos"
+        options={{ title: "Iconos" }}
         component={Tab1Screen}
       />
       <BottomTab.Screen

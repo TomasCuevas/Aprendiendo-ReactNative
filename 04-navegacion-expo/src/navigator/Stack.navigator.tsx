@@ -1,4 +1,5 @@
 import { createStackNavigator } from "@react-navigation/stack";
+import Icon from "@expo/vector-icons/Ionicons";
 
 //* SCREENS *//
 import {
@@ -23,10 +24,19 @@ export const StackNavigator = () => {
   return (
     <Stack.Navigator
       initialRouteName="Page1Screen"
-      screenOptions={{
+      screenOptions={({ navigation }) => ({
+        headerLeft: () => (
+          <Icon
+            name="menu-outline"
+            color="black"
+            size={35}
+            style={{ marginLeft: 20 }}
+            onPress={() => navigation.toggleDrawer()}
+          />
+        ),
         headerStyle: { elevation: 0 },
         cardStyle: { backgroundColor: "white" },
-      }}
+      })}
     >
       <Stack.Screen
         name="Page1Screen"

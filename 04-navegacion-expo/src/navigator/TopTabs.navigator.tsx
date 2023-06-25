@@ -1,12 +1,12 @@
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import Icon from "@expo/vector-icons/Ionicons";
 
 //* THEME COLORS *//
 import { colors } from "../theme";
 
 //* SCREENS *//
 import { AlbumsScreen, ChatScreen, ContactsScreen } from "../screens";
-import { Text } from "react-native";
 
 //* TOP TAB INSTANCE *//
 const TopTab = createMaterialTopTabNavigator();
@@ -24,22 +24,22 @@ export const TopTabsNavigator = () => {
         tabBarPressColor: colors.primary,
         tabBarStyle: { elevation: 0 },
         tabBarActiveTintColor: colors.primary,
-        tabBarIcon: () => {
-          let iconName: string = "";
+        tabBarIcon: ({ color }) => {
+          let iconName: any = "";
 
           switch (route.name) {
             case "ChatScreen":
-              iconName = "CH";
+              iconName = "chatbox-ellipses-outline";
               break;
             case "ContactsScreen":
-              iconName = "CO";
+              iconName = "people-outline";
               break;
             case "AlbumsScreen":
-              iconName = "AL";
+              iconName = "albums-outline";
               break;
           }
 
-          return <Text>{iconName}</Text>;
+          return <Icon name={iconName} size={23} color={color} />;
         },
       })}
     >

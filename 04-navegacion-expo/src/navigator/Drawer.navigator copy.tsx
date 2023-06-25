@@ -11,6 +11,7 @@ import {
   DrawerContentComponentProps,
   DrawerContentScrollView,
 } from "@react-navigation/drawer";
+import Icon from "@expo/vector-icons/Ionicons";
 
 //* SCREENS *//
 import { SettingsScreen } from "../screens";
@@ -66,14 +67,16 @@ const DrawerContent: React.FC<DrawerContentComponentProps> = ({
       <View style={styles.menu__container}>
         <TouchableOpacity
           onPress={() => navigation.navigate("BottomTabs")}
-          style={styles.menu__button}
+          style={{ ...styles.menu__button, flexDirection: "row", gap: 10 }}
         >
+          <Icon name="airplane-outline" size={25} color="black" />
           <Text style={styles.menu__text}>Navegación</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => navigation.navigate("SettingsScreen")}
-          style={styles.menu__button}
+          style={{ ...styles.menu__button, flexDirection: "row", gap: 10 }}
         >
+          <Icon name="settings-outline" size={25} color="black" />
           <Text style={styles.menu__text}>Ajustes</Text>
         </TouchableOpacity>
       </View>
