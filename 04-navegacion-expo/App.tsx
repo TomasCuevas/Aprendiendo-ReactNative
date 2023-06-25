@@ -6,12 +6,17 @@ import "react-native-gesture-handler";
 // import { BasicDrawerNavigator } from "./src/navigator/BasicDrawer.navigator";
 import { DrawerNavigator } from "./src/navigator/Drawer.navigator copy";
 
+//* CONTEXT PROVIDER *//
+import { AuthProvider } from "./src/context/AuthContext";
+
 const App: React.FC = () => {
   return (
     <NavigationContainer>
-      {/* <StackNavigator /> */}
-      {/* <BasicDrawerNavigator /> */}
-      <DrawerNavigator />
+      <AuthProvider>
+        {/* <StackNavigator /> */}
+        {/* <BasicDrawerNavigator /> */}
+        <DrawerNavigator />
+      </AuthProvider>
     </NavigationContainer>
   );
 };

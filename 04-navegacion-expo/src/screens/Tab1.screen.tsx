@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 import { View, Text } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Icon from "@expo/vector-icons/Ionicons";
+
+//* COMPONENT *//
+import { TouchableIcon } from "../components";
 
 //* THEME *//
 import { colors, styles } from "../theme";
@@ -15,26 +17,18 @@ export const Tab1Screen: React.FC = () => {
     <View style={{ ...styles.globalMargin, marginTop: top }}>
       <Text style={styles.title}>Iconos</Text>
       <View style={{ flexDirection: "row", gap: 10, flexWrap: "wrap" }}>
-        <Icon name="airplane-outline" size={60} color={colors.primary} />
-        <Icon name="add-circle-outline" size={60} color={colors.primary} />
-        <Icon name="albums-outline" size={60} color={colors.primary} />
-        <Icon name="alarm-outline" size={60} color={colors.primary} />
-        <Icon
-          name="american-football-outline"
-          size={60}
-          color={colors.primary}
-        />
-        <Icon name="aperture-outline" size={60} color={colors.primary} />
-        <Icon name="apps-outline" size={60} color={colors.primary} />
-        <Icon
-          name="arrow-redo-circle-outline"
-          size={60}
-          color={colors.primary}
-        />
-        <Icon name="arrow-up-outline" size={60} color={colors.primary} />
-        <Icon name="at-circle-outline" size={60} color={colors.primary} />
-        <Icon name="tv-outline" size={60} color={colors.primary} />
-        <Icon name="beer-outline" size={60} color={colors.primary} />
+        <TouchableIcon iconName="airplane-outline" />
+        <TouchableIcon iconName="add-circle-outline" />
+        <TouchableIcon iconName="albums-outline" />
+        <TouchableIcon iconName="alarm-outline" />
+        <TouchableIcon iconName="american-football-outline" />
+        <TouchableIcon iconName="aperture-outline" />
+        <TouchableIcon iconName="apps-outline" />
+        <TouchableIcon iconName="arrow-redo-circle-outline" />
+        <TouchableIcon iconName="arrow-up-outline" />
+        <TouchableIcon iconName="at-circle-outline" />
+        <TouchableIcon iconName="tv-outline" />
+        <TouchableIcon iconName="beer-outline" />
       </View>
     </View>
   );
