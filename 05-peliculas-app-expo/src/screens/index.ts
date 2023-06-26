@@ -1,2 +1,2 @@
-export * from "./Detail.screen";
-export * from "./Home.screen";
+export * from "./detail/Detail.screen";
+export * from "./home/Home.screen";
