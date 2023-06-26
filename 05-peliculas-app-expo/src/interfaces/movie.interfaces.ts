@@ -1,5 +1,5 @@
-export interface IMovieNowPlaying {
-  dates: IDates;
+export interface IMovieResponse {
+  dates?: IDates;
   page: number;
   results: IMovie[];
   total_pages: number;

@@ -4,16 +4,23 @@ import { useState, useEffect } from "react";
 import { movie_api } from "../../axios";
 
 //* INTERFACES *//
-import { IMovie, IMovieNowPlaying } from "../../interfaces";
+import { IMovie, IMovieResponse } from "../../interfaces";
 
 export const useMovies = () => {
   const [moviesOnCinema, setMoviesOnCinema] = useState<IMovie[]>([]);
+  const [popularMovies, setPopularMovies] = useState<IMovie[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const getMovies = async () => {
-    const response = await movie_api.get<IMovieNowPlaying>("/now_playing");
-    const movies = response.data.results;
-    setMoviesOnCinema(movies);
+    const respNowPlaying = await movie_api.get<IMovieResponse>("/now_playing");
+    const respPopular = await movie_api.get<IMovieResponse>("/popular");
+
+    const nowPlaying = respNowPlaying.data.results;
+    const popular = respPopular.data.results;
+
+    setMoviesOnCinema(nowPlaying);
+    setPopularMovies(popular);
+
     setIsLoading(false);
   };
 
@@ -23,6 +30,7 @@ export const useMovies = () => {
 
   return {
     moviesOnCinema,
+    popularMovies,
     isLoading,
   };
 };

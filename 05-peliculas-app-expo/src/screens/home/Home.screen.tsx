@@ -18,7 +18,7 @@ import { useMovies } from "../../hooks";
 const { width: windowsWidth } = Dimensions.get("window");
 
 export const HomeScreen: React.FC = () => {
-  const { moviesOnCinema, isLoading } = useMovies();
+  const { moviesOnCinema, popularMovies, isLoading } = useMovies();
   const { top } = useSafeAreaInsets();
 
   if (isLoading) {
@@ -40,8 +40,7 @@ export const HomeScreen: React.FC = () => {
         />
       </View>
 
-      <HorizontalSlider movies={moviesOnCinema} title="En cine" />
-      <HorizontalSlider movies={moviesOnCinema} />
+      <HorizontalSlider movies={popularMovies} title="Populares" />
     </ScrollView>
   );
 };
