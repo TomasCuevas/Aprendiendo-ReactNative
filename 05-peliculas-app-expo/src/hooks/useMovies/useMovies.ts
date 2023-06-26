@@ -6,20 +6,36 @@ import { movie_api } from "../../axios";
 //* INTERFACES *//
 import { IMovie, IMovieResponse } from "../../interfaces";
 
+interface IMoviesState {
+  moviesOnCinema: IMovie[];
+  popularMovies: IMovie[];
+  topRated: IMovie[];
+  upcoming: IMovie[];
+}
+
 export const useMovies = () => {
-  const [moviesOnCinema, setMoviesOnCinema] = useState<IMovie[]>([]);
-  const [popularMovies, setPopularMovies] = useState<IMovie[]>([]);
+  const [moviesState, setMoviesState] = useState<IMoviesState>({
+    moviesOnCinema: [],
+    popularMovies: [],
+    topRated: [],
+    upcoming: [],
+  });
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const getMovies = async () => {
-    const respNowPlaying = await movie_api.get<IMovieResponse>("/now_playing");
-    const respPopular = await movie_api.get<IMovieResponse>("/popular");
+    const response = await Promise.all([
+      movie_api.get<IMovieResponse>("/now_playing"),
+      movie_api.get<IMovieResponse>("/popular"),
+      movie_api.get<IMovieResponse>("/top_rated"),
+      movie_api.get<IMovieResponse>("/upcoming"),
+    ]);
 
-    const nowPlaying = respNowPlaying.data.results;
-    const popular = respPopular.data.results;
-
-    setMoviesOnCinema(nowPlaying);
-    setPopularMovies(popular);
+    setMoviesState({
+      moviesOnCinema: response[0].data.results,
+      popularMovies: response[1].data.results,
+      topRated: response[2].data.results,
+      upcoming: response[3].data.results,
+    });
 
     setIsLoading(false);
   };
@@ -29,8 +45,7 @@ export const useMovies = () => {
   }, []);
 
   return {
-    moviesOnCinema,
-    popularMovies,
+    ...moviesState,
     isLoading,
   };
 };

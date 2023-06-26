@@ -1,11 +1,4 @@
-import {
-  View,
-  ActivityIndicator,
-  Dimensions,
-  FlatList,
-  Text,
-  ScrollView,
-} from "react-native";
+import { View, ActivityIndicator, Dimensions, ScrollView } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Carousel from "react-native-snap-carousel";
 
@@ -15,10 +8,12 @@ import { HorizontalSlider, MovieCard } from "../../components";
 //* HOOK *//
 import { useMovies } from "../../hooks";
 
+//* DIMENSIONS *//
 const { width: windowsWidth } = Dimensions.get("window");
 
 export const HomeScreen: React.FC = () => {
-  const { moviesOnCinema, popularMovies, isLoading } = useMovies();
+  const { moviesOnCinema, popularMovies, topRated, upcoming, isLoading } =
+    useMovies();
   const { top } = useSafeAreaInsets();
 
   if (isLoading) {
@@ -41,6 +36,8 @@ export const HomeScreen: React.FC = () => {
       </View>
 
       <HorizontalSlider movies={popularMovies} title="Populares" />
+      <HorizontalSlider movies={topRated} title="Mejor valoradas" />
+      <HorizontalSlider movies={upcoming} title="Próximamente" />
     </ScrollView>
   );
 };
