@@ -10,7 +10,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Carousel from "react-native-snap-carousel";
 
 //* COMPONENTS *//
-import { MovieCard } from "../../components";
+import { HorizontalSlider, MovieCard } from "../../components";
 
 //* HOOK *//
 import { useMovies } from "../../hooks";
@@ -40,31 +40,8 @@ export const HomeScreen: React.FC = () => {
         />
       </View>
 
-      <View style={{ height: 270 }}>
-        <Text style={{ fontSize: 30, fontWeight: "700" }}>En cine</Text>
-        <FlatList
-          data={moviesOnCinema}
-          renderItem={({ item }) => (
-            <MovieCard movie={item} width={140} height={200} />
-          )}
-          horizontal
-          keyExtractor={(item) => String(item.id)}
-          showsHorizontalScrollIndicator={false}
-        />
-      </View>
-
-      <View style={{ height: 270 }}>
-        <Text style={{ fontSize: 30, fontWeight: "700" }}>En cine</Text>
-        <FlatList
-          data={moviesOnCinema}
-          renderItem={({ item }) => (
-            <MovieCard movie={item} width={140} height={200} />
-          )}
-          horizontal
-          keyExtractor={(item) => String(item.id)}
-          showsHorizontalScrollIndicator={false}
-        />
-      </View>
+      <HorizontalSlider movies={moviesOnCinema} title="En cine" />
+      <HorizontalSlider movies={moviesOnCinema} />
     </ScrollView>
   );
 };
