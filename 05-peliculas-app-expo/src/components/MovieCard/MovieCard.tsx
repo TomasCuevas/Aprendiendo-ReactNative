@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 1,
     shadowRadius: 7.49,
-    elevation: 20,
+    elevation: 15,
   },
   movie__image: {
     flex: 1,
