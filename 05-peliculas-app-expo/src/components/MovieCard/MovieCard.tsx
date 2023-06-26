@@ -5,13 +5,19 @@ import { IMovie } from "../../interfaces";
 
 interface Props {
   movie: IMovie;
+  height?: number;
+  width?: number;
 }
 
-export const MovieCard: React.FC<Props> = ({ movie }) => {
+export const MovieCard: React.FC<Props> = ({
+  movie,
+  height = 420,
+  width = 300,
+}) => {
   const movieImage = `https://images.tmdb.org/t/p/w500/${movie.poster_path}`;
 
   return (
-    <View style={styles.movie__container}>
+    <View style={{ ...styles.movie__container, height, width }}>
       <Image source={{ uri: movieImage }} style={styles.movie__image} />
     </View>
   );
@@ -19,8 +25,7 @@ export const MovieCard: React.FC<Props> = ({ movie }) => {
 
 const styles = StyleSheet.create({
   movie__container: {
-    width: 300,
-    height: 420,
+    marginHorizontal: 5,
     borderRadius: 25,
     overflow: "hidden",
     shadowColor: "#000",

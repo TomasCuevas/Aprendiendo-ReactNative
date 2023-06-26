@@ -1,4 +1,11 @@
-import { View, ActivityIndicator, Dimensions } from "react-native";
+import {
+  View,
+  ActivityIndicator,
+  Dimensions,
+  FlatList,
+  Text,
+  ScrollView,
+} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Carousel from "react-native-snap-carousel";
 
@@ -23,8 +30,7 @@ export const HomeScreen: React.FC = () => {
   }
 
   return (
-    <View style={{ marginTop: top + 10 }}>
-      {/* <MovieCard movie={moviesOnCinema[0]} /> */}
+    <ScrollView style={{ marginTop: top + 10 }}>
       <View style={{ height: 450 }}>
         <Carousel
           data={moviesOnCinema}
@@ -33,6 +39,32 @@ export const HomeScreen: React.FC = () => {
           itemWidth={300}
         />
       </View>
-    </View>
+
+      <View style={{ height: 270 }}>
+        <Text style={{ fontSize: 30, fontWeight: "700" }}>En cine</Text>
+        <FlatList
+          data={moviesOnCinema}
+          renderItem={({ item }) => (
+            <MovieCard movie={item} width={140} height={200} />
+          )}
+          horizontal
+          keyExtractor={(item) => String(item.id)}
+          showsHorizontalScrollIndicator={false}
+        />
+      </View>
+
+      <View style={{ height: 270 }}>
+        <Text style={{ fontSize: 30, fontWeight: "700" }}>En cine</Text>
+        <FlatList
+          data={moviesOnCinema}
+          renderItem={({ item }) => (
+            <MovieCard movie={item} width={140} height={200} />
+          )}
+          horizontal
+          keyExtractor={(item) => String(item.id)}
+          showsHorizontalScrollIndicator={false}
+        />
+      </View>
+    </ScrollView>
   );
 };
