@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, FlatList } from "react-native";
 import Icon from "@expo/vector-icons/Ionicons";
 
 //* INTERFACES *//
@@ -40,11 +40,21 @@ export const MovieDetails: React.FC<Props> = ({ cast, fullMovie }) => {
             currency: "USD",
           }).format(fullMovie.budget)}
         </Text>
+      </View>
 
-        <View style={{ marginTop: 15, marginBottom: 100 }}>
-          <Text style={{ fontSize: 20, fontWeight: "700" }}>Actores</Text>
-          <CastItem actor={cast[0]} />
-        </View>
+      <View style={{ marginTop: 15, marginBottom: 100 }}>
+        <Text style={{ fontSize: 20, fontWeight: "700", marginLeft: 20 }}>
+          Actores
+        </Text>
+
+        <FlatList
+          data={cast}
+          keyExtractor={(item) => String(item.id)}
+          renderItem={({ item }) => <CastItem actor={item} />}
+          horizontal
+          style={{ marginTop: 10 }}
+          showsHorizontalScrollIndicator={false}
+        />
       </View>
     </>
   );

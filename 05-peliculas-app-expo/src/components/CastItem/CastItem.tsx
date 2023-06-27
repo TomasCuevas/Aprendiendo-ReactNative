@@ -12,7 +12,9 @@ export const CastItem: React.FC<Props> = ({ actor }) => {
 
   return (
     <View style={styles.container}>
-      <Image source={{ uri: ACTOR_IMAGE }} style={styles.actor__image} />
+      {actor.profile_path && (
+        <Image source={{ uri: ACTOR_IMAGE }} style={styles.actor__image} />
+      )}
 
       <View style={styles.actor__info}>
         <Text style={{ fontSize: 18, fontWeight: "700" }}>{actor.name}</Text>
@@ -27,6 +29,10 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: "hidden",
     flexDirection: "row",
+    marginHorizontal: 15,
+    marginRight: 10,
+    marginBottom: 20,
+    paddingRight: 10,
     alignItems: "center",
     backgroundColor: "white",
     shadowColor: "#000",
@@ -36,7 +42,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.29,
     shadowRadius: 4.65,
-    elevation: 7,
+    elevation: 5,
     gap: 15,
   },
   actor__image: {
