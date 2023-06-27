@@ -7,6 +7,7 @@ import {
   Text,
 } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
+import Icon from "@expo/vector-icons/Ionicons";
 
 //* STACK TYPE *//
 import { RootStackParams } from "../../navigation/PrincipalStack.navigator";
@@ -29,6 +30,10 @@ export const DetailScreen: React.FC<Props> = ({ route }) => {
       <View style={styles.margin__container}>
         <Text style={styles.subtitle}>{movie.original_title}</Text>
         <Text style={styles.title}>{movie.title}</Text>
+      </View>
+
+      <View style={styles.margin__container}>
+        <Icon name="star-outline" color="grey" size={20} />
       </View>
     </ScrollView>
   );
