@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
+import Icon from "@expo/vector-icons/Ionicons";
 
 //* COMPONENT *//
 import { MovieDetails } from "../../components";
@@ -17,6 +18,7 @@ import { useMovieDetails } from "../../hooks";
 
 //* STACK TYPE *//
 import { RootStackParams } from "../../navigation/PrincipalStack.navigator";
+import { TouchableOpacity } from "react-native";
 
 //* DIMENSIONS *//
 const SCREEN_HEIGHT = Dimensions.get("window").height;
@@ -24,7 +26,7 @@ const SCREEN_HEIGHT = Dimensions.get("window").height;
 //* SCREEN INTERFACE *//
 interface Props extends StackScreenProps<RootStackParams, "Detail"> {}
 
-export const DetailScreen: React.FC<Props> = ({ route }) => {
+export const DetailScreen: React.FC<Props> = ({ route, navigation }) => {
   const movie = route.params;
   const { isLoading, cast, fullMovie } = useMovieDetails(movie.id);
 
@@ -46,6 +48,13 @@ export const DetailScreen: React.FC<Props> = ({ route }) => {
       ) : (
         <MovieDetails cast={cast!} fullMovie={fullMovie!} />
       )}
+
+      <TouchableOpacity
+        onPress={() => navigation.pop()}
+        style={styles.back__button}
+      >
+        <Icon name="arrow-back-sharp" color="white" size={50} />
+      </TouchableOpacity>
     </ScrollView>
   );
 };
@@ -81,5 +90,17 @@ const styles = StyleSheet.create({
     fontSize: 20,
     lineHeight: 23,
     fontWeight: "900",
+  },
+  back__button: {
+    borderRadius: 100,
+    height: 55,
+    width: 55,
+    overflow: "hidden",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#0008",
+    position: "absolute",
+    top: 40,
+    left: 12,
   },
 });
