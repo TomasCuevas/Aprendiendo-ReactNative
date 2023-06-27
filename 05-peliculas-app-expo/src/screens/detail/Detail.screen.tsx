@@ -74,11 +74,12 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   subtitle: {
-    fontSize: 16,
-    opacity: 0.8,
+    fontSize: 15,
+    opacity: 0.5,
   },
   title: {
     fontSize: 20,
-    fontWeight: "700",
+    lineHeight: 23,
+    fontWeight: "900",
   },
 });
