@@ -11,6 +11,7 @@ import Icon from "@expo/vector-icons/Ionicons";
 
 //* STACK TYPE *//
 import { RootStackParams } from "../../navigation/PrincipalStack.navigator";
+import { useMovieDetails } from "../../hooks";
 
 //* DIMENSIONS *//
 const SCREEN_HEIGHT = Dimensions.get("window").height;
@@ -21,6 +22,7 @@ interface Props extends StackScreenProps<RootStackParams, "Detail"> {}
 export const DetailScreen: React.FC<Props> = ({ route }) => {
   const movie = route.params;
   const MOVIE_IMAGE = `https://images.tmdb.org/t/p/w500/${movie.poster_path}`;
+  const {} = useMovieDetails(movie.id);
 
   return (
     <ScrollView>
