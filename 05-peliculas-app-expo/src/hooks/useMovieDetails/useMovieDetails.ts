@@ -22,7 +22,7 @@ export const useMovieDetails = (movieId: number) => {
   const getMovieDetails = async () => {
     const [movieDetailsResponse, castResponse] = await Promise.all([
       movie_api.get<IMovieFull>(`/${movieId}`),
-      movie_api.get<ICreditResponse>(`/${movieId}/cast`),
+      movie_api.get<ICreditResponse>(`/${movieId}/credits`),
     ]);
 
     setMovieDetails({
