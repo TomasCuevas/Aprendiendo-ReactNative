@@ -3,8 +3,17 @@ import { createStackNavigator } from "@react-navigation/stack";
 //* SCREENS *//
 import { DetailScreen, HomeScreen } from "../screens";
 
+//* INTERFACES *//
+import { IMovie } from "../interfaces";
+
+//* STACK TYPES *//
+export type RootStackParams = {
+  Home: undefined;
+  Detail: IMovie;
+};
+
 //* STACK INSTANCE *//
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParams>();
 
 export const PrincipalStackNavigator: React.FC = () => {
   return (

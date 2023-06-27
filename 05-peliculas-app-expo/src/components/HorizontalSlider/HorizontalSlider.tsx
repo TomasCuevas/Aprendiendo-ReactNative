@@ -1,7 +1,7 @@
 import { View, Text, FlatList } from "react-native";
 
 //* COMPONENT *//
-import { MovieCard } from "../";
+import { MovieCard } from "../MovieCard/MovieCard";
 
 //* INTERFACES *//
 import { IMovie } from "../../interfaces";

@@ -1,4 +1,5 @@
-import { Text, View, Image, StyleSheet } from "react-native";
+import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/core";
 
 //* INTERFACES *//
 import { IMovie } from "../../interfaces";
@@ -14,20 +15,27 @@ export const MovieCard: React.FC<Props> = ({
   height = 420,
   width = 300,
 }) => {
-  const movieImage = `https://images.tmdb.org/t/p/w500/${movie.poster_path}`;
+  const MOVIE_IMAGE = `https://images.tmdb.org/t/p/w500/${movie.poster_path}`;
+  const navigation = useNavigation<any>();
 
   return (
-    <View style={{ ...styles.movie__container, height, width }}>
-      <Image source={{ uri: movieImage }} style={styles.movie__image} />
-    </View>
+    <TouchableOpacity
+      onPress={() => navigation.navigate("Detail", movie)}
+      activeOpacity={0.6}
+      style={{ ...styles.movie__container, height, width }}
+    >
+      <View style={styles.image__container}>
+        <Image source={{ uri: MOVIE_IMAGE }} style={styles.movie__image} />
+      </View>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   movie__container: {
     marginHorizontal: 5,
-    borderRadius: 25,
     overflow: "hidden",
+    borderRadius: 25,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -35,8 +43,10 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.29,
     shadowRadius: 4.65,
-
     elevation: 7,
+  },
+  image__container: {
+    flex: 1,
   },
   movie__image: {
     flex: 1,
