@@ -21,8 +21,9 @@ interface Props extends StackScreenProps<RootStackParams, "Detail"> {}
 
 export const DetailScreen: React.FC<Props> = ({ route }) => {
   const movie = route.params;
+  const { isLoading, cast, fullMovie } = useMovieDetails(movie.id);
+
   const MOVIE_IMAGE = `https://images.tmdb.org/t/p/w500/${movie.poster_path}`;
-  const {} = useMovieDetails(movie.id);
 
   return (
     <ScrollView>

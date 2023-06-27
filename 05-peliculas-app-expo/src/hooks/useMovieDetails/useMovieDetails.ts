@@ -4,20 +4,32 @@ import { useEffect, useState } from "react";
 import { movie_api } from "../../axios";
 
 //* INTERFACES *//
-import { IMovieFull } from "../../interfaces";
+import { ICast, ICreditResponse, IMovieFull } from "../../interfaces";
 
 interface IMovieDetails {
+  cast?: ICast[];
+  fullMovie?: IMovieFull;
   isLoading: boolean;
-  fullMovie: IMovieFull;
-  cast: [];
 }
 
 export const useMovieDetails = (movieId: number) => {
-  const [movieDetails, setMovieDetails] = useState<IMovieDetails>();
+  const [movieDetails, setMovieDetails] = useState<IMovieDetails>({
+    cast: [],
+    fullMovie: undefined,
+    isLoading: true,
+  });
 
   const getMovieDetails = async () => {
-    const response = await movie_api.get<IMovieFull>(`/${movieId}`);
-    console.log(response.data.title);
+    const [movieDetailsResponse, castResponse] = await Promise.all([
+      movie_api.get<IMovieFull>(`/${movieId}`),
+      movie_api.get<ICreditResponse>(`/${movieId}/cast`),
+    ]);
+
+    setMovieDetails({
+      cast: castResponse.data.cast,
+      fullMovie: movieDetailsResponse.data,
+      isLoading: false,
+    });
   };
 
   useEffect(() => {
