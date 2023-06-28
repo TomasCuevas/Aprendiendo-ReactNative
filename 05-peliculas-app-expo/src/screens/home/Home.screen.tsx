@@ -3,7 +3,11 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Carousel from "react-native-snap-carousel";
 
 //* COMPONENTS *//
-import { HorizontalSlider, MovieCard } from "../../components";
+import {
+  GradientBackground,
+  HorizontalSlider,
+  MovieCard,
+} from "../../components";
 
 //* HOOK *//
 import { useMovies } from "../../hooks";
@@ -25,19 +29,21 @@ export const HomeScreen: React.FC = () => {
   }
 
   return (
-    <ScrollView style={{ marginTop: top + 10 }}>
-      <View style={{ height: 450 }}>
-        <Carousel
-          data={moviesOnCinema}
-          renderItem={({ item }) => <MovieCard movie={item} />}
-          sliderWidth={windowsWidth}
-          itemWidth={300}
-        />
-      </View>
+    <GradientBackground>
+      <ScrollView style={{ marginTop: top + 10 }}>
+        <View style={{ height: 450 }}>
+          <Carousel
+            data={moviesOnCinema}
+            renderItem={({ item }) => <MovieCard movie={item} />}
+            sliderWidth={windowsWidth}
+            itemWidth={300}
+          />
+        </View>
 
-      <HorizontalSlider movies={popularMovies} title="Populares" />
-      <HorizontalSlider movies={topRated} title="Mejor valoradas" />
-      <HorizontalSlider movies={upcoming} title="Próximamente" />
-    </ScrollView>
+        <HorizontalSlider movies={popularMovies} title="Populares" />
+        <HorizontalSlider movies={topRated} title="Mejor valoradas" />
+        <HorizontalSlider movies={upcoming} title="Próximamente" />
+      </ScrollView>
+    </GradientBackground>
   );
 };

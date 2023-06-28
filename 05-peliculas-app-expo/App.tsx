@@ -4,13 +4,11 @@ import "react-native-gesture-handler";
 
 //* NAVIGATORS *//
 import { PrincipalStackNavigator } from "./src/navigation/PrincipalStack.navigator";
-import { FadeScreen } from "./src/screens";
 
 const App = () => {
   return (
     <NavigationContainer>
-      {/* <PrincipalStackNavigator /> */}
-      <FadeScreen />
+      <PrincipalStackNavigator />
     </NavigationContainer>
   );
 };
