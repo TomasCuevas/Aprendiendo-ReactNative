@@ -15,7 +15,16 @@ export const HorizontalSlider: React.FC<Props> = ({ movies, title }) => {
   return (
     <View style={{ height: title ? 260 : 230 }}>
       {title && (
-        <Text style={{ fontSize: 30, fontWeight: "700" }}>{title}</Text>
+        <Text
+          style={{
+            fontSize: 28,
+            fontWeight: "700",
+            marginBottom: 5,
+            marginLeft: 10,
+          }}
+        >
+          {title}
+        </Text>
       )}
 
       <FlatList
