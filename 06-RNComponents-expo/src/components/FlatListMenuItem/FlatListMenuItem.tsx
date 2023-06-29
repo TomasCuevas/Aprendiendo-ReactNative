@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import Icon from "@expo/vector-icons/Ionicons";
 
 //* INTERFACES *//
@@ -9,8 +10,13 @@ interface Props {
 }
 
 export const FlatListMenuItem: React.FC<Props> = ({ item }) => {
+  const navigation = useNavigation();
+
   return (
-    <TouchableOpacity activeOpacity={0.6}>
+    <TouchableOpacity
+      onPress={() => navigation.navigate(item.component as never)}
+      activeOpacity={0.3}
+    >
       <View style={styles.container}>
         <Icon name={item.icon as any} color="gray" size={20} />
         <Text style={styles.itemText}>{item.name}</Text>
