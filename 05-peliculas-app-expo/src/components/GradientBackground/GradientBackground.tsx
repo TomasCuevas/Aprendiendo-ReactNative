@@ -1,5 +1,5 @@
 import { LinearGradient } from "expo-linear-gradient";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet } from "react-native";
 
 //* INTERFACE *//
 interface Props {
