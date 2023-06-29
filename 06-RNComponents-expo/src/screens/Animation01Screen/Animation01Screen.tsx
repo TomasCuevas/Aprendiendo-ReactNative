@@ -1,14 +1,22 @@
 import { useRef } from "react";
-import { View, StyleSheet, Animated, Button } from "react-native";
+import { View, StyleSheet, Animated, Button, Easing } from "react-native";
 
 export const Animation01Screen: React.FC = () => {
   const opacity = useRef(new Animated.Value(0)).current;
+  const top = useRef(new Animated.Value(-100)).current;
 
   const fadeIn = () => {
     Animated.timing(opacity, {
       toValue: 1,
       duration: 300,
       useNativeDriver: true,
+    }).start();
+
+    Animated.timing(top, {
+      toValue: 0,
+      duration: 500,
+      useNativeDriver: true,
+      easing: Easing.bounce,
     }).start();
   };
 
@@ -18,11 +26,23 @@ export const Animation01Screen: React.FC = () => {
       duration: 300,
       useNativeDriver: true,
     }).start();
+
+    Animated.timing(top, {
+      toValue: -100,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
   };
 
   return (
     <View style={styles.container}>
-      <Animated.View style={{ ...styles.purple__box, opacity }} />
+      <Animated.View
+        style={{
+          ...styles.purple__box,
+          opacity,
+          transform: [{ translateY: top }],
+        }}
+      />
       <View style={styles.buttons__container}>
         <Button title="FadeIn" onPress={fadeIn} />
         <Button title="FadeOut" onPress={fadeOut} />
