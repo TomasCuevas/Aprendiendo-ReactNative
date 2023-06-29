@@ -7,4 +7,9 @@ export const menuItems: IMenuItem[] = [
     icon: "cube-outline",
     component: "Animation01Screen",
   },
+  {
+    name: "Animation 02",
+    icon: "albums-outline",
+    component: "Animation02Screen",
+  },
 ];
