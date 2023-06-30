@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 //* SCREENS *//
 import {
+  AlertScreen,
   Animation01Screen,
   Animation02Screen,
   HomeScreen,
@@ -19,6 +20,7 @@ export const Navigator = () => {
       <Stack.Screen name="Animation01Screen" component={Animation01Screen} />
       <Stack.Screen name="Animation02Screen" component={Animation02Screen} />
       <Stack.Screen name="SwitchScreen" component={SwitchScreen} />
+      <Stack.Screen name="AlertScreen" component={AlertScreen} />
     </Stack.Navigator>
   );
 };
