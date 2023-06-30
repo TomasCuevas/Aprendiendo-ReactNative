@@ -12,4 +12,9 @@ export const menuItems: IMenuItem[] = [
     icon: "albums-outline",
     component: "Animation02Screen",
   },
+  {
+    name: "Switch",
+    icon: "toggle-outline",
+    component: "SwitchScreen",
+  },
 ];

@@ -6,6 +6,7 @@ import {
   Animation01Screen,
   Animation02Screen,
   HomeScreen,
+  SwitchScreen,
 } from "../../screens";
 
 //* STACK INSTANCE *//
@@ -17,6 +18,7 @@ export const Navigator = () => {
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
       <Stack.Screen name="Animation01Screen" component={Animation01Screen} />
       <Stack.Screen name="Animation02Screen" component={Animation02Screen} />
+      <Stack.Screen name="SwitchScreen" component={SwitchScreen} />
     </Stack.Navigator>
   );
 };
