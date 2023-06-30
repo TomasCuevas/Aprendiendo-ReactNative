@@ -22,4 +22,9 @@ export const menuItems: IMenuItem[] = [
     icon: "alert-circle-outline",
     component: "AlertScreen",
   },
+  {
+    name: "Prompt",
+    icon: "text-outline",
+    component: "PromptScreen",
+  },
 ];
