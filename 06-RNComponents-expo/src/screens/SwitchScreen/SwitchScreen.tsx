@@ -4,14 +4,15 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 //* COMPONENT *//
 import { CustomSwitch, HeaderTitle } from "../../components";
 import { useState } from "react";
+import { styles as themeStyles } from "../../theme";
 
 export const SwitchScreen: React.FC = () => {
   const { top } = useSafeAreaInsets();
 
   const [switchState, setSwitchState] = useState({
     isActive: true,
-    isHungry: false,
     isHappy: true,
+    isHungry: false,
   });
 
   const onChangeSwitchState = (value: boolean, field: string) => {
@@ -22,18 +23,28 @@ export const SwitchScreen: React.FC = () => {
   };
 
   return (
-    <View style={{ marginTop: top + 20 }}>
-      <HeaderTitle title="Switches" />
+    <View style={{ marginTop: top + 20, ...themeStyles.globalMargin }}>
+      <HeaderTitle title="Switches" color="#5858d6" />
 
-      <View style={styles.switchContainer}>
-        <Text style={styles.switchText}>isActive</Text>
-        <CustomSwitch
-          isOn={switchState.isActive}
-          onChange={(value) => onChangeSwitchState(value, "isActive")}
-        />
-      </View>
+      <CustomSwitch
+        title="isActive"
+        isOn={switchState.isActive}
+        onChange={(value) => onChangeSwitchState(value, "isActive")}
+      />
 
-      <Text style={styles.switchText}>
+      <CustomSwitch
+        title="isHappy"
+        isOn={switchState.isHappy}
+        onChange={(value) => onChangeSwitchState(value, "isHappy")}
+      />
+
+      <CustomSwitch
+        title="isHungry"
+        isOn={switchState.isHungry}
+        onChange={(value) => onChangeSwitchState(value, "isHungry")}
+      />
+
+      <Text style={styles.state__info}>
         {JSON.stringify(switchState, null, 4)}
       </Text>
     </View>
@@ -41,12 +52,8 @@ export const SwitchScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-  switchContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  switchText: {
+  state__info: {
+    marginTop: 20,
     fontSize: 25,
   },
 });

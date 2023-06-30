@@ -1,4 +1,4 @@
-import { View, Text, FlatList } from "react-native";
+import { View, FlatList } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 //* DATA *//
@@ -24,7 +24,9 @@ export const HomeScreen: React.FC = () => {
       <FlatList
         data={menuItems}
         renderItem={({ item }) => <FlatListMenuItem item={item} />}
-        ListHeaderComponent={() => <HeaderTitle title="Opciones de Menú" />}
+        ListHeaderComponent={() => (
+          <HeaderTitle title="Opciones de Menú" color="#5858d6" />
+        )}
         keyExtractor={(item) => item.name}
         ItemSeparatorComponent={itemSeperator}
       />

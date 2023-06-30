@@ -5,12 +5,13 @@ import { styles } from "../../theme";
 
 interface Props {
   title: string;
+  color?: string;
 }
 
-export const HeaderTitle: React.FC<Props> = ({ title }) => {
+export const HeaderTitle: React.FC<Props> = ({ title, color = "black" }) => {
   return (
     <View style={{ marginBottom: 15 }}>
-      <Text style={styles.title}>{title}</Text>
+      <Text style={{ ...styles.title, color }}>{title}</Text>
     </View>
   );
 };
