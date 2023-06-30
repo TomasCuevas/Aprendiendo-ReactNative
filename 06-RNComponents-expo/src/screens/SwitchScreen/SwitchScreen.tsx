@@ -1,26 +1,52 @@
-import { useState } from "react";
-import { View, Switch, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 //* COMPONENT *//
-import { HeaderTitle } from "../../components";
+import { CustomSwitch, HeaderTitle } from "../../components";
+import { useState } from "react";
 
 export const SwitchScreen: React.FC = () => {
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled((prev) => !prev);
   const { top } = useSafeAreaInsets();
+
+  const [switchState, setSwitchState] = useState({
+    isActive: true,
+    isHungry: false,
+    isHappy: true,
+  });
+
+  const onChangeSwitchState = (value: boolean, field: string) => {
+    setSwitchState((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
 
   return (
     <View style={{ marginTop: top + 20 }}>
       <HeaderTitle title="Switches" />
-      <Switch
-        trackColor={{ false: "#D9D9DB", true: "#5856D6" }}
-        thumbColor={isEnabled ? "#fff" : "#eee"}
-        onValueChange={toggleSwitch}
-        value={isEnabled}
-      />
+
+      <View style={styles.switchContainer}>
+        <Text style={styles.switchText}>isActive</Text>
+        <CustomSwitch
+          isOn={switchState.isActive}
+          onChange={(value) => onChangeSwitchState(value, "isActive")}
+        />
+      </View>
+
+      <Text style={styles.switchText}>
+        {JSON.stringify(switchState, null, 4)}
+      </Text>
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  switchContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  switchText: {
+    fontSize: 25,
+  },
+});
