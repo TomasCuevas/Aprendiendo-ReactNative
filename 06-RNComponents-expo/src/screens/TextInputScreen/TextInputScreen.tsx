@@ -10,7 +10,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useFormik } from "formik";
 
 //* COMPONENT *//
-import { HeaderTitle } from "../../components";
+import { CustomSwitch, HeaderTitle } from "../../components";
 
 //* THEME *//
 import { styles as themeStyles } from "../../theme";
@@ -18,7 +18,7 @@ import { styles as themeStyles } from "../../theme";
 export const TextInputScreen: React.FC = () => {
   const { top } = useSafeAreaInsets();
   const formik = useFormik({
-    initialValues: { name: "", email: "", phone: "" },
+    initialValues: { name: "", email: "", phone: "", suscribe: false },
     onSubmit: (formValues) => {},
   });
 
@@ -44,6 +44,13 @@ export const TextInputScreen: React.FC = () => {
             onChangeText={formik.handleChange("email")}
             value={formik.values.email}
             keyboardType="email-address"
+          />
+          <CustomSwitch
+            title="Suscribrise"
+            isOn={formik.values.suscribe}
+            onChange={(value: boolean) =>
+              formik.setFieldValue("suscribe", value)
+            }
           />
           <HeaderTitle title={JSON.stringify(formik.values, null, 4)} />
           <HeaderTitle title={JSON.stringify(formik.values, null, 4)} />

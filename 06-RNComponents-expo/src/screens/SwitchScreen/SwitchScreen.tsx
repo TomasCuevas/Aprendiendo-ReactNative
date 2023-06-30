@@ -1,26 +1,22 @@
 import { View, StyleSheet, Text } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useFormik } from "formik";
 
 //* COMPONENT *//
 import { CustomSwitch, HeaderTitle } from "../../components";
-import { useState } from "react";
+
+//* THEME *//
 import { styles as themeStyles } from "../../theme";
 
 export const SwitchScreen: React.FC = () => {
   const { top } = useSafeAreaInsets();
 
-  const [switchState, setSwitchState] = useState({
-    isActive: true,
-    isHappy: true,
-    isHungry: false,
+  const formik = useFormik({
+    initialValues: { isActive: false, isHappy: false, isHungry: false },
+    onSubmit: (formValues) => {
+      console.log(formValues);
+    },
   });
-
-  const onChangeSwitchState = (value: boolean, field: string) => {
-    setSwitchState((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
-  };
 
   return (
     <View style={{ marginTop: top + 20, ...themeStyles.globalMargin }}>
@@ -28,24 +24,24 @@ export const SwitchScreen: React.FC = () => {
 
       <CustomSwitch
         title="isActive"
-        isOn={switchState.isActive}
-        onChange={(value) => onChangeSwitchState(value, "isActive")}
+        isOn={formik.values.isActive}
+        onChange={(value: boolean) => formik.setFieldValue("isActive", value)}
       />
 
       <CustomSwitch
         title="isHappy"
-        isOn={switchState.isHappy}
-        onChange={(value) => onChangeSwitchState(value, "isHappy")}
+        isOn={formik.values.isHappy}
+        onChange={(value: boolean) => formik.setFieldValue("isHappy", value)}
       />
 
       <CustomSwitch
         title="isHungry"
-        isOn={switchState.isHungry}
-        onChange={(value) => onChangeSwitchState(value, "isHungry")}
+        isOn={formik.values.isHungry}
+        onChange={(value: boolean) => formik.setFieldValue("isHungry", value)}
       />
 
       <Text style={styles.state__info}>
-        {JSON.stringify(switchState, null, 4)}
+        {JSON.stringify(formik.values, null, 4)}
       </Text>
     </View>
   );

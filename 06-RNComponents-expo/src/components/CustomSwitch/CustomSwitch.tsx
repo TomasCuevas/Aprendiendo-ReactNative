@@ -1,6 +1,6 @@
-import { StyleSheet, Switch, View, Text, TouchableOpacity } from "react-native";
-import { useState } from "react";
+import { StyleSheet, Switch, View, Text } from "react-native";
 
+//* INTERFACE *//
 interface Props {
   title: string;
   isOn: boolean;
@@ -8,24 +8,16 @@ interface Props {
 }
 
 export const CustomSwitch: React.FC<Props> = ({ title, isOn, onChange }) => {
-  const [isEnabled, setIsEnabled] = useState(isOn);
-
-  const toggleSwitch = () => {
-    setIsEnabled((prev) => !prev);
-    onChange(!isEnabled);
-  };
-
   return (
-    <TouchableOpacity activeOpacity={1} onPress={toggleSwitch}>
-      <View style={styles.switchContainer}>
-        <Text style={styles.switchText}>{title}</Text>
-        <Switch
-          trackColor={{ false: "#D9D9DB", true: "#5856D6" }}
-          thumbColor={isEnabled ? "#fff" : "#eee"}
-          value={isEnabled}
-        />
-      </View>
-    </TouchableOpacity>
+    <View style={styles.switchContainer}>
+      <Text style={styles.switchText}>{title}</Text>
+      <Switch
+        trackColor={{ false: "#D9D9DB", true: "#5856D6" }}
+        thumbColor={isOn ? "#fff" : "#eee"}
+        value={isOn}
+        onValueChange={onChange}
+      />
+    </View>
   );
 };
 
