@@ -9,6 +9,7 @@ import {
   HomeScreen,
   PromptScreen,
   SwitchScreen,
+  TextInputScreen,
 } from "../../screens";
 
 //* STACK INSTANCE *//
@@ -23,6 +24,7 @@ export const Navigator = () => {
       <Stack.Screen name="SwitchScreen" component={SwitchScreen} />
       <Stack.Screen name="AlertScreen" component={AlertScreen} />
       <Stack.Screen name="PromptScreen" component={PromptScreen} />
+      <Stack.Screen name="TextInputScreen" component={TextInputScreen} />
     </Stack.Navigator>
   );
 };

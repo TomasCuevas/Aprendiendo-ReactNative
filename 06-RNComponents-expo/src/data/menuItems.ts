@@ -24,7 +24,12 @@ export const menuItems: IMenuItem[] = [
   },
   {
     name: "Prompt",
-    icon: "text-outline",
+    icon: "terminal-outline",
     component: "PromptScreen",
+  },
+  {
+    name: "TextInput",
+    icon: "text-outline",
+    component: "TextInputScreen",
   },
 ];
