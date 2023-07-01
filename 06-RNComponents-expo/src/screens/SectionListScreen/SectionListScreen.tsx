@@ -2,7 +2,7 @@ import { View, StyleSheet, SectionList, Text } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 //* COMPONENT *//
-import { HeaderTitle } from "../../components";
+import { HeaderTitle, ItemSeparator } from "../../components";
 
 //* THEME *//
 import { styles as themeStyles } from "../../theme/app.theme";
@@ -22,9 +22,33 @@ export const SectionListScreen: React.FC = () => {
         stickySectionHeadersEnabled
         renderSectionHeader={({ section }) => (
           <View style={{ backgroundColor: "white" }}>
-            <HeaderTitle title={section.casa} marginTop={20} />
+            <HeaderTitle title={section.casa} marginTop={10} marginBottom={5} />
           </View>
         )}
+        renderSectionFooter={({ section }) => (
+          <HeaderTitle
+            title={`Total: ${section.data.length}`}
+            marginTop={10}
+            fontSize={20}
+          />
+        )}
+        ListHeaderComponent={() => (
+          <HeaderTitle
+            title="Section List"
+            color="#5656D8"
+            fontSize={30}
+            marginBottom={0}
+          />
+        )}
+        ListFooterComponent={() => (
+          <HeaderTitle
+            title={`Total de casas ${casas.length}`}
+            marginTop={30}
+            marginBottom={50}
+          />
+        )}
+        ItemSeparatorComponent={() => <ItemSeparator />}
+        showsVerticalScrollIndicator={false}
       />
     </View>
   );
