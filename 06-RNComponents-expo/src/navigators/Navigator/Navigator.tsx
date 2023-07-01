@@ -7,6 +7,7 @@ import {
   Animation01Screen,
   Animation02Screen,
   HomeScreen,
+  ModalScreen,
   PromptScreen,
   PullToRefreshScreen,
   SectionListScreen,
@@ -37,6 +38,7 @@ export const Navigator = () => {
         component={PullToRefreshScreen}
       />
       <Stack.Screen name="SectionListScreen" component={SectionListScreen} />
+      <Stack.Screen name="ModalScreen" component={ModalScreen} />
     </Stack.Navigator>
   );
 };
