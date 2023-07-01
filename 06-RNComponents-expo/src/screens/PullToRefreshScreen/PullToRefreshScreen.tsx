@@ -1,34 +1,36 @@
 import { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  RefreshControl,
-} from "react-native";
+import { View, StyleSheet, ScrollView, RefreshControl } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 //* COMPONENT *//
 import { HeaderTitle } from "../../components";
-import { styles as themeStyles } from "../../theme/app.theme";
+
+//* THEME *//
+import { styles as themeStyles } from "../../theme";
 
 export const PullToRefreshScreen: React.FC = () => {
   const { top } = useSafeAreaInsets();
-  const [refreshing, setRefreshing] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   const onRefresh = () => {
-    setRefreshing(true);
+    setIsRefreshing(true);
 
     setTimeout(() => {
       console.log("Terminado.");
-      setRefreshing(false);
+      setIsRefreshing(false);
     }, 1500);
   };
 
   return (
     <ScrollView
       refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        <RefreshControl
+          refreshing={isRefreshing}
+          onRefresh={onRefresh}
+          progressViewOffset={100}
+          progressBackgroundColor="#5858d6"
+          colors={["white"]}
+        />
       }
     >
       <View style={{ marginTop: top + 20, ...themeStyles.globalMargin }}>
