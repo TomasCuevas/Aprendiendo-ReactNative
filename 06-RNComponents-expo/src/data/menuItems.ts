@@ -32,4 +32,9 @@ export const menuItems: IMenuItem[] = [
     icon: "text-outline",
     component: "TextInputScreen",
   },
+  {
+    name: "PullToRefresh",
+    icon: "refresh-outline",
+    component: "PullToRefreshScreen",
+  },
 ];
