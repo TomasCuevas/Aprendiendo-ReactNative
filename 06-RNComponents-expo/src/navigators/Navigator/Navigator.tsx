@@ -9,6 +9,7 @@ import {
   HomeScreen,
   PromptScreen,
   PullToRefreshScreen,
+  SectionListScreen,
   SwitchScreen,
   TextInputScreen,
 } from "../../screens";
@@ -35,6 +36,7 @@ export const Navigator = () => {
         name="PullToRefreshScreen"
         component={PullToRefreshScreen}
       />
+      <Stack.Screen name="SectionListScreen" component={SectionListScreen} />
     </Stack.Navigator>
   );
 };

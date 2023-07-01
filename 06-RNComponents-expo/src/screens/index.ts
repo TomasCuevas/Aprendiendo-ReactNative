@@ -4,5 +4,6 @@ export * from "./Animation02Screen/Animation02Screen";
 export * from "./HomeScreen/HomeScreen";
 export * from "./PromptScreen/PromptScreen";
 export * from "./PullToRefreshScreen/PullToRefreshScreen";
+export * from "./SectionListScreen/SectionListScreen";
 export * from "./SwitchScreen/SwitchScreen";
 export * from "./TextInputScreen/TextInputScreen";

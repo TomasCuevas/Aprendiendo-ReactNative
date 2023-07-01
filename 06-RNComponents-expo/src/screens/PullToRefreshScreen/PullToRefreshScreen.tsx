@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { View, StyleSheet, ScrollView, RefreshControl } from "react-native";
+import { View, ScrollView, RefreshControl } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 //* COMPONENT *//
@@ -39,5 +39,3 @@ export const PullToRefreshScreen: React.FC = () => {
     </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({});
