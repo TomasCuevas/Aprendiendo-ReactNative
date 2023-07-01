@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { HeaderTitle } from "../../components";
 
 //* THEME *//
-import { styles as themeStyles } from "../../theme/app.theme";
+import { styles as themeStyles } from "../../theme";
 
 export const ModalScreen: React.FC = () => {
   const { top } = useSafeAreaInsets();
@@ -20,12 +20,14 @@ export const ModalScreen: React.FC = () => {
 
       <Modal transparent animationType="fade" visible={isVisible}>
         <View style={styles.modal__container}>
-          <View style={{ marginTop: 20 }}>
-            <HeaderTitle title="Modal" marginBottom={0} color="white" />
-            <Text style={{ color: "white", marginBottom: 20 }}>
-              Cuerpo del modal
-            </Text>
-            <Button title="Cerrar" onPress={() => setIsVisible(false)} />
+          <View style={styles.modal}>
+            <View style={{ marginTop: 20, justifyContent: "center" }}>
+              <HeaderTitle title="Modal" marginBottom={0} color="white" />
+              <Text style={{ color: "white", marginBottom: 20 }}>
+                Cuerpo del modal
+              </Text>
+              <Button title="Cerrar" onPress={() => setIsVisible(false)} />
+            </View>
           </View>
         </View>
       </Modal>
@@ -35,11 +37,17 @@ export const ModalScreen: React.FC = () => {
 
 const styles = StyleSheet.create({
   modal__container: {
-    backgroundColor: "#a8a85cf5",
-    marginHorizontal: 10,
-    marginVertical: 10,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#CCCA",
+  },
+  modal: {
+    marginTop: 10,
     borderRadius: 20,
+    backgroundColor: "#a8a85cf5",
     paddingHorizontal: 10,
     paddingVertical: 20,
+    width: "95%",
   },
 });
