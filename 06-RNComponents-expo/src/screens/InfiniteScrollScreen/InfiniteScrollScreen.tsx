@@ -1,16 +1,9 @@
 import { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  FlatList,
-  Image,
-  ActivityIndicator,
-} from "react-native";
+import { View, FlatList, ActivityIndicator } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-//* COMPONENT *//
-import { HeaderTitle } from "../../components";
+//* COMPONENTS *//
+import { FadeInImage, HeaderTitle } from "../../components";
 
 export const InfiniteScrollScreen: React.FC = () => {
   const { top } = useSafeAreaInsets();
@@ -28,10 +21,7 @@ export const InfiniteScrollScreen: React.FC = () => {
   };
 
   const renderItem = (id: number) => (
-    <Image
-      source={{ uri: `https://picsum.photos/id/${id}/500/400` }}
-      style={styles.image}
-    />
+    <FadeInImage uri={`https://picsum.photos/id/${id}/1024/1024`} />
   );
 
   return (
@@ -62,10 +52,3 @@ export const InfiniteScrollScreen: React.FC = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  image: {
-    width: "100%",
-    height: 400,
-  },
-});
