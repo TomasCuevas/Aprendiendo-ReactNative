@@ -33,12 +33,12 @@ export const menuItems: IMenuItem[] = [
     component: "TextInputScreen",
   },
   {
-    name: "PullToRefresh",
+    name: "Pull To Refresh",
     icon: "refresh-outline",
     component: "PullToRefreshScreen",
   },
   {
-    name: "SectionList",
+    name: "Section List",
     icon: "list-outline",
     component: "SectionListScreen",
   },
@@ -46,5 +46,10 @@ export const menuItems: IMenuItem[] = [
     name: "Modal",
     icon: "copy-outline",
     component: "ModalScreen",
+  },
+  {
+    name: "Infinite Scroll",
+    icon: "download-outline",
+    component: "InfiniteScrollScreen",
   },
 ];

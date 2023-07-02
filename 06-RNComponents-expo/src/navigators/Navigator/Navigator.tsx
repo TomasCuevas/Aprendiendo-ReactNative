@@ -7,6 +7,7 @@ import {
   Animation01Screen,
   Animation02Screen,
   HomeScreen,
+  InfiniteScrollScreen,
   ModalScreen,
   PromptScreen,
   PullToRefreshScreen,
@@ -39,6 +40,10 @@ export const Navigator = () => {
       />
       <Stack.Screen name="SectionListScreen" component={SectionListScreen} />
       <Stack.Screen name="ModalScreen" component={ModalScreen} />
+      <Stack.Screen
+        name="InfiniteScrollScreen"
+        component={InfiniteScrollScreen}
+      />
     </Stack.Navigator>
   );
 };
