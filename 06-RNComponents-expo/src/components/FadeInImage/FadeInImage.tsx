@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { Animated, View, ActivityIndicator } from "react-native";
+import {
+  Animated,
+  View,
+  ActivityIndicator,
+  StyleProp,
+  ImageStyle,
+} from "react-native";
 
 //* HOOK *//
 import { useAnimation } from "../../hooks";
@@ -7,9 +13,10 @@ import { useAnimation } from "../../hooks";
 //* INTERFACE *//
 interface Props {
   uri: string;
+  style?: StyleProp<ImageStyle>;
 }
 
-export const FadeInImage: React.FC<Props> = ({ uri }) => {
+export const FadeInImage: React.FC<Props> = ({ uri, style }) => {
   const { opacity, fadeIn } = useAnimation();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -28,7 +35,7 @@ export const FadeInImage: React.FC<Props> = ({ uri }) => {
           fadeIn();
           setIsLoading(false);
         }}
-        style={{ width: "100%", height: 400, opacity }}
+        style={{ ...(style as any), opacity }}
       />
     </View>
   );

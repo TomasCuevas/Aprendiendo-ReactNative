@@ -21,7 +21,13 @@ export const InfiniteScrollScreen: React.FC = () => {
   };
 
   const renderItem = (id: number) => (
-    <FadeInImage uri={`https://picsum.photos/id/${id}/1024/1024`} />
+    <FadeInImage
+      uri={`https://picsum.photos/id/${id}/1024/1024`}
+      style={{
+        width: "100%",
+        height: 400,
+      }}
+    />
   );
 
   return (
@@ -31,7 +37,9 @@ export const InfiniteScrollScreen: React.FC = () => {
         renderItem={({ item }) => renderItem(item)}
         keyExtractor={(item) => String(item)}
         ListHeaderComponent={
-          <HeaderTitle title="Infinite Scroll" color="#5656D8" />
+          <View style={{ marginHorizontal: 20 }}>
+            <HeaderTitle title="Infinite Scroll" color="#5656D8" />
+          </View>
         }
         onEndReached={loadMore}
         onEndReachedThreshold={0.5}
