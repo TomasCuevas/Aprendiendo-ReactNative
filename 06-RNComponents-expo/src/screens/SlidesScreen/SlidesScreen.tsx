@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { Text, Dimensions, View, Image, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Carousel from "react-native-snap-carousel";
+import Carousel, { Pagination } from "react-native-snap-carousel";
 
 //* DATA *//
 import { slideData } from "../../data";
@@ -10,6 +11,7 @@ import { ISlide } from "../../interfaces";
 
 export const SlidesScreen: React.FC = () => {
   const { height: screenHeight, width: screenWidth } = Dimensions.get("window");
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const renderItem = (item: ISlide) => (
     <View
@@ -38,6 +40,17 @@ export const SlidesScreen: React.FC = () => {
         sliderWidth={screenWidth - 40}
         itemWidth={screenWidth - 40}
         layout="default"
+        onSnapToItem={(index) => setActiveIndex(index)}
+      />
+      <Pagination
+        dotsLength={slideData.length}
+        activeDotIndex={activeIndex}
+        dotStyle={{
+          width: 25,
+          height: 10,
+          borderRadius: 10,
+          backgroundColor: "#5656D8",
+        }}
       />
     </SafeAreaView>
   );
