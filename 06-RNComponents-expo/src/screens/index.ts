@@ -7,5 +7,6 @@ export * from "./ModalScreen/ModalScreen";
 export * from "./PromptScreen/PromptScreen";
 export * from "./PullToRefreshScreen/PullToRefreshScreen";
 export * from "./SectionListScreen/SectionListScreen";
+export * from "./SlidesScreen/SlidesScreen";
 export * from "./SwitchScreen/SwitchScreen";
 export * from "./TextInputScreen/TextInputScreen";
