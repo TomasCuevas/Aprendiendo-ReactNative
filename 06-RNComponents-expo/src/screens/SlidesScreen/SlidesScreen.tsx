@@ -1,16 +1,29 @@
-import { useState } from "react";
-import { Text, Dimensions, View, Image, StyleSheet } from "react-native";
+import { useEffect, useState } from "react";
+import {
+  Animated,
+  Text,
+  Dimensions,
+  View,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Carousel, { Pagination } from "react-native-snap-carousel";
+import Icon from "@expo/vector-icons/Ionicons";
 
 //* DATA *//
 import { slideData } from "../../data";
+
+//* HOOK *//
+import { useAnimation } from "../../hooks";
 
 //* INTERFACE *//
 import { ISlide } from "../../interfaces";
 
 export const SlidesScreen: React.FC = () => {
   const { height: screenHeight, width: screenWidth } = Dimensions.get("window");
+  const { opacity, fadeIn, fadeOut } = useAnimation();
   const [activeIndex, setActiveIndex] = useState(0);
 
   const renderItem = (item: ISlide) => (
@@ -32,6 +45,11 @@ export const SlidesScreen: React.FC = () => {
     </View>
   );
 
+  useEffect(() => {
+    if (activeIndex + 1 === slideData.length) fadeIn();
+    else fadeOut();
+  }, [activeIndex]);
+
   return (
     <SafeAreaView style={styles.container}>
       <Carousel
@@ -42,16 +60,33 @@ export const SlidesScreen: React.FC = () => {
         layout="default"
         onSnapToItem={(index) => setActiveIndex(index)}
       />
-      <Pagination
-        dotsLength={slideData.length}
-        activeDotIndex={activeIndex}
-        dotStyle={{
-          width: 25,
-          height: 10,
-          borderRadius: 10,
-          backgroundColor: "#5656D8",
-        }}
-      />
+
+      <View style={styles.pagination__container}>
+        <Pagination
+          dotsLength={slideData.length}
+          activeDotIndex={activeIndex}
+          dotStyle={{
+            width: 25,
+            height: 10,
+            borderRadius: 10,
+            backgroundColor: "#5656D8",
+          }}
+        />
+
+        {activeIndex + 1 === slideData.length && (
+          <Animated.View style={{ opacity }}>
+            <TouchableOpacity style={styles.back__button}>
+              <Text style={styles.button__text}>Entrar</Text>
+              <Icon
+                name="chevron-forward-outline"
+                color="white"
+                size={27}
+                style={{ marginTop: 4 }}
+              />
+            </TouchableOpacity>
+          </Animated.View>
+        )}
+      </View>
     </SafeAreaView>
   );
 };
@@ -69,5 +104,25 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 16,
+  },
+  pagination__container: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  back__button: {
+    marginLeft: "auto",
+    width: 140,
+    justifyContent: "center",
+    alignItems: "center",
+    height: 50,
+    borderRadius: 10,
+    backgroundColor: "#5656D8",
+    flexDirection: "row",
+    gap: 2,
+  },
+  button__text: {
+    color: "white",
+    fontSize: 20,
   },
 });
