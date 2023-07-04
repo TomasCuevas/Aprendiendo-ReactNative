@@ -1,6 +1,7 @@
 export * from "./AlertScreen/AlertScreen";
 export * from "./Animation01Screen/Animation01Screen";
 export * from "./Animation02Screen/Animation02Screen";
+export * from "./ChangeThemeScreen/ChangeThemeScreen";
 export * from "./HomeScreen/HomeScreen";
 export * from "./InfiniteScrollScreen/InfiniteScrollScreen";
 export * from "./ModalScreen/ModalScreen";
