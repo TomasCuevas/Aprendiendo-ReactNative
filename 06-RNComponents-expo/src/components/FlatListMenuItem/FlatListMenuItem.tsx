@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import Icon from "@expo/vector-icons/Ionicons";
 
 //* INTERFACES *//
@@ -11,6 +11,7 @@ interface Props {
 
 export const FlatListMenuItem: React.FC<Props> = ({ item }) => {
   const navigation = useNavigation();
+  // const { colors } = useTheme();
 
   return (
     <TouchableOpacity
@@ -19,7 +20,14 @@ export const FlatListMenuItem: React.FC<Props> = ({ item }) => {
     >
       <View style={styles.container}>
         <Icon name={item.icon as any} color="gray" size={20} />
-        <Text style={styles.itemText}>{item.name}</Text>
+        <Text
+          style={{
+            ...styles.itemText,
+            // color: colors.text
+          }}
+        >
+          {item.name}
+        </Text>
         <Icon
           name="chevron-forward-outline"
           color="gray"
