@@ -24,10 +24,29 @@ export const lightTheme: IThemeState = {
   dividerColor: "#0005",
 };
 
+//* SET DARK THEME
+export const darkTheme: IThemeState = {
+  currentTheme: "dark",
+  dark: true,
+  colors: {
+    primary: "#5656D8",
+    background: "#000",
+    card: "green",
+    text: "#FFF",
+    border: "orange",
+    notification: "teal",
+  },
+  dividerColor: "#0005",
+};
+
 export const themeReducer = (state: any, action: ThemeAction): IThemeState => {
   switch (action.type) {
     case "light_theme":
       return { ...lightTheme };
+
+    case "dark_theme": {
+      return { ...darkTheme };
+    }
 
     default:
       return state;

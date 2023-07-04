@@ -1,8 +1,13 @@
+import { useContext } from "react";
 import { View, Text } from "react-native";
 
 //* THEME *//
 import { styles } from "../../theme";
 
+//* CONTEXT *//
+import { ThemeContext } from "../../context";
+
+//* INTERFACE *//
 interface Props {
   title: string;
   color?: string;
@@ -18,9 +23,13 @@ export const HeaderTitle: React.FC<Props> = ({
   marginBottom = 15,
   fontSize = 25,
 }) => {
+  const { colors } = useContext(ThemeContext);
+
   return (
     <View style={{ marginBottom, marginTop }}>
-      <Text style={{ ...styles.title, color, fontSize }}>{title}</Text>
+      <Text style={{ ...styles.title, color: color || colors.text, fontSize }}>
+        {title}
+      </Text>
     </View>
   );
 };
