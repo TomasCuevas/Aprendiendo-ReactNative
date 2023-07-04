@@ -1,11 +1,6 @@
 import { StyleSheet } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
-import {
-  DarkTheme,
-  DefaultTheme,
-  NavigationContainer,
-  Theme,
-} from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 
 //* SCREENS *//
 import {
@@ -23,13 +18,19 @@ import {
   SwitchScreen,
   TextInputScreen,
 } from "../../screens";
+import { useContext } from "react";
+
+//* CONTEXT *//
+import { ThemeContext } from "../../context";
 
 //* STACK INSTANCE *//
 const Stack = createStackNavigator();
 
 export const Navigator = () => {
+  const { theme } = useContext(ThemeContext);
+
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={theme}>
       <Stack.Navigator
         screenOptions={{
           headerShown: false,

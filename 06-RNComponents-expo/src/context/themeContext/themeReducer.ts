@@ -10,14 +10,14 @@ export interface IThemeState extends Theme {
 }
 
 //* SET LIGHT THEME
-const lightTheme: IThemeState = {
+export const lightTheme: IThemeState = {
   currentTheme: "light",
   dark: false,
   colors: {
-    primary: "red",
-    background: "blue",
+    primary: "#5656D8",
+    background: "#FFF",
     card: "green",
-    text: "pink",
+    text: "#000",
     border: "orange",
     notification: "teal",
   },
