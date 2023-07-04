@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { View, Text, StyleSheet, Button, Modal } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 //* COMPONENT *//
 import { HeaderTitle } from "../../components";
@@ -8,13 +8,16 @@ import { HeaderTitle } from "../../components";
 //* THEME *//
 import { styles as themeStyles } from "../../theme";
 
+//* CONTEXT *//
+import { ThemeContext } from "../../context";
+
 export const ModalScreen: React.FC = () => {
-  const { top } = useSafeAreaInsets();
+  const { colors } = useContext(ThemeContext);
   const [isVisible, setIsVisible] = useState(false);
 
   return (
-    <View style={{ ...themeStyles.globalMargin, marginTop: top + 20 }}>
-      <HeaderTitle title="Modal Screen " color="#5656D8" />
+    <SafeAreaView style={{ ...themeStyles.globalMargin, marginTop: 20 }}>
+      <HeaderTitle title="Modal Screen " color={colors.primary} />
 
       <Button title="Abrir modal" onPress={() => setIsVisible(true)} />
 
@@ -22,8 +25,8 @@ export const ModalScreen: React.FC = () => {
         <View style={styles.modal__container}>
           <View style={styles.modal}>
             <View style={{ marginTop: 20, justifyContent: "center" }}>
-              <HeaderTitle title="Modal" marginBottom={0} color="white" />
-              <Text style={{ color: "white", marginBottom: 20 }}>
+              <HeaderTitle title="Modal" marginBottom={0} color="#FFF" />
+              <Text style={{ color: "#FFF", marginBottom: 20 }}>
                 Cuerpo del modal
               </Text>
               <Button title="Cerrar" onPress={() => setIsVisible(false)} />
@@ -31,7 +34,7 @@ export const ModalScreen: React.FC = () => {
           </View>
         </View>
       </Modal>
-    </View>
+    </SafeAreaView>
   );
 };
 
@@ -40,7 +43,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#CCCA",
+    backgroundColor: "#AAA8",
   },
   modal: {
     marginTop: 10,

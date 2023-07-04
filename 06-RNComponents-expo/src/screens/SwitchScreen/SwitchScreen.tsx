@@ -1,5 +1,6 @@
-import { View, StyleSheet, Text } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useContext } from "react";
+import { StyleSheet, Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useFormik } from "formik";
 
 //* COMPONENT *//
@@ -8,8 +9,11 @@ import { CustomSwitch, HeaderTitle } from "../../components";
 //* THEME *//
 import { styles as themeStyles } from "../../theme";
 
+//* CONTEXT *//
+import { ThemeContext } from "../../context";
+
 export const SwitchScreen: React.FC = () => {
-  const { top } = useSafeAreaInsets();
+  const { colors } = useContext(ThemeContext);
 
   const formik = useFormik({
     initialValues: { isActive: false, isHappy: false, isHungry: false },
@@ -19,8 +23,8 @@ export const SwitchScreen: React.FC = () => {
   });
 
   return (
-    <View style={{ marginTop: top + 20, ...themeStyles.globalMargin }}>
-      <HeaderTitle title="Switches" color="#5858d6" />
+    <SafeAreaView style={{ marginTop: 20, ...themeStyles.globalMargin }}>
+      <HeaderTitle title="Switches" color={colors.primary} />
 
       <CustomSwitch
         title="isActive"
@@ -40,10 +44,10 @@ export const SwitchScreen: React.FC = () => {
         onChange={(value: boolean) => formik.setFieldValue("isHungry", value)}
       />
 
-      <Text style={styles.state__info}>
+      <Text style={{ ...styles.state__info, color: colors.text }}>
         {JSON.stringify(formik.values, null, 4)}
       </Text>
-    </View>
+    </SafeAreaView>
   );
 };
 

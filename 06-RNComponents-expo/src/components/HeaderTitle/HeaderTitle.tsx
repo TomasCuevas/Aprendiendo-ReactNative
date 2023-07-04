@@ -18,7 +18,7 @@ interface Props {
 
 export const HeaderTitle: React.FC<Props> = ({
   title,
-  color = "black",
+  color,
   marginTop = 0,
   marginBottom = 15,
   fontSize = 25,

@@ -16,9 +16,9 @@ export const lightTheme: IThemeState = {
   colors: {
     primary: "#5656D8",
     background: "#FFF",
-    card: "green",
+    card: "#FFF",
     text: "#000",
-    border: "orange",
+    border: "#555",
     notification: "teal",
   },
   dividerColor: "#0005",
@@ -31,9 +31,9 @@ export const darkTheme: IThemeState = {
   colors: {
     primary: "#5656D8",
     background: "#000",
-    card: "green",
+    card: "#000",
     text: "#FFF",
-    border: "orange",
+    border: "#aaa",
     notification: "teal",
   },
   dividerColor: "#0005",

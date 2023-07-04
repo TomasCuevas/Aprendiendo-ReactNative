@@ -1,9 +1,14 @@
+import { useContext } from "react";
 import { View, StyleSheet, Animated, Button } from "react-native";
 
 //* HOOK *//
 import { useAnimation } from "../../hooks";
 
+//* CONTEXT *//
+import { ThemeContext } from "../../context";
+
 export const Animation01Screen: React.FC = () => {
+  const { colors } = useContext(ThemeContext);
   const { fadeIn, fadeOut, startMoving, opacity, position } = useAnimation();
 
   return (
@@ -18,11 +23,12 @@ export const Animation01Screen: React.FC = () => {
       <View style={styles.buttons__container}>
         <Button
           title="FadeIn"
+          color={colors.primary}
           onPress={() => {
             fadeIn(), startMoving(-150);
           }}
         />
-        <Button title="FadeOut" onPress={fadeOut} />
+        <Button title="FadeOut" color={colors.primary} onPress={fadeOut} />
       </View>
     </View>
   );

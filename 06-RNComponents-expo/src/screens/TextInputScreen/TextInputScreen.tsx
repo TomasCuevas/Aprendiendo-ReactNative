@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import {
   View,
   TextInput,
@@ -6,7 +7,7 @@ import {
   Platform,
   ScrollView,
 } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useFormik } from "formik";
 
 //* COMPONENT *//
@@ -15,8 +16,12 @@ import { CustomSwitch, HeaderTitle } from "../../components";
 //* THEME *//
 import { styles as themeStyles } from "../../theme";
 
+//* CONTEXT *//
+import { ThemeContext } from "../../context";
+
 export const TextInputScreen: React.FC = () => {
-  const { top } = useSafeAreaInsets();
+  const { colors } = useContext(ThemeContext);
+
   const formik = useFormik({
     initialValues: { name: "", email: "", phone: "", suscribe: false },
     onSubmit: (formValues) => {},
@@ -27,10 +32,15 @@ export const TextInputScreen: React.FC = () => {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <ScrollView>
-        <View style={{ ...themeStyles.globalMargin, marginTop: top + 20 }}>
-          <HeaderTitle title="TextInput" color="#5858D6" />
+        <SafeAreaView style={{ ...themeStyles.globalMargin, marginTop: 20 }}>
+          <HeaderTitle title="TextInput" color={colors.primary} />
           <TextInput
-            style={styles.input}
+            style={{
+              ...styles.input,
+              borderColor: colors.border,
+              color: colors.text,
+            }}
+            placeholderTextColor={colors.border}
             placeholder="Ingrese su nombre"
             autoCorrect={false}
             autoCapitalize="words"
@@ -38,7 +48,12 @@ export const TextInputScreen: React.FC = () => {
             value={formik.values.name}
           />
           <TextInput
-            style={styles.input}
+            style={{
+              ...styles.input,
+              borderColor: colors.border,
+              color: colors.text,
+            }}
+            placeholderTextColor={colors.border}
             placeholder="Ingrese su email"
             autoCapitalize="none"
             onChangeText={formik.handleChange("email")}
@@ -63,7 +78,7 @@ export const TextInputScreen: React.FC = () => {
             value={formik.values.phone}
             keyboardType="phone-pad"
           />
-        </View>
+        </SafeAreaView>
 
         <View style={{ height: 10 }} />
       </ScrollView>
@@ -73,7 +88,6 @@ export const TextInputScreen: React.FC = () => {
 
 const styles = StyleSheet.create({
   input: {
-    borderColor: "gray",
     borderWidth: 0.5,
     borderRadius: 10,
     paddingHorizontal: 15,

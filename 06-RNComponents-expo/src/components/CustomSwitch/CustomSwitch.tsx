@@ -1,4 +1,8 @@
+import { useContext } from "react";
 import { StyleSheet, Switch, View, Text } from "react-native";
+
+//* CONTEXT *//
+import { ThemeContext } from "../../context";
 
 //* INTERFACE *//
 interface Props {
@@ -8,11 +12,13 @@ interface Props {
 }
 
 export const CustomSwitch: React.FC<Props> = ({ title, isOn, onChange }) => {
+  const { colors } = useContext(ThemeContext);
+
   return (
     <View style={styles.switchContainer}>
-      <Text style={styles.switchText}>{title}</Text>
+      <Text style={{ ...styles.switchText, color: colors.text }}>{title}</Text>
       <Switch
-        trackColor={{ false: "#D9D9DB", true: "#5856D6" }}
+        trackColor={{ false: "#D9D9DB", true: colors.primary }}
         thumbColor={isOn ? "#fff" : "#eee"}
         value={isOn}
         onValueChange={onChange}

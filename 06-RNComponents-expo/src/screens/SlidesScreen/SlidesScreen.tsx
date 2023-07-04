@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import {
   Animated,
   Text,
@@ -19,13 +19,17 @@ import { slideData } from "../../data";
 //* HOOK *//
 import { useAnimation } from "../../hooks";
 
-//* INTERFACE *//
+//* CONTEXT *//
+import { ThemeContext } from "../../context";
+
+//* INTERFACES *//
 import { ISlide } from "../../interfaces";
 
 interface Props extends StackScreenProps<any, any> {}
 
 export const SlidesScreen: React.FC<Props> = ({ navigation }) => {
-  const { height: screenHeight, width: screenWidth } = Dimensions.get("window");
+  const { width: screenWidth } = Dimensions.get("window");
+  const { colors } = useContext(ThemeContext);
   const { opacity, fadeIn, fadeOut } = useAnimation();
   const [activeIndex, setActiveIndex] = useState(0);
   const [isButtonVisible, setIsButtonVisible] = useState(false);
@@ -34,7 +38,7 @@ export const SlidesScreen: React.FC<Props> = ({ navigation }) => {
     <View
       style={{
         flex: 1,
-        backgroundColor: "white",
+        backgroundColor: colors.background,
         borderRadius: 5,
         padding: 40,
         justifyContent: "center",
@@ -44,8 +48,12 @@ export const SlidesScreen: React.FC<Props> = ({ navigation }) => {
         source={item.img}
         style={{ width: 300, height: 400, resizeMode: "center" }}
       />
-      <Text style={styles.title}>{item.title}</Text>
-      <Text style={styles.description}>{item.desc}</Text>
+      <Text style={{ ...styles.title, color: colors.primary }}>
+        {item.title}
+      </Text>
+      <Text style={{ ...styles.description, color: colors.text }}>
+        {item.desc}
+      </Text>
     </View>
   );
 
@@ -76,7 +84,7 @@ export const SlidesScreen: React.FC<Props> = ({ navigation }) => {
             width: 25,
             height: 10,
             borderRadius: 10,
-            backgroundColor: "#5656D8",
+            backgroundColor: colors.primary,
           }}
         />
 

@@ -1,5 +1,6 @@
-import { View, StyleSheet, SectionList, Text } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useContext } from "react";
+import { View, SectionList, Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 //* COMPONENT *//
 import { HeaderTitle, ItemSeparator } from "../../components";
@@ -10,18 +11,23 @@ import { styles as themeStyles } from "../../theme/app.theme";
 //* DATA *//
 import { casas } from "../../data";
 
+//* CONTEXT *//
+import { ThemeContext } from "../../context";
+
 export const SectionListScreen: React.FC = () => {
-  const { top } = useSafeAreaInsets();
+  const { colors } = useContext(ThemeContext);
 
   return (
-    <View style={{ marginTop: top + 20, ...themeStyles.globalMargin }}>
+    <SafeAreaView style={{ marginTop: 20, ...themeStyles.globalMargin }}>
       <SectionList
         sections={casas}
-        renderItem={({ item }) => <Text>{item}</Text>}
+        renderItem={({ item }) => (
+          <Text style={{ color: colors.text }}>{item}</Text>
+        )}
         keyExtractor={(item, index) => `${item}${index}`}
         stickySectionHeadersEnabled
         renderSectionHeader={({ section }) => (
-          <View style={{ backgroundColor: "white" }}>
+          <View style={{ backgroundColor: colors.background }}>
             <HeaderTitle title={section.casa} marginTop={10} marginBottom={5} />
           </View>
         )}
@@ -35,7 +41,7 @@ export const SectionListScreen: React.FC = () => {
         ListHeaderComponent={() => (
           <HeaderTitle
             title="Section List"
-            color="#5656D8"
+            color={colors.primary}
             fontSize={30}
             marginBottom={0}
           />
@@ -50,8 +56,6 @@ export const SectionListScreen: React.FC = () => {
         ItemSeparatorComponent={() => <ItemSeparator />}
         showsVerticalScrollIndicator={false}
       />
-    </View>
+    </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({});
