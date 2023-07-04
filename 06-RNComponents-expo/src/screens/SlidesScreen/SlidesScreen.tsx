@@ -11,6 +11,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import Icon from "@expo/vector-icons/Ionicons";
+import { StackScreenProps } from "@react-navigation/stack";
 
 //* DATA *//
 import { slideData } from "../../data";
@@ -21,10 +22,13 @@ import { useAnimation } from "../../hooks";
 //* INTERFACE *//
 import { ISlide } from "../../interfaces";
 
-export const SlidesScreen: React.FC = () => {
+interface Props extends StackScreenProps<any, any> {}
+
+export const SlidesScreen: React.FC<Props> = ({ navigation }) => {
   const { height: screenHeight, width: screenWidth } = Dimensions.get("window");
   const { opacity, fadeIn, fadeOut } = useAnimation();
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isButtonVisible, setIsButtonVisible] = useState(false);
 
   const renderItem = (item: ISlide) => (
     <View
@@ -46,8 +50,11 @@ export const SlidesScreen: React.FC = () => {
   );
 
   useEffect(() => {
-    if (activeIndex + 1 === slideData.length) fadeIn();
-    else fadeOut();
+    isButtonVisible ? fadeIn() : fadeOut();
+  }, [isButtonVisible]);
+
+  useEffect(() => {
+    setIsButtonVisible(activeIndex + 1 === slideData.length);
   }, [activeIndex]);
 
   return (
@@ -73,9 +80,12 @@ export const SlidesScreen: React.FC = () => {
           }}
         />
 
-        {activeIndex + 1 === slideData.length && (
+        {isButtonVisible && (
           <Animated.View style={{ opacity }}>
-            <TouchableOpacity style={styles.back__button}>
+            <TouchableOpacity
+              style={styles.back__button}
+              onPress={() => navigation.navigate("HomeScreen")}
+            >
               <Text style={styles.button__text}>Entrar</Text>
               <Icon
                 name="chevron-forward-outline"
