@@ -1,7 +1,13 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useEffect } from "react";
+import { useColorScheme } from "react-native";
 
 //* REDUCER *//
-import { IThemeState, lightTheme, themeReducer } from "./themeReducer";
+import {
+  IThemeState,
+  darkTheme,
+  lightTheme,
+  themeReducer,
+} from "./themeReducer";
 
 //* CONTEXT *//
 //* CONTEXT *//
@@ -20,7 +26,11 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
-  const [theme, dispatch] = useReducer(themeReducer, lightTheme);
+  const colorSchema = useColorScheme();
+  const [theme, dispatch] = useReducer(
+    themeReducer,
+    colorSchema === "light" ? lightTheme : darkTheme
+  );
 
   const setDarkTheme = () => {
     dispatch({ type: "dark_theme" });
@@ -29,6 +39,10 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
   const setLightTheme = () => {
     dispatch({ type: "light_theme" });
   };
+
+  useEffect(() => {
+    colorSchema === "light" ? setLightTheme() : setDarkTheme();
+  }, [colorSchema]);
 
   return (
     <ThemeContext.Provider
