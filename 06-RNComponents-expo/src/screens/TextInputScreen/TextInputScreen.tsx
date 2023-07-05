@@ -72,7 +72,12 @@ export const TextInputScreen: React.FC = () => {
           <HeaderTitle title={JSON.stringify(formik.values, null, 4)} />
           <HeaderTitle title={JSON.stringify(formik.values, null, 4)} />
           <TextInput
-            style={styles.input}
+            style={{
+              ...styles.input,
+              borderColor: colors.border,
+              color: colors.text,
+            }}
+            placeholderTextColor={colors.border}
             placeholder="Ingrese su telefono"
             onChangeText={formik.handleChange("phone")}
             value={formik.values.phone}

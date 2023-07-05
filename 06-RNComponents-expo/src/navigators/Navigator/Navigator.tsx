@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { StatusBar } from "expo-status-bar";
 import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
 
@@ -31,10 +32,10 @@ export const Navigator = () => {
 
   return (
     <NavigationContainer theme={theme}>
+      <StatusBar style={theme.currentTheme === "light" ? "dark" : "light"} />
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
-          // cardStyle: { backgroundColor: "white" },
         }}
       >
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
