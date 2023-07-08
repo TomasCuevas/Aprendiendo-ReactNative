@@ -10,7 +10,10 @@ const StackNavigatorInstance = createStackNavigator();
 export const StackNavigator: React.FC = () => {
   return (
     <StackNavigatorInstance.Navigator
-      screenOptions={{ headerShown: false }}
+      screenOptions={{
+        headerShown: false,
+        cardStyle: { backgroundColor: "#FFF" },
+      }}
       initialRouteName="home"
     >
       <StackNavigatorInstance.Screen name="Home" component={HomeScreen} />
