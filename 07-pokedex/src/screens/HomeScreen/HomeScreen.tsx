@@ -1,11 +1,13 @@
 import { Text, StyleSheet, Image } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { usePokemons } from "../../hooks";
 
 //* INTERFACE *//
 interface Props {}
 
 export const HomeScreen: React.FC<Props> = () => {
   const { top } = useSafeAreaInsets();
+  const { data, isLoading } = usePokemons();
 
   return (
     <>
