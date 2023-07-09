@@ -7,6 +7,7 @@ import {
   Text,
   View,
 } from "react-native";
+import { StackScreenProps } from "@react-navigation/stack";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 //* HOOK *//
@@ -15,10 +16,14 @@ import { usePokemons } from "../../hooks";
 //* COMPONENTS *//
 import { PokemonCard } from "../../components";
 
-//* INTERFACES *//
+//* INTERFACES AND TYPES *//
 import { ISimplePokemon } from "../../interfaces";
+import { RootStackParams } from "../../navigator/RootStackNavigator";
 
-export const HomeScreen: React.FC = () => {
+export interface Props
+  extends StackScreenProps<RootStackParams, "HomeScreen"> {}
+
+export const HomeScreen: React.FC<Props> = () => {
   const { top } = useSafeAreaInsets();
   const { data, fetchNextPage } = usePokemons();
   const [pokemons, setPokemons] = useState<ISimplePokemon[]>([]);

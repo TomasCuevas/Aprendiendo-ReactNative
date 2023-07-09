@@ -1,12 +1,17 @@
 import { View, Text, StyleSheet } from "react-native";
+import { StackScreenProps } from "@react-navigation/stack";
 
-//* INTERFACE *//
-interface Props {}
+//* SCREEN INTERFACE AND TYPE *//
+import { RootStackParams } from "../../navigator/RootStackNavigator";
 
-export const PokemonScreen: React.FC<Props> = () => {
+interface Props extends StackScreenProps<RootStackParams, "PokemonScreen"> {}
+
+export const PokemonScreen: React.FC<Props> = ({ navigation, route }) => {
+  const { simplePokemon } = route.params;
+
   return (
     <View>
-      <Text>PokemonScreen</Text>
+      <Text>{simplePokemon.name}</Text>
     </View>
   );
 };

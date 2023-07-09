@@ -6,10 +6,17 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+
+//* COMPONENT *//
+import { FadeInImage } from "../FadeInImage/FadeInImage";
+
+//* NAVIGATION TYPE *//
 
 //* INTERFACES *//
 import { ISimplePokemon } from "../../interfaces";
-import { FadeInImage } from "../";
+import { RootStackParams } from "../../navigator/RootStackNavigator";
 
 interface Props {
   pokemon: ISimplePokemon;
@@ -17,9 +24,13 @@ interface Props {
 
 export const PokemonCard: React.FC<Props> = ({ pokemon }) => {
   const windowsWidth = Dimensions.get("window").width;
+  const { navigate } = useNavigation<StackNavigationProp<RootStackParams>>();
 
   return (
-    <TouchableOpacity activeOpacity={0.6}>
+    <TouchableOpacity
+      onPress={() => navigate("PokemonScreen", { simplePokemon: pokemon })}
+      activeOpacity={0.9}
+    >
       <View style={{ ...styles.card__container, width: windowsWidth * 0.4 }}>
         <View>
           <Text style={styles.pokemon__name}>{pokemon.name}</Text>
@@ -42,11 +53,11 @@ export const PokemonCard: React.FC<Props> = ({ pokemon }) => {
 const styles = StyleSheet.create({
   card__container: {
     marginHorizontal: 10,
-    backgroundColor: "red",
     height: 120,
-    marginBottom: 25,
+    marginBottom: 20,
     borderRadius: 10,
     padding: 10,
+    backgroundColor: "#AAA",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -63,16 +74,16 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
   poke__bola_container: {
-    width: 110,
-    height: 110,
+    width: 120,
+    height: 120,
     position: "absolute",
     bottom: -0,
     right: -0,
     overflow: "hidden",
   },
   poke__bola: {
-    width: 100,
-    height: 100,
+    width: 110,
+    height: 110,
     position: "absolute",
     right: -20,
     bottom: -20,
