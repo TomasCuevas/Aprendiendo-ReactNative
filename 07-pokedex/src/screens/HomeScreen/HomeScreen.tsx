@@ -1,22 +1,25 @@
+import { useEffect, useState } from "react";
 import {
-  Text,
   StyleSheet,
   Image,
   FlatList,
   ActivityIndicator,
+  Text,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+//* HOOK *//
 import { usePokemons } from "../../hooks";
-import { useEffect, useState } from "react";
+
+//* COMPONENTS *//
+import { PokemonCard } from "../../components";
+
+//* INTERFACES *//
 import { ISimplePokemon } from "../../interfaces";
-import { FadeInImage } from "../../components";
 
-//* INTERFACE *//
-interface Props {}
-
-export const HomeScreen: React.FC<Props> = () => {
+export const HomeScreen: React.FC = () => {
   const { top } = useSafeAreaInsets();
-  const { data, isLoading, fetchNextPage } = usePokemons();
+  const { data, fetchNextPage } = usePokemons();
   const [pokemons, setPokemons] = useState<ISimplePokemon[]>([]);
 
   useEffect(() => {
@@ -46,9 +49,20 @@ export const HomeScreen: React.FC<Props> = () => {
         data={pokemons}
         keyExtractor={(pokemon) => pokemon.name}
         showsVerticalScrollIndicator={false}
-        renderItem={({ item }) => (
-          <FadeInImage uri={item.picture} style={{ height: 100, width: 100 }} />
-        )}
+        ListHeaderComponent={
+          <Text
+            style={{
+              ...styles.title,
+              marginHorizontal: 20,
+              marginTop: top + 20,
+              marginBottom: 20,
+            }}
+          >
+            Pokedex
+          </Text>
+        }
+        numColumns={2}
+        renderItem={({ item: pokemon }) => <PokemonCard pokemon={pokemon} />}
         onEndReached={() => fetchNextPage()}
         onEndReachedThreshold={0.4}
         ListFooterComponent={
