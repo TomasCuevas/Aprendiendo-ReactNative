@@ -1,13 +1,38 @@
-import { Text, StyleSheet, Image } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  Image,
+  FlatList,
+  ActivityIndicator,
+} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { usePokemons } from "../../hooks";
+import { useEffect, useState } from "react";
+import { ISimplePokemon } from "../../interfaces";
 
 //* INTERFACE *//
 interface Props {}
 
 export const HomeScreen: React.FC<Props> = () => {
   const { top } = useSafeAreaInsets();
-  const { data, isLoading } = usePokemons();
+  const { data, isLoading, fetchNextPage } = usePokemons();
+  const [pokemons, setPokemons] = useState<ISimplePokemon[]>([]);
+
+  useEffect(() => {
+    if (data) {
+      setPokemons(() => {
+        return data?.pages.flat().map((pokemon) => {
+          const id = pokemon.url.split("/").at(-2)!;
+
+          return {
+            id,
+            name: pokemon.name,
+            picture: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`,
+          };
+        });
+      });
+    }
+  }, [data]);
 
   return (
     <>
@@ -16,7 +41,25 @@ export const HomeScreen: React.FC<Props> = () => {
         source={require("../../assets/pokebola.png")}
       />
 
-      <Text style={{ ...styles.title, top: top + 10 }}>Pokédex</Text>
+      <FlatList
+        data={pokemons}
+        keyExtractor={(pokemon) => pokemon.name}
+        showsVerticalScrollIndicator={false}
+        renderItem={({ item }) => (
+          <>
+            <Text>{item.name}</Text>
+            <Image
+              source={{ uri: item.picture }}
+              style={{ width: 100, height: 100 }}
+            />
+          </>
+        )}
+        onEndReached={() => fetchNextPage()}
+        onEndReachedThreshold={0.4}
+        ListFooterComponent={
+          <ActivityIndicator style={{ height: 100 }} size={40} color="grey" />
+        }
+      />
     </>
   );
 };
