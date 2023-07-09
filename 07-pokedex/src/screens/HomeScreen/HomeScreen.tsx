@@ -5,6 +5,7 @@ import {
   FlatList,
   ActivityIndicator,
   Text,
+  View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -45,30 +46,31 @@ export const HomeScreen: React.FC = () => {
         source={require("../../assets/pokebola.png")}
       />
 
-      <FlatList
-        data={pokemons}
-        keyExtractor={(pokemon) => pokemon.name}
-        showsVerticalScrollIndicator={false}
-        ListHeaderComponent={
-          <Text
-            style={{
-              ...styles.title,
-              marginHorizontal: 20,
-              marginTop: top + 20,
-              marginBottom: 20,
-            }}
-          >
-            Pokedex
-          </Text>
-        }
-        numColumns={2}
-        renderItem={({ item: pokemon }) => <PokemonCard pokemon={pokemon} />}
-        onEndReached={() => fetchNextPage()}
-        onEndReachedThreshold={0.4}
-        ListFooterComponent={
-          <ActivityIndicator style={{ height: 100 }} size={40} color="grey" />
-        }
-      />
+      <View style={{ alignItems: "center" }}>
+        <FlatList
+          data={pokemons}
+          keyExtractor={(pokemon) => pokemon.name}
+          showsVerticalScrollIndicator={false}
+          ListHeaderComponent={
+            <Text
+              style={{
+                ...styles.title,
+                marginTop: top + 20,
+                marginBottom: 20,
+              }}
+            >
+              Pokedex
+            </Text>
+          }
+          numColumns={2}
+          renderItem={({ item: pokemon }) => <PokemonCard pokemon={pokemon} />}
+          onEndReached={() => fetchNextPage()}
+          onEndReachedThreshold={0.4}
+          ListFooterComponent={
+            <ActivityIndicator style={{ height: 100 }} size={40} color="grey" />
+          }
+        />
+      </View>
     </>
   );
 };
