@@ -14,5 +14,4 @@ export interface ISimplePokemon {
   id: string;
   name: string;
   picture: string;
-  color?: string;
 }
