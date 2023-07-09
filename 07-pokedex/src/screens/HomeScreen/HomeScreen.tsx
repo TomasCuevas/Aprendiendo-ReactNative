@@ -9,6 +9,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { usePokemons } from "../../hooks";
 import { useEffect, useState } from "react";
 import { ISimplePokemon } from "../../interfaces";
+import { FadeInImage } from "../../components";
 
 //* INTERFACE *//
 interface Props {}
@@ -46,13 +47,7 @@ export const HomeScreen: React.FC<Props> = () => {
         keyExtractor={(pokemon) => pokemon.name}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
-          <>
-            <Text>{item.name}</Text>
-            <Image
-              source={{ uri: item.picture }}
-              style={{ width: 100, height: 100 }}
-            />
-          </>
+          <FadeInImage uri={item.picture} style={{ height: 100, width: 100 }} />
         )}
         onEndReached={() => fetchNextPage()}
         onEndReachedThreshold={0.4}
