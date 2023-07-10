@@ -14,7 +14,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Icon from "@expo/vector-icons/Ionicons";
 
 //* COMPONENT *//
-import { FadeInImage } from "../../components";
+import { FadeInImage, PokemonDetails } from "../../components";
 
 //* HOOK *//
 import { usePokemon } from "../../hooks";
@@ -56,16 +56,19 @@ export const PokemonScreen: React.FC<Props> = ({ navigation, route }) => {
         <FadeInImage uri={picture} style={styles.pokemon__picture} />
       </View>
 
-      <View style={styles.activity__indicator}>
-        <ActivityIndicator size={50} color="#AAA" />
-      </View>
+      {isLoading ? (
+        <View style={styles.activity__indicator}>
+          <ActivityIndicator size={50} color="#AAA" />
+        </View>
+      ) : (
+        <PokemonDetails fullPokemon={data!} />
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   header__container: {
-    height: 370,
     backgroundColor: "#AAA",
     zIndex: 999,
     borderBottomLeftRadius: 500,
