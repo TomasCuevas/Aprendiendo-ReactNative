@@ -33,7 +33,7 @@ export const PokemonScreen: React.FC<Props> = ({ navigation, route }) => {
   const { data, isLoading } = usePokemon(id);
 
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <View style={styles.header__container}>
         <TouchableOpacity
           onPress={() => goBack()}
@@ -71,9 +71,13 @@ const styles = StyleSheet.create({
   header__container: {
     backgroundColor: "#AAA",
     zIndex: 999,
-    borderBottomLeftRadius: 500,
-    borderBottomRightRadius: 500,
+    borderBottomLeftRadius: 1000,
+    borderBottomRightRadius: 1000,
     alignItems: "center",
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "100%",
   },
   back__button: {
     position: "absolute",
@@ -102,6 +106,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 50,
   },
 });
