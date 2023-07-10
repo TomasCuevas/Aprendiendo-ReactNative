@@ -18,7 +18,7 @@ import { PokemonCard } from "../../components";
 
 //* INTERFACES AND TYPES *//
 import { ISimplePokemon } from "../../interfaces";
-import { RootStackParams } from "../../navigator/RootStackNavigator";
+import { RootStackParams } from "../../navigator/RootStack";
 
 export interface Props
   extends StackScreenProps<RootStackParams, "HomeScreen"> {}

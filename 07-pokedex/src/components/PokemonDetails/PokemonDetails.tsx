@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
   },
   sprite__image: {
     width: 100,
-    height: 50,
+    height: 70,
     marginBottom: 10,
   },
 });

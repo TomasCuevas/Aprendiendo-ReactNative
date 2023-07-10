@@ -16,7 +16,7 @@ import { FadeInImage } from "../FadeInImage/FadeInImage";
 
 //* INTERFACES *//
 import { ISimplePokemon } from "../../interfaces";
-import { RootStackParams } from "../../navigator/RootStackNavigator";
+import { RootStackParams } from "../../navigator/RootStack";
 
 interface Props {
   pokemon: ISimplePokemon;

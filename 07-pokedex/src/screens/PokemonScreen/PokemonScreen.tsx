@@ -20,7 +20,7 @@ import { FadeInImage, PokemonDetails } from "../../components";
 import { usePokemon } from "../../hooks";
 
 //* SCREEN INTERFACE AND TYPE *//
-import { RootStackParams } from "../../navigator/RootStackNavigator";
+import { RootStackParams } from "../../navigator/RootStack";
 
 interface Props extends StackScreenProps<RootStackParams, "PokemonScreen"> {}
 

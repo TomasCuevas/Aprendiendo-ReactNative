@@ -24,7 +24,7 @@ export const FadeInImage: React.FC<Props> = ({ uri, style }) => {
     <View style={{ justifyContent: "center", alignItems: "center" }}>
       {isLoading && (
         <ActivityIndicator
-          color="#5656D8"
+          color="#AAA"
           size={30}
           style={{ position: "absolute" }}
         />
