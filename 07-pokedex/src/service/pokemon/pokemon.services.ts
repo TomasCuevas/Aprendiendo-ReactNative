@@ -10,7 +10,6 @@ export const getPokemonsService = async (offset = 0) => {
     const { data } = await pokemonApi.get<IListPokemons>(
       `/pokemon?offset=${offset}&limit=40`
     );
-
     return data.results;
   } catch (error) {
     throw error;
@@ -21,8 +20,17 @@ export const getPokemonsService = async (offset = 0) => {
 export const getPokemonById = async (id: string) => {
   try {
     const { data } = await pokemonApi.get<IFullPokemon>(`/pokemon/${id}`);
-
     return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+//! GET ALL POKEMONS
+export const getAllPokemons = async () => {
+  try {
+    const { data } = await pokemonApi.get<IListPokemons>("/pokemon?limit=1200");
+    return data.results;
   } catch (error) {
     throw error;
   }

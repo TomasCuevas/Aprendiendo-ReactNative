@@ -28,7 +28,6 @@ export const RootTabs = () => {
           borderWidth: 0,
           elevation: 0,
           height: 55,
-          position: "absolute",
         },
         headerShown: false,
       }}

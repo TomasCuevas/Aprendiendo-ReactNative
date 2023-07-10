@@ -58,7 +58,11 @@ export const PokemonScreen: React.FC<Props> = ({ navigation, route }) => {
 
       {isLoading ? (
         <View style={styles.activity__indicator}>
-          <ActivityIndicator size={50} color="#AAA" />
+          <ActivityIndicator
+            size={50}
+            color="#AAA"
+            style={{ marginTop: 100 }}
+          />
         </View>
       ) : (
         <PokemonDetails fullPokemon={data!} />

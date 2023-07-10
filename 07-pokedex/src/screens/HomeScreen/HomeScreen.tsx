@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import {
   StyleSheet,
   Image,
@@ -17,7 +16,6 @@ import { usePokemons } from "../../hooks";
 import { PokemonCard } from "../../components";
 
 //* INTERFACES AND TYPES *//
-import { ISimplePokemon } from "../../interfaces";
 import { RootStackParams } from "../../navigator/RootStack";
 
 export interface Props
@@ -25,24 +23,7 @@ export interface Props
 
 export const HomeScreen: React.FC<Props> = () => {
   const { top } = useSafeAreaInsets();
-  const { data, fetchNextPage } = usePokemons();
-  const [pokemons, setPokemons] = useState<ISimplePokemon[]>([]);
-
-  useEffect(() => {
-    if (data) {
-      setPokemons(() => {
-        return data?.pages.flat().map((pokemon) => {
-          const id = pokemon.url.split("/").at(-2)!;
-
-          return {
-            id,
-            name: pokemon.name,
-            picture: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`,
-          };
-        });
-      });
-    }
-  }, [data]);
+  const { allPokemon, fetchNextPage } = usePokemons();
 
   return (
     <>
@@ -53,7 +34,7 @@ export const HomeScreen: React.FC<Props> = () => {
 
       <View style={{ alignItems: "center" }}>
         <FlatList
-          data={pokemons}
+          data={allPokemon}
           keyExtractor={(pokemon) => pokemon.name}
           showsVerticalScrollIndicator={false}
           ListHeaderComponent={
