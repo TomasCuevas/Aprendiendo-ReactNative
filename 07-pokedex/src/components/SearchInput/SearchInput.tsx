@@ -1,14 +1,22 @@
-import { View, Text, StyleSheet, TextInput } from "react-native";
+import {
+  View,
+  StyleSheet,
+  TextInput,
+  StyleProp,
+  ViewStyle,
+} from "react-native";
 
 //* ICONS *//
 import Icon from "@expo/vector-icons/Ionicons";
 
 //* INTERFACE *//
-interface Props {}
+interface Props {
+  style?: StyleProp<ViewStyle>;
+}
 
-export const SearchInput: React.FC<Props> = () => {
+export const SearchInput: React.FC<Props> = ({ style }) => {
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, ...(style as any) }}>
       <View style={styles.text__background}>
         <TextInput
           placeholder="Buscar Pokémon"

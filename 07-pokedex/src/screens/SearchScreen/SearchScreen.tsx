@@ -4,11 +4,12 @@ import {
   ActivityIndicator,
   FlatList,
   Text,
+  Dimensions,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-//* COMPONENT *//
-import { PokemonCard, SearchInput } from "../../components";
+//* COMPONENTS *//
+import { Loading, PokemonCard, SearchInput } from "../../components";
 
 //* HOOK *//
 import { usePokemonSearch } from "../../hooks";
@@ -19,18 +20,22 @@ interface Props {}
 export const SearchScreen: React.FC<Props> = () => {
   const { top } = useSafeAreaInsets();
   const { isLoading, allPokemon } = usePokemonSearch();
+  const screeeWidth = Dimensions.get("screen").width;
 
   if (isLoading) {
-    return (
-      <View style={styles.activity__container}>
-        <ActivityIndicator size={50} color="#AAA" />
-      </View>
-    );
+    return <Loading />;
   }
 
   return (
-    <View style={{ ...styles.container, marginTop: top + 10 }}>
-      <SearchInput />
+    <View style={{ ...styles.container }}>
+      <SearchInput
+        style={{
+          position: "absolute",
+          top: top + 10,
+          zIndex: 999,
+          width: screeeWidth - 40,
+        }}
+      />
 
       <FlatList
         data={allPokemon}
@@ -40,8 +45,8 @@ export const SearchScreen: React.FC<Props> = () => {
           <Text
             style={{
               ...styles.title,
-              marginTop: 20,
               marginBottom: 20,
+              marginTop: top + 60,
             }}
           >
             Pokedex
@@ -62,12 +67,6 @@ const styles = StyleSheet.create({
   container: {
     marginHorizontal: 20,
     flex: 1,
-  },
-  activity__container: {
-    flex: 1,
-    backgroundColor: "#FFF",
-    justifyContent: "center",
-    alignItems: "center",
   },
   title: {
     fontSize: 35,
