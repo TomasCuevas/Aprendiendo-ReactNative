@@ -76,6 +76,34 @@ export const PokemonDetails: React.FC<Props> = ({ fullPokemon }) => {
           ))}
         </View>
       </View>
+
+      <View style={styles.container}>
+        <Text style={styles.title}>Stats: </Text>
+        <View style={{ ...styles.types__container, flexDirection: "column" }}>
+          {fullPokemon.stats.map(({ stat, base_stat }) => (
+            <View key={stat.name} style={{ flexDirection: "row" }}>
+              <Text
+                style={{
+                  ...styles.regular__text,
+                  width: 200,
+                }}
+              >
+                {stat.name}
+              </Text>
+              <Text style={{ ...styles.regular__text, fontWeight: "700" }}>
+                {base_stat}
+              </Text>
+            </View>
+          ))}
+        </View>
+      </View>
+
+      <View style={{ marginBottom: 20, alignItems: "center" }}>
+        <FadeInImage
+          uri={fullPokemon.sprites.front_default}
+          style={styles.sprite__image}
+        />
+      </View>
     </ScrollView>
   );
 };
