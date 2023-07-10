@@ -2,7 +2,7 @@
 import { pokemonApi } from "../../axios";
 
 //* INTERFACES *//
-import { IListPokemons } from "../../interfaces";
+import { IFullPokemon, IListPokemons } from "../../interfaces";
 
 //! GET POKEMONS
 export const getPokemonsService = async (offset = 0) => {
@@ -12,6 +12,17 @@ export const getPokemonsService = async (offset = 0) => {
     );
 
     return data.results;
+  } catch (error) {
+    throw error;
+  }
+};
+
+//! GET UNIQUE POKEMON BY ID
+export const getPokemonById = async (id: string) => {
+  try {
+    const { data } = await pokemonApi.get<IFullPokemon>(`/pokemon/${id}`);
+
+    return data;
   } catch (error) {
     throw error;
   }

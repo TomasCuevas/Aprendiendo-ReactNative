@@ -4,11 +4,11 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 import { getPokemonsService } from "../service";
 
 export const usePokemons = () => {
-  const pokemonQuery = useInfiniteQuery(
+  const pokemonsQuery = useInfiniteQuery(
     ["allPokemons"],
     ({ pageParam }) => getPokemonsService(pageParam),
     {
-      getNextPageParam: (lastPage, nextPage) => {
+      getNextPageParam: (_lastPage, nextPage) => {
         return nextPage.flat().length || 0;
       },
       staleTime: 1000 * 60,
@@ -16,6 +16,6 @@ export const usePokemons = () => {
   );
 
   return {
-    ...pokemonQuery,
+    ...pokemonsQuery,
   };
 };

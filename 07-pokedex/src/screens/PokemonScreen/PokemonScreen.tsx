@@ -1,4 +1,11 @@
-import { View, TouchableOpacity, Text, StyleSheet, Image } from "react-native";
+import {
+  View,
+  ActivityIndicator,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  Image,
+} from "react-native";
 import { StackNavigationProp, StackScreenProps } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -6,9 +13,14 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 //* ICONS *//
 import Icon from "@expo/vector-icons/Ionicons";
 
+//* COMPONENT *//
+import { FadeInImage } from "../../components";
+
+//* HOOK *//
+import { usePokemon } from "../../hooks";
+
 //* SCREEN INTERFACE AND TYPE *//
 import { RootStackParams } from "../../navigator/RootStackNavigator";
-import { FadeInImage } from "../../components";
 
 interface Props extends StackScreenProps<RootStackParams, "PokemonScreen"> {}
 
@@ -18,6 +30,7 @@ export const PokemonScreen: React.FC<Props> = ({ navigation, route }) => {
   } = route.params;
   const { top } = useSafeAreaInsets();
   const { goBack } = useNavigation<StackNavigationProp<RootStackParams>>();
+  const { data, isLoading } = usePokemon(id);
 
   return (
     <View>
@@ -30,7 +43,7 @@ export const PokemonScreen: React.FC<Props> = ({ navigation, route }) => {
           <Icon name="arrow-back-outline" color="#FFF" size={30} />
         </TouchableOpacity>
 
-        <Text style={{ ...styles.pokemon__name, marginTop: top + 40 }}>
+        <Text style={{ ...styles.pokemon__name, marginTop: top + 45 }}>
           {name}
         </Text>
         <Text style={{ ...styles.pokemon__name }}>#{id}</Text>
@@ -41,6 +54,10 @@ export const PokemonScreen: React.FC<Props> = ({ navigation, route }) => {
         />
 
         <FadeInImage uri={picture} style={styles.pokemon__picture} />
+      </View>
+
+      <View style={styles.activity__indicator}>
+        <ActivityIndicator size={50} color="#AAA" />
       </View>
     </View>
   );
@@ -77,5 +94,11 @@ const styles = StyleSheet.create({
     height: 200,
     position: "absolute",
     bottom: -20,
+  },
+  activity__indicator: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 50,
   },
 });
