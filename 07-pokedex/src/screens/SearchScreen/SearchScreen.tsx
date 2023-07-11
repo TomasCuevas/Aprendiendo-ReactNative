@@ -1,12 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  View,
-  StyleSheet,
-  ActivityIndicator,
-  FlatList,
-  Text,
-  Dimensions,
-} from "react-native";
+import { View, StyleSheet, FlatList, Text, Dimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 //* COMPONENTS *//
@@ -29,12 +22,15 @@ export const SearchScreen: React.FC = () => {
   useEffect(() => {
     if (term.length === 0) return setSearchedPokemon([]);
 
-    if (term.length > 1) {
+    if (isNaN(Number(term))) {
       setSearchedPokemon(
         allPokemon.filter((pokemon) =>
           pokemon.name.toLowerCase().includes(term.toLowerCase())
         )
       );
+    } else {
+      const pokemonById = allPokemon.find((pokemon) => pokemon.id === term);
+      setSearchedPokemon(pokemonById ? [pokemonById] : []);
     }
   }, [term]);
 
