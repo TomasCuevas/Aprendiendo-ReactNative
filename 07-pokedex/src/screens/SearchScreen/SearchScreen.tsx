@@ -14,10 +14,7 @@ import { Loading, PokemonCard, SearchInput } from "../../components";
 //* HOOK *//
 import { usePokemonSearch } from "../../hooks";
 
-//* INTERFACE *//
-interface Props {}
-
-export const SearchScreen: React.FC<Props> = () => {
+export const SearchScreen: React.FC = () => {
   const { top } = useSafeAreaInsets();
   const { isLoading, allPokemon } = usePokemonSearch();
   const screeeWidth = Dimensions.get("screen").width;

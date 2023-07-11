@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -5,9 +6,13 @@ import {
   StyleProp,
   ViewStyle,
 } from "react-native";
+import { useFormik } from "formik";
 
 //* ICONS *//
 import Icon from "@expo/vector-icons/Ionicons";
+
+//* HOOK *//
+import { useDebounceValue } from "../../hooks";
 
 //* INTERFACE *//
 interface Props {
@@ -15,6 +20,16 @@ interface Props {
 }
 
 export const SearchInput: React.FC<Props> = ({ style }) => {
+  const formik = useFormik({
+    initialValues: { search: "" },
+    onSubmit: () => {},
+  });
+  const { debounceValue } = useDebounceValue(formik.values.search);
+
+  useEffect(() => {
+    console.log({ debounceValue });
+  }, [debounceValue]);
+
   return (
     <View style={{ ...styles.container, ...(style as any) }}>
       <View style={styles.text__background}>
@@ -24,6 +39,8 @@ export const SearchInput: React.FC<Props> = ({ style }) => {
           autoCapitalize="none"
           autoCorrect={false}
           autoFocus
+          value={formik.values.search}
+          onChangeText={formik.handleChange("search")}
         />
 
         <Icon name="search-outline" color="grey" size={25} />
