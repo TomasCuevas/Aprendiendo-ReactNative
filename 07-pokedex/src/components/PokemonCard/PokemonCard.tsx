@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
     color: "#FFF",
     fontSize: 20,
     fontWeight: "700",
+    textTransform: "capitalize",
   },
   poke__bola_container: {
     width: 120,

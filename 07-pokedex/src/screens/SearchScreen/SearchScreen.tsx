@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -14,10 +15,28 @@ import { Loading, PokemonCard, SearchInput } from "../../components";
 //* HOOK *//
 import { usePokemonSearch } from "../../hooks";
 
+//* INTERFACES *//
+import { ISimplePokemon } from "../../interfaces";
+
 export const SearchScreen: React.FC = () => {
   const { top } = useSafeAreaInsets();
   const { isLoading, allPokemon } = usePokemonSearch();
+  const [searchedPokemon, setSearchedPokemon] = useState<ISimplePokemon[]>([]);
   const screeeWidth = Dimensions.get("screen").width;
+
+  const [term, setTerm] = useState("");
+
+  useEffect(() => {
+    if (term.length === 0) return setSearchedPokemon([]);
+
+    if (term.length > 1) {
+      setSearchedPokemon(
+        allPokemon.filter((pokemon) =>
+          pokemon.name.toLowerCase().includes(term.toLowerCase())
+        )
+      );
+    }
+  }, [term]);
 
   if (isLoading) {
     return <Loading />;
@@ -26,6 +45,7 @@ export const SearchScreen: React.FC = () => {
   return (
     <View style={{ ...styles.container }}>
       <SearchInput
+        onDebounce={(value: string) => setTerm(value)}
         style={{
           position: "absolute",
           top: top + 10,
@@ -35,7 +55,7 @@ export const SearchScreen: React.FC = () => {
       />
 
       <FlatList
-        data={allPokemon}
+        data={searchedPokemon}
         keyExtractor={(pokemon) => pokemon.name}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={
@@ -46,15 +66,11 @@ export const SearchScreen: React.FC = () => {
               marginTop: top + 60,
             }}
           >
-            Pokedex
+            {term}
           </Text>
         }
         numColumns={2}
         renderItem={({ item: pokemon }) => <PokemonCard pokemon={pokemon} />}
-        onEndReachedThreshold={0.4}
-        ListFooterComponent={
-          <ActivityIndicator style={{ height: 100 }} size={40} color="grey" />
-        }
       />
     </View>
   );
