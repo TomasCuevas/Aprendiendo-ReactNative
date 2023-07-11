@@ -62,9 +62,6 @@ export const HomeScreen: React.FC<Props> = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    marginTop: 30,
-  },
   pokebola__bg: {
     position: "absolute",
     top: -100,

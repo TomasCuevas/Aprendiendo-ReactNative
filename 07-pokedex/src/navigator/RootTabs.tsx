@@ -3,14 +3,14 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 //* ICONS *//
 import Icon from "@expo/vector-icons/Ionicons";
 
-//* SCREENS AND NAVIGATORS *//
+//* STACKS *//
 import { RootStack } from "./RootStack";
-import { SearchScreen } from "../screens";
+import { SearchStack } from "./SearchStack";
 
 //* TABS TYPES *//
 export type RootTabs = {
   RootStack: undefined;
-  SearchScreen: undefined;
+  SearchStack: undefined;
 };
 
 //* TAB INSTANCE
@@ -49,7 +49,7 @@ export const RootTabs = () => {
         component={RootStack}
       />
       <TabInstance.Screen
-        name="SearchScreen"
+        name="SearchStack"
         options={{
           tabBarLabel: "Búsqueda",
           tabBarIcon: ({ color }) => (
@@ -61,7 +61,7 @@ export const RootTabs = () => {
             />
           ),
         }}
-        component={SearchScreen}
+        component={SearchStack}
       />
     </TabInstance.Navigator>
   );
