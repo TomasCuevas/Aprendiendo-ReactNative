@@ -8,8 +8,7 @@ import { BlackButton } from "../../components";
 import { PermissionsContext } from "../../contexts";
 
 export const PermissionsScreen: React.FC = () => {
-  const { locationStatus, requestLocationPermission } =
-    useContext(PermissionsContext);
+  const { requestLocationPermission } = useContext(PermissionsContext);
 
   return (
     <View style={styles.container}>
