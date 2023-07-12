@@ -7,7 +7,7 @@ import {
 //* CONTEXT *//
 //* CONTEXT *//
 interface PermissionsContextProps {
-  status: LocationPermissionResponse | null;
+  locationStatus: LocationPermissionResponse | null;
   requestLocationPermission(): Promise<void>;
 }
 
@@ -31,7 +31,7 @@ export const PermissionsProvider: React.FC<PermissionsProviderProps> = ({
   return (
     <PermissionsContext.Provider
       value={{
-        status,
+        locationStatus: status,
         requestLocationPermission,
       }}
     >
