@@ -4,10 +4,7 @@ import { View, Text, StyleSheet, Button } from "react-native";
 //* CONTEXT *//
 import { PermissionsContext } from "../../contexts";
 
-//* INTERFACE *//
-interface Props {}
-
-export const PermissionsScreen: React.FC<Props> = () => {
+export const PermissionsScreen: React.FC = () => {
   const { locationStatus, requestLocationPermission } =
     useContext(PermissionsContext);
 
@@ -17,9 +14,6 @@ export const PermissionsScreen: React.FC<Props> = () => {
       <Button title="Permiso" onPress={requestLocationPermission} />
 
       <Text>{JSON.stringify({ status: locationStatus?.status }, null, 4)}</Text>
-      <Text>
-        {JSON.stringify({ canAskAgain: locationStatus?.canAskAgain }, null, 4)}
-      </Text>
     </View>
   );
 };

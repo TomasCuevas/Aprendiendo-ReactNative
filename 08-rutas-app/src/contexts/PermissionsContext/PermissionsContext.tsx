@@ -1,13 +1,11 @@
-import { createContext } from "react";
-import {
-  useForegroundPermissions,
-  LocationPermissionResponse,
-} from "expo-location";
+import { createContext, useEffect, useState } from "react";
+import { AppState } from "react-native";
+import * as Location from "expo-location";
 
 //* CONTEXT *//
 //* CONTEXT *//
 interface PermissionsContextProps {
-  locationStatus: LocationPermissionResponse | null;
+  locationStatus: Location.LocationPermissionResponse | undefined;
   requestLocationPermission(): Promise<void>;
 }
 
@@ -22,16 +20,35 @@ interface PermissionsProviderProps {
 export const PermissionsProvider: React.FC<PermissionsProviderProps> = ({
   children,
 }) => {
-  const [status, requestPermission] = useForegroundPermissions();
+  const [locationStatus, setLocationStatus] =
+    useState<Location.LocationPermissionResponse>();
 
+  useEffect(() => {
+    AppState.addEventListener("change", async (state) => {
+      if (state === "active") checkLocationPermission();
+    });
+  }, []);
+
+  useEffect(() => {
+    checkLocationPermission();
+  }, []);
+
+  //! CHECK LOCATION PERMISSION
+  const checkLocationPermission = async () => {
+    const request = await Location.getForegroundPermissionsAsync();
+    setLocationStatus(request);
+  };
+
+  //! REQUEST LOCATION PERMISSION
   const requestLocationPermission = async () => {
-    await requestPermission();
+    const request = await Location.requestForegroundPermissionsAsync();
+    setLocationStatus(request);
   };
 
   return (
     <PermissionsContext.Provider
       value={{
-        locationStatus: status,
+        locationStatus,
         requestLocationPermission,
       }}
     >
