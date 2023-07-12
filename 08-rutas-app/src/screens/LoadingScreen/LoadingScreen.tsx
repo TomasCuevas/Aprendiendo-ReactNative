@@ -1,14 +1,17 @@
-import { View, Text, StyleSheet } from "react-native";
+import { View, ActivityIndicator, StyleSheet } from "react-native";
 
-//* INTERFACE *//
-interface Props {}
-
-export const LoadingScreen: React.FC<Props> = () => {
+export const LoadingScreen: React.FC = () => {
   return (
-    <View>
-      <Text>LoadingScreen</Text>
+    <View style={styles.container}>
+      <ActivityIndicator size={75} color="#000" />
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});

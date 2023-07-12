@@ -1,7 +1,11 @@
+import { useContext } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 
 //* SCREENS *//
-import { MapScreen, PermissionsScreen } from "../screens";
+import { LoadingScreen, MapScreen, PermissionsScreen } from "../screens";
+
+//* CONTEXT *//
+import { PermissionsContext } from "../contexts";
 
 //* STACK TYPES *//
 export type RootStackParams = {
@@ -13,6 +17,12 @@ export type RootStackParams = {
 const Stack = createStackNavigator<RootStackParams>();
 
 export const RootStack = () => {
+  const { locationStatus } = useContext(PermissionsContext);
+
+  if (!locationStatus) {
+    return <LoadingScreen />;
+  }
+
   return (
     <Stack.Navigator
       screenOptions={{
@@ -20,8 +30,11 @@ export const RootStack = () => {
         cardStyle: { backgroundColor: "#FFF" },
       }}
     >
-      <Stack.Screen name="PermissionsScreen" component={PermissionsScreen} />
-      <Stack.Screen name="MapScreen" component={MapScreen} />
+      {locationStatus.granted ? (
+        <Stack.Screen name="MapScreen" component={MapScreen} />
+      ) : (
+        <Stack.Screen name="PermissionsScreen" component={PermissionsScreen} />
+      )}
     </Stack.Navigator>
   );
 };
