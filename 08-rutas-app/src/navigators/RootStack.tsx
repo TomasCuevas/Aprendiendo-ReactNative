@@ -20,8 +20,8 @@ export const RootStack = () => {
         cardStyle: { backgroundColor: "#FFF" },
       }}
     >
-      <Stack.Screen name="MapScreen" component={MapScreen} />
       <Stack.Screen name="PermissionsScreen" component={PermissionsScreen} />
+      <Stack.Screen name="MapScreen" component={MapScreen} />
     </Stack.Navigator>
   );
 };
