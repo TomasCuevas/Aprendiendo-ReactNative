@@ -1,14 +1,14 @@
-import { View } from "react-native";
-import Icon from "@expo/vector-icons/Ionicons";
+import { NavigationContainer } from "@react-navigation/native";
+import "react-native-gesture-handler";
 
-//* INTERFACE *//
-interface Props {}
+//* NAVIGATOR *//
+import { RootStack } from "./src/navigators/RootStack";
 
-const App: React.FC<Props> = () => {
+const App: React.FC = () => {
   return (
-    <View>
-      <Icon name="airplane-outline" size={30} />
-    </View>
+    <NavigationContainer>
+      <RootStack />
+    </NavigationContainer>
   );
 };
 
