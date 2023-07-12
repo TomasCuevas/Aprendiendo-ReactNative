@@ -1,6 +1,5 @@
 import { View, Text, StyleSheet, Button } from "react-native";
 import * as Location from "expo-location";
-import { useEffect } from "react";
 
 //* INTERFACE *//
 interface Props {}
