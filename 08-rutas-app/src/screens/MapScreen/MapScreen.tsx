@@ -1,5 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
-import MapView from "react-native-maps";
+
+//* COMPONENTS *//
+import { Map } from "../../components";
 
 //* INTERFACE *//
 interface Props {}
@@ -7,7 +9,7 @@ interface Props {}
 export const MapScreen: React.FC<Props> = () => {
   return (
     <View style={styles.container}>
-      <MapView style={styles.map} />
+      <Map />
     </View>
   );
 };
@@ -15,9 +17,5 @@ export const MapScreen: React.FC<Props> = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  },
-  map: {
-    width: "100%",
-    height: "100%",
   },
 });
