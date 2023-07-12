@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { AppState } from "react-native";
+import { AppState, Linking } from "react-native";
 import * as Location from "expo-location";
 
 //* CONTEXT *//
@@ -41,6 +41,10 @@ export const PermissionsProvider: React.FC<PermissionsProviderProps> = ({
 
   //! REQUEST LOCATION PERMISSION
   const requestLocationPermission = async () => {
+    if (locationStatus?.canAskAgain === false) {
+      Linking.openSettings();
+    }
+
     const request = await Location.requestForegroundPermissionsAsync();
     setLocationStatus(request);
   };
