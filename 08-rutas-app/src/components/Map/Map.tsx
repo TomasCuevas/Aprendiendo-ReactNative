@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { StyleSheet } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Polyline } from "react-native-maps";
 
@@ -20,6 +20,8 @@ export const Map: React.FC = () => {
     routeLines,
     hasLocation,
   } = useLocation();
+
+  const [showPolyline, setShowPolyline] = useState(true);
 
   const mapViewRef = useRef<MapView>();
   const following = useRef<boolean>(true);
@@ -65,13 +67,25 @@ export const Map: React.FC = () => {
         }}
         onTouchStart={() => (following.current = false)}
       >
-        <Polyline coordinates={routeLines} strokeColor="#f00" strokeWidth={3} />
+        {showPolyline && (
+          <Polyline
+            coordinates={routeLines}
+            strokeColor="#f00"
+            strokeWidth={3}
+          />
+        )}
       </MapView>
 
       <Fab
         iconName="compass-outline"
         onPress={() => centerPosition()}
         style={{ position: "absolute", bottom: 20, right: 20 }}
+      />
+
+      <Fab
+        iconName="brush-outline"
+        onPress={() => setShowPolyline((prev) => !prev)}
+        style={{ position: "absolute", bottom: 80, right: 20 }}
       />
     </>
   );
