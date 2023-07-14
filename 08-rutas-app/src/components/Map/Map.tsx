@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { StyleSheet } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 
@@ -15,8 +15,12 @@ import { LoadingScreen } from "../../screens/LoadingScreen/LoadingScreen";
 interface Props {}
 
 export const Map: React.FC<Props> = () => {
-  const { currentPosition, hasLocation } = useLocation();
+  const { initialPosition, currentPosition, hasLocation } = useLocation();
   const mapViewRef = useRef<MapView>();
+
+  useEffect(() => {
+    centerPosition();
+  }, [currentPosition]);
 
   //! CENTER POSITION ON MAP
   const centerPosition = () => {
@@ -25,13 +29,11 @@ export const Map: React.FC<Props> = () => {
         latitude: currentPosition.latitude,
         longitude: currentPosition.longitude,
       },
-      zoom: 13,
+      zoom: 16,
     });
   };
 
-  if (!hasLocation) {
-    return <LoadingScreen />;
-  }
+  if (!hasLocation) return <LoadingScreen />;
 
   return (
     <>
@@ -42,8 +44,8 @@ export const Map: React.FC<Props> = () => {
         showsUserLocation
         showsMyLocationButton={false}
         initialRegion={{
-          latitude: currentPosition.latitude,
-          longitude: currentPosition.longitude,
+          latitude: initialPosition.latitude,
+          longitude: initialPosition.longitude,
           latitudeDelta: 0.1022,
           longitudeDelta: 0.1022,
         }}
