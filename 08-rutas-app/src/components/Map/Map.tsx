@@ -11,25 +11,38 @@ import { useLocation } from "../../hooks";
 //* SCREEN *//
 import { LoadingScreen } from "../../screens/LoadingScreen/LoadingScreen";
 
-//* INTERFACE *//
-interface Props {}
+export const Map: React.FC = () => {
+  const {
+    initialPosition,
+    currentPosition,
+    getCurrentPosition,
+    stopCurrentPosition,
+    hasLocation,
+  } = useLocation();
 
-export const Map: React.FC<Props> = () => {
-  const { initialPosition, currentPosition, hasLocation } = useLocation();
   const mapViewRef = useRef<MapView>();
+  const following = useRef<boolean>(true);
 
   useEffect(() => {
+    getCurrentPosition();
+    return () => stopCurrentPosition();
+  }, []);
+
+  useEffect(() => {
+    if (!following.current) return;
     centerPosition();
   }, [currentPosition]);
 
   //! CENTER POSITION ON MAP
   const centerPosition = () => {
+    following.current = true;
+
     mapViewRef.current?.animateCamera({
       center: {
         latitude: currentPosition.latitude,
         longitude: currentPosition.longitude,
       },
-      zoom: 16,
+      zoom: 15,
     });
   };
 
@@ -49,6 +62,7 @@ export const Map: React.FC<Props> = () => {
           latitudeDelta: 0.1022,
           longitudeDelta: 0.1022,
         }}
+        onTouchStart={() => (following.current = false)}
       ></MapView>
 
       <Fab

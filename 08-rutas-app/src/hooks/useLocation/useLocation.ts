@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as Location from "expo-location";
 
 //* INTERFACES *//
@@ -14,6 +14,12 @@ export const useLocation = () => {
     latitude: 0,
     longitude: 0,
   });
+
+  const watchId = useRef<Location.LocationSubscription>();
+
+  useEffect(() => {
+    getInitialPosition();
+  }, []);
 
   //! GET INITIAL USER POSITION
   const getInitialPosition = async () => {
@@ -31,8 +37,8 @@ export const useLocation = () => {
   //! GET CURRENT USER POSITION
   const getCurrentPosition = async () => {
     try {
-      Location.watchPositionAsync(
-        { accuracy: Location.Accuracy.Balanced, distanceInterval: 2 },
+      const position = await Location.watchPositionAsync(
+        { accuracy: Location.Accuracy.High, distanceInterval: 2 },
         (location) => {
           setCurrentPosition({
             latitude: location.coords.latitude,
@@ -40,23 +46,26 @@ export const useLocation = () => {
           });
         }
       );
+
+      watchId.current = position;
     } catch (error) {
       console.error(error);
     }
   };
 
-  useEffect(() => {
-    getCurrentPosition();
-  }, []);
-
-  useEffect(() => {
-    getInitialPosition();
-  }, []);
+  //! STOP WATCH CURRENT POSITION
+  const stopCurrentPosition = () => {
+    if (watchId.current) watchId.current.remove();
+  };
 
   return {
     // PROPERTIES
     initialPosition,
     currentPosition,
     hasLocation,
+
+    // METHODS
+    getCurrentPosition,
+    stopCurrentPosition,
   };
 };
