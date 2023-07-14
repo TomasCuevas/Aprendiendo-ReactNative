@@ -35,7 +35,8 @@ export const useLocation = () => {
   }, []);
 
   return {
-    hasLocation,
+    // PROPERTIES
     currentPosition,
+    hasLocation,
   };
 };

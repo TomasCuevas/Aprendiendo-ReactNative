@@ -21,11 +21,16 @@ export const Fab: React.FC<Props> = ({ iconName, onPress, style = {} }) => {
   return (
     <View style={{ ...(style as any) }}>
       <TouchableOpacity
-        activeOpacity={0.7}
+        activeOpacity={0.8}
         onPress={onPress}
         style={styles.black__button}
       >
-        <Icon name={iconName as any} color="#FFF" size={35} />
+        <Icon
+          name={iconName as any}
+          color="#FFF"
+          size={35}
+          style={{ left: 1 }}
+        />
       </TouchableOpacity>
     </View>
   );

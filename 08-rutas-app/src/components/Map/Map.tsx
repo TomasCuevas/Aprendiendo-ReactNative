@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { StyleSheet } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 
@@ -15,6 +16,18 @@ interface Props {}
 
 export const Map: React.FC<Props> = () => {
   const { currentPosition, hasLocation } = useLocation();
+  const mapViewRef = useRef<MapView>();
+
+  //! CENTER POSITION ON MAP
+  const centerPosition = () => {
+    mapViewRef.current?.animateCamera({
+      center: {
+        latitude: currentPosition.latitude,
+        longitude: currentPosition.longitude,
+      },
+      zoom: 13,
+    });
+  };
 
   if (!hasLocation) {
     return <LoadingScreen />;
@@ -23,6 +36,7 @@ export const Map: React.FC<Props> = () => {
   return (
     <>
       <MapView
+        ref={(el) => (mapViewRef.current = el!)}
         provider={PROVIDER_GOOGLE}
         style={styles.map}
         showsUserLocation
@@ -36,8 +50,8 @@ export const Map: React.FC<Props> = () => {
       ></MapView>
 
       <Fab
-        iconName="star-outline"
-        onPress={() => console.log("Hola FAB")}
+        iconName="compass-outline"
+        onPress={() => centerPosition()}
         style={{ position: "absolute", bottom: 20, right: 20 }}
       />
     </>
