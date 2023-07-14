@@ -15,6 +15,8 @@ export const useLocation = () => {
     longitude: 0,
   });
 
+  const [routeLines, setRouteLines] = useState<ILocation[]>([]);
+
   const watchId = useRef<Location.LocationSubscription>();
 
   useEffect(() => {
@@ -23,13 +25,17 @@ export const useLocation = () => {
 
   //! GET INITIAL USER POSITION
   const getInitialPosition = async () => {
-    const position = await Location.getCurrentPositionAsync({
+    const { coords } = await Location.getCurrentPositionAsync({
       accuracy: Location.Accuracy.Highest,
     });
-    setInitialPosition({
-      latitude: position.coords.latitude,
-      longitude: position.coords.longitude,
-    });
+
+    const position = {
+      latitude: coords.latitude,
+      longitude: coords.longitude,
+    };
+
+    setInitialPosition(position);
+    setRouteLines((routes) => [...routes, position]);
 
     if (!hasLocation) setHasLocation(true);
   };
@@ -39,11 +45,14 @@ export const useLocation = () => {
     try {
       const position = await Location.watchPositionAsync(
         { accuracy: Location.Accuracy.High, distanceInterval: 2 },
-        (location) => {
-          setCurrentPosition({
-            latitude: location.coords.latitude,
-            longitude: location.coords.longitude,
-          });
+        ({ coords }) => {
+          const position = {
+            latitude: coords.latitude,
+            longitude: coords.longitude,
+          };
+
+          setCurrentPosition(position);
+          setRouteLines((routes) => [...routes, position]);
         }
       );
 
@@ -62,6 +71,7 @@ export const useLocation = () => {
     // PROPERTIES
     initialPosition,
     currentPosition,
+    routeLines,
     hasLocation,
 
     // METHODS

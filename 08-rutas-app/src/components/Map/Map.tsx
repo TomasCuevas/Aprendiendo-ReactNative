@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { StyleSheet } from "react-native";
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE, Polyline } from "react-native-maps";
 
 //* COMPONENT *//
 import { Fab } from "../Fab/Fab";
@@ -17,6 +17,7 @@ export const Map: React.FC = () => {
     currentPosition,
     getCurrentPosition,
     stopCurrentPosition,
+    routeLines,
     hasLocation,
   } = useLocation();
 
@@ -63,7 +64,9 @@ export const Map: React.FC = () => {
           longitudeDelta: 0.1022,
         }}
         onTouchStart={() => (following.current = false)}
-      ></MapView>
+      >
+        <Polyline coordinates={routeLines} strokeColor="#f00" strokeWidth={3} />
+      </MapView>
 
       <Fab
         iconName="compass-outline"
