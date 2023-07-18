@@ -44,7 +44,7 @@ export const useLocation = () => {
   const getCurrentPosition = async () => {
     try {
       const position = await Location.watchPositionAsync(
-        { accuracy: Location.Accuracy.High, distanceInterval: 2 },
+        { accuracy: Location.Accuracy.Highest, distanceInterval: 2 },
         ({ coords }) => {
           const position = {
             latitude: coords.latitude,

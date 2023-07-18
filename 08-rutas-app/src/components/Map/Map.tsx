@@ -80,6 +80,7 @@ export const Map: React.FC = () => {
         iconName="compass-outline"
         onPress={() => centerPosition()}
         style={{ position: "absolute", bottom: 20, right: 20 }}
+        iconStyle={{ marginLeft: 1 }}
       />
 
       <Fab

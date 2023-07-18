@@ -14,10 +14,16 @@ import Icon from "@expo/vector-icons/Ionicons";
 interface Props {
   iconName: string;
   style?: StyleProp<ViewStyle>;
+  iconStyle?: StyleProp<ViewStyle>;
   onPress(): void;
 }
 
-export const Fab: React.FC<Props> = ({ iconName, onPress, style = {} }) => {
+export const Fab: React.FC<Props> = ({
+  iconName,
+  onPress,
+  style = {},
+  iconStyle = {},
+}) => {
   return (
     <View style={{ ...(style as any) }}>
       <TouchableOpacity
@@ -25,7 +31,12 @@ export const Fab: React.FC<Props> = ({ iconName, onPress, style = {} }) => {
         onPress={onPress}
         style={styles.black__button}
       >
-        <Icon name={iconName as any} color="#FFF" size={30} />
+        <Icon
+          name={iconName as any}
+          color="#FFF"
+          size={30}
+          style={{ ...(iconStyle as any) }}
+        />
       </TouchableOpacity>
     </View>
   );
