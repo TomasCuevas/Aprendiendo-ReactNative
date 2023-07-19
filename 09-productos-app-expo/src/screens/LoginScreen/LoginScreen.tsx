@@ -1,71 +1,76 @@
 import {
   View,
   Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+  Keyboard,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { StackScreenProps } from "@react-navigation/stack";
+import { useFormik } from "formik";
 
-//* COMPONENT *//
-import { Background, WhiteLogo } from "../../components";
+//* COMPONENTS *//
+import { Background, FormButton, FormInput, WhiteLogo } from "../../components";
 
 //* THEME STYLES *//
 import { authStyles } from "../../theme";
 
-//* INTERFACE *//
-interface Props {}
+//* INTERFACES *//
+import { RootStackParams } from "../../navigators/RootStack/RootStack";
 
-export const LoginScreen: React.FC<Props> = () => {
+interface Props extends StackScreenProps<RootStackParams, "LoginScreen"> {}
+
+export const LoginScreen: React.FC<Props> = ({ navigation }) => {
+  const formik = useFormik({
+    initialValues: { email: "", password: "" },
+    onSubmit: (formValues) => {
+      Keyboard.dismiss();
+      console.log(formValues);
+    },
+  });
+
   return (
     <>
       <Background />
 
-      <SafeAreaView style={authStyles.container}>
-        <WhiteLogo />
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+        <SafeAreaView style={authStyles.container}>
+          <WhiteLogo />
 
-        <Text style={authStyles.title}>Iniciar Sesión</Text>
+          <Text style={authStyles.title}>Iniciar Sesión</Text>
 
-        <Text style={authStyles.label}>Email</Text>
-        <TextInput
-          placeholder="Ingrese su email:"
-          placeholderTextColor="#FFF5"
-          keyboardType="email-address"
-          style={authStyles.inputField}
-          selectionColor="#FFF4"
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
+          <FormInput
+            keyboardType="email-address"
+            label="Email"
+            placelholder="Ingrese su email"
+            value={formik.values.email}
+            onChangeText={formik.handleChange("email")}
+          />
 
-        <Text style={authStyles.label}>Contraseña</Text>
-        <TextInput
-          placeholder="**************"
-          placeholderTextColor="#FFF5"
-          style={authStyles.inputField}
-          selectionColor="#FFF4"
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
+          <FormInput
+            label="Contraseña"
+            placelholder="**********"
+            value={formik.values.password}
+            isPassword
+            onChangeText={formik.handleChange("password")}
+          />
 
-        <View style={authStyles.buttons__container}>
-          <View>
-            <TouchableOpacity activeOpacity={0.7} style={authStyles.button}>
-              <Text style={authStyles.button__text}>Login</Text>
-            </TouchableOpacity>
+          <View style={authStyles.buttons__container}>
+            <FormButton.Primary
+              text="Ingresar"
+              onPress={() => formik.handleSubmit()}
+            />
+
+            <FormButton.Secondary
+              text="Crear cuenta"
+              onPress={() => navigation.replace("RegisterScreen")}
+            />
           </View>
-
-          <View>
-            <TouchableOpacity
-              activeOpacity={0.7}
-              style={authStyles.button__secondary}
-            >
-              <Text style={authStyles.button__text_secondary}>
-                Crear cuenta
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </SafeAreaView>
+        </SafeAreaView>
+      </KeyboardAvoidingView>
     </>
   );
 };
