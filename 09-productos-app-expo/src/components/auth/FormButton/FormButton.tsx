@@ -1,6 +1,6 @@
 import { Text, TouchableOpacity } from "react-native";
 
-//* THEME *//
+//* THEME STYLES *//
 import { authStyles } from "../../../theme";
 
 //* INTERFACES *//

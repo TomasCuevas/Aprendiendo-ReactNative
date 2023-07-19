@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
 import { Text, TextInput, KeyboardTypeOptions } from "react-native";
 
-//* THEME *//
+//* THEME STYLES *//
 import { authStyles } from "../../../theme";
 
 //* INTERFACE *//
