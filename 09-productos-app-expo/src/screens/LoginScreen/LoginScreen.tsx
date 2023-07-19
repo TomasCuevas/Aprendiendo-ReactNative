@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  KeyboardAvoidingView,
-  Platform,
-  Keyboard,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { Keyboard, ScrollView, Text, View } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { useFormik } from "formik";
 
@@ -33,11 +26,8 @@ export const LoginScreen: React.FC<Props> = ({ navigation }) => {
     <>
       <Background />
 
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-      >
-        <SafeAreaView style={authStyles.container}>
+      <ScrollView style={{ flex: 1 }}>
+        <View style={authStyles.container}>
           <WhiteLogo />
 
           <Text style={authStyles.title}>Iniciar Sesión</Text>
@@ -65,12 +55,12 @@ export const LoginScreen: React.FC<Props> = ({ navigation }) => {
             />
 
             <FormButton.Secondary
-              text="Crear cuenta"
+              text="¿No tienes una cuenta?"
               onPress={() => navigation.replace("RegisterScreen")}
             />
           </View>
-        </SafeAreaView>
-      </KeyboardAvoidingView>
+        </View>
+      </ScrollView>
     </>
   );
 };

@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 
 export const authStyles = StyleSheet.create({
   container: {
+    marginTop: 30,
     marginHorizontal: 15,
   },
   title: {
