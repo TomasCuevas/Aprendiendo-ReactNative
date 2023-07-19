@@ -17,6 +17,7 @@ export const WhiteLogo: React.FC<Props> = () => {
 const styles = StyleSheet.create({
   logo__container: {
     alignItems: "center",
+    marginTop: 20,
   },
   image: {
     width: 110,
