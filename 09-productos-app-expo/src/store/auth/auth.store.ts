@@ -66,6 +66,7 @@ export const useAuthStore = create<useAuthState>((set, get) => ({
   //! LOGIN
   async login(loginData) {
     const { setLogin, setError } = get();
+    set(() => ({ status: "checking" }));
 
     try {
       const { data } = await cafeApi.post<ILoginResponse>(
