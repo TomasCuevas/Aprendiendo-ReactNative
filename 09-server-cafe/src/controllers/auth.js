@@ -99,7 +99,7 @@ const googleSignin = async (req, res = response) => {
 //! VALIDATE USER TOKEN
 const validateUserToken = async (req, res = response) => {
   // Generar el JWT
-  const token = await JWTGenerate(req.usuario._id);
+  const token = await JWTGenerate(req.user._id);
 
   res.json({
     user: req.user,
