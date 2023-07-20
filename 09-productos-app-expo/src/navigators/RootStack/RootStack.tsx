@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useStore } from "zustand";
 
@@ -6,6 +7,7 @@ import { LoginScreen, ProtectedScreen, RegisterScreen } from "../../screens";
 
 //* STORE *//
 import { useAuthStore } from "../../store";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //* STACK TYPES *//
 export type RootStackParams = {
@@ -18,7 +20,16 @@ export type RootStackParams = {
 const Stack = createStackNavigator<RootStackParams>();
 
 export const RootStack = () => {
-  const { status } = useStore(useAuthStore);
+  const { status, logout } = useStore(useAuthStore);
+
+  const checkToken = async () => {
+    const token = await AsyncStorage.getItem("token");
+    if (!token) return logout();
+  };
+
+  useEffect(() => {
+    checkToken();
+  }, []);
 
   return (
     <Stack.Navigator

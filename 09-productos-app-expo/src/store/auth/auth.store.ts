@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
 
 //* AXIOS INSTANCE *//
@@ -18,9 +19,10 @@ interface useAuthState {
   status: authStatus;
   token?: string;
   user?: IUser;
-  setLogin(loginData: ILoginResponse | IRegisterResponse): void;
+  setLogin(loginData: ILoginResponse | IRegisterResponse): Promise<void>;
   setError(error?: string): void;
-  login(loginData: ILogin): void;
+  checkAuthentication(token: string): Promise<void>;
+  login(loginData: ILogin): Promise<void>;
   register(): void;
   logout(): void;
 }
@@ -32,7 +34,9 @@ export const useAuthStore = create<useAuthState>((set, get) => ({
   user: undefined,
 
   //! SET LOGIN
-  setLogin(loginData) {
+  async setLogin(loginData) {
+    await AsyncStorage.setItem("token", loginData.token);
+
     set((state) => ({
       ...state,
       error: "",
@@ -46,6 +50,9 @@ export const useAuthStore = create<useAuthState>((set, get) => ({
   setError(error = "Información incorrecta.") {
     set((state) => ({ ...state, error }));
   },
+
+  //! CHECK AUTHENTICATION
+  async checkAuthentication(token) {},
 
   //! LOGIN
   async login(loginData) {
@@ -67,5 +74,13 @@ export const useAuthStore = create<useAuthState>((set, get) => ({
   register() {},
 
   //! LOGOUT
-  logout() {},
+  logout() {
+    set((state) => ({
+      ...state,
+      error: "",
+      status: "not-authenticated",
+      token: undefined,
+      user: undefined,
+    }));
+  },
 }));
