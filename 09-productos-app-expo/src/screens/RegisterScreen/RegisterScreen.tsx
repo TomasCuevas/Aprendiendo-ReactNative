@@ -64,7 +64,7 @@ export const RegisterScreen: React.FC<Props> = ({ navigation }) => {
 
           <View style={authStyles.buttons__container}>
             <FormButton.Primary
-              text="Regístrate"
+              text="Registrarme"
               onPress={() => formik.handleSubmit()}
             />
 

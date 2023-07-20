@@ -1,5 +1,6 @@
 import { Keyboard, ScrollView, Text, View } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
+import { useStore } from "zustand";
 import { useFormik } from "formik";
 
 //* COMPONENTS *//
@@ -8,17 +9,22 @@ import { Background, FormButton, FormInput, WhiteLogo } from "../../components";
 //* THEME STYLES *//
 import { authStyles } from "../../theme";
 
+//* STORE *//
+import { useAuthStore } from "../../store";
+
 //* INTERFACES *//
 import { RootStackParams } from "../../navigators/RootStack/RootStack";
 
 interface Props extends StackScreenProps<RootStackParams, "LoginScreen"> {}
 
 export const LoginScreen: React.FC<Props> = ({ navigation }) => {
+  const { login } = useStore(useAuthStore);
+
   const formik = useFormik({
     initialValues: { email: "", password: "" },
-    onSubmit: (formValues) => {
+    onSubmit: async (formValues) => {
       Keyboard.dismiss();
-      console.log(formValues);
+      await login(formValues);
     },
   });
 
