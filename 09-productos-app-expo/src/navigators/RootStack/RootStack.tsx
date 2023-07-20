@@ -20,11 +20,13 @@ export type RootStackParams = {
 const Stack = createStackNavigator<RootStackParams>();
 
 export const RootStack = () => {
-  const { status, logout } = useStore(useAuthStore);
+  const { status, logout, checkAuthentication } = useStore(useAuthStore);
 
   const checkToken = async () => {
     const token = await AsyncStorage.getItem("token");
     if (!token) return logout();
+
+    await checkAuthentication();
   };
 
   useEffect(() => {

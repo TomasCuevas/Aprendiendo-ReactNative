@@ -21,7 +21,7 @@ interface useAuthState {
   user?: IUser;
   setLogin(loginData: ILoginResponse | IRegisterResponse): Promise<void>;
   setError(error?: string): void;
-  checkAuthentication(token: string): Promise<void>;
+  checkAuthentication(): Promise<void>;
   login(loginData: ILogin): Promise<void>;
   register(): void;
   logout(): void;
@@ -52,19 +52,27 @@ export const useAuthStore = create<useAuthState>((set, get) => ({
   },
 
   //! CHECK AUTHENTICATION
-  async checkAuthentication(token) {},
+  async checkAuthentication() {
+    const { setLogin, logout } = get();
+
+    try {
+      const { data } = await cafeApi.get<ILoginResponse>("/auth");
+      setLogin(data);
+    } catch (error: any) {
+      logout();
+    }
+  },
 
   //! LOGIN
   async login(loginData) {
     const { setLogin, setError } = get();
 
     try {
-      const response = await cafeApi.post<ILoginResponse>(
+      const { data } = await cafeApi.post<ILoginResponse>(
         "/auth/login",
         loginData
       );
-
-      setLogin(response.data);
+      setLogin(data);
     } catch (error: any) {
       setError(error.response.data.msg);
     }
