@@ -1,4 +1,5 @@
-import { Keyboard, ScrollView, Text, View } from "react-native";
+import { useEffect } from "react";
+import { Alert, Keyboard, ScrollView, Text, View } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { useStore } from "zustand";
 import { useFormik } from "formik";
@@ -18,7 +19,7 @@ import { RootStackParams } from "../../navigators/RootStack/RootStack";
 interface Props extends StackScreenProps<RootStackParams, "LoginScreen"> {}
 
 export const LoginScreen: React.FC<Props> = ({ navigation }) => {
-  const { login } = useStore(useAuthStore);
+  const { login, error, setError } = useStore(useAuthStore);
 
   const formik = useFormik({
     initialValues: { email: "", password: "" },
@@ -27,6 +28,14 @@ export const LoginScreen: React.FC<Props> = ({ navigation }) => {
       await login(formValues);
     },
   });
+
+  useEffect(() => {
+    if (error.length === 0) return;
+
+    Alert.alert("Error al inciar sesión", error, [
+      { text: "Ok", onPress: () => setError("") },
+    ]);
+  }, [error]);
 
   return (
     <>

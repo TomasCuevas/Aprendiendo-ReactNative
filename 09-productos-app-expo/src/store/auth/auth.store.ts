@@ -14,11 +14,12 @@ import {
 
 //* STORE STATE *//
 interface useAuthState {
-  error?: string;
+  error: string;
   status: authStatus;
   token?: string;
   user?: IUser;
   setLogin(loginData: ILoginResponse | IRegisterResponse): void;
+  setError(error?: string): void;
   login(loginData: ILogin): void;
   register(): void;
   logout(): void;
@@ -41,9 +42,14 @@ export const useAuthStore = create<useAuthState>((set, get) => ({
     }));
   },
 
+  //! SET ERROR
+  setError(error = "Información incorrecta.") {
+    set((state) => ({ ...state, error }));
+  },
+
   //! LOGIN
   async login(loginData) {
-    const { setLogin } = get();
+    const { setLogin, setError } = get();
 
     try {
       const response = await cafeApi.post<ILoginResponse>(
@@ -53,7 +59,7 @@ export const useAuthStore = create<useAuthState>((set, get) => ({
 
       setLogin(response.data);
     } catch (error: any) {
-      console.log(error.response.data.msg);
+      setError(error.response.data.msg);
     }
   },
 
