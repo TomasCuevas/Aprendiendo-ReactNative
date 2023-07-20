@@ -1,7 +1,11 @@
 import { createStackNavigator } from "@react-navigation/stack";
+import { useStore } from "zustand";
 
 //* SCREENS *//
 import { LoginScreen, ProtectedScreen, RegisterScreen } from "../../screens";
+
+//* STORE *//
+import { useAuthStore } from "../../store";
 
 //* STACK TYPES *//
 export type RootStackParams = {
@@ -14,6 +18,8 @@ export type RootStackParams = {
 const Stack = createStackNavigator<RootStackParams>();
 
 export const RootStack = () => {
+  const { status } = useStore(useAuthStore);
+
   return (
     <Stack.Navigator
       screenOptions={{
@@ -21,9 +27,14 @@ export const RootStack = () => {
         cardStyle: { backgroundColor: "#FFF" },
       }}
     >
-      <Stack.Screen name="LoginScreen" component={LoginScreen} />
-      <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
-      <Stack.Screen name="ProtectedScreen" component={ProtectedScreen} />
+      {status === "authenticated" ? (
+        <Stack.Screen name="ProtectedScreen" component={ProtectedScreen} />
+      ) : (
+        <>
+          <Stack.Screen name="LoginScreen" component={LoginScreen} />
+          <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
+        </>
+      )}
     </Stack.Navigator>
   );
 };

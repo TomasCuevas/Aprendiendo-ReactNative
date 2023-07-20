@@ -24,26 +24,36 @@ interface useAuthState {
   logout(): void;
 }
 
-export const useAuthStore = create<useAuthState>(() => ({
+export const useAuthStore = create<useAuthState>((set, get) => ({
   error: "",
   status: "checking",
   token: undefined,
   user: undefined,
 
   //! SET LOGIN
-  setLogin(loginData) {},
+  setLogin(loginData) {
+    set((state) => ({
+      ...state,
+      error: "",
+      status: "authenticated",
+      token: loginData.token,
+      user: loginData.user,
+    }));
+  },
 
   //! LOGIN
   async login(loginData) {
+    const { setLogin } = get();
+
     try {
       const response = await cafeApi.post<ILoginResponse>(
         "/auth/login",
         loginData
       );
 
-      console.log(response.data);
+      setLogin(response.data);
     } catch (error: any) {
-      console.log(error.response.data);
+      console.log(error.response.data.msg);
     }
   },
 
