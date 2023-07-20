@@ -8,6 +8,7 @@ import { cafeApi } from "../../api";
 import {
   ILogin,
   ILoginResponse,
+  IRegister,
   IRegisterResponse,
   IUser,
   authStatus,
@@ -23,8 +24,8 @@ interface useAuthState {
   setError(error?: string): void;
   checkAuthentication(): Promise<void>;
   login(loginData: ILogin): Promise<void>;
-  register(): void;
-  logout(): void;
+  register(registerData: IRegister): void;
+  logout(): Promise<void>;
 }
 
 export const useAuthStore = create<useAuthState>((set, get) => ({
@@ -48,7 +49,7 @@ export const useAuthStore = create<useAuthState>((set, get) => ({
 
   //! SET ERROR
   setError(error = "Información incorrecta.") {
-    set((state) => ({ ...state, error }));
+    set(() => ({ error }));
   },
 
   //! CHECK AUTHENTICATION
@@ -75,15 +76,32 @@ export const useAuthStore = create<useAuthState>((set, get) => ({
       );
       setLogin(data);
     } catch (error: any) {
+      set(() => ({ status: "not-authenticated" }));
       setError(error.response.data.msg);
     }
   },
 
   //! REGISTER
-  register() {},
+  async register(registerData) {
+    const { setLogin, setError } = get();
+    set(() => ({ status: "checking" }));
+
+    try {
+      const { data } = await cafeApi.post<IRegisterResponse>(
+        "/users",
+        registerData
+      );
+      setLogin(data);
+    } catch (error: any) {
+      set(() => ({ status: "not-authenticated" }));
+      setError(error.response.data.msg);
+    }
+  },
 
   //! LOGOUT
-  logout() {
+  async logout() {
+    await AsyncStorage.removeItem("token");
+
     set((state) => ({
       ...state,
       error: "",

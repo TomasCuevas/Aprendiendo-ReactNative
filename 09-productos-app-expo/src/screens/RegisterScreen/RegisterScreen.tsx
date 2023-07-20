@@ -1,6 +1,8 @@
-import { Keyboard, ScrollView, Text, View } from "react-native";
+import { useEffect } from "react";
+import { Keyboard, ScrollView, Text, View, Alert } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { useFormik } from "formik";
+import { useStore } from "zustand";
 
 //* COMPONENTS *//
 import { FormButton, FormInput, WhiteLogo } from "../../components";
@@ -8,19 +10,35 @@ import { FormButton, FormInput, WhiteLogo } from "../../components";
 //* THEME STYLES *//
 import { authStyles } from "../../theme";
 
+//* STORE *//
+import { useAuthStore } from "../../store";
+
 //* INTERFACES *//
 import { RootStackParams } from "../../navigators/RootStack/RootStack";
 
 interface Props extends StackScreenProps<RootStackParams, "RegisterScreen"> {}
 
 export const RegisterScreen: React.FC<Props> = ({ navigation }) => {
+  const { register, error, setError } = useStore(useAuthStore);
+
   const formik = useFormik({
     initialValues: { name: "", email: "", password: "", repeatPassword: "" },
-    onSubmit: (formValues) => {
+    onSubmit: async (formValues) => {
       Keyboard.dismiss();
-      console.log(formValues);
+      if (formValues.password !== formValues.repeatPassword)
+        return setError("Las contraseñas no coinciden");
+
+      await register(formValues);
     },
   });
+
+  useEffect(() => {
+    if (error.length === 0) return;
+
+    Alert.alert("Error al registrarte", error, [
+      { text: "Ok", onPress: () => setError("") },
+    ]);
+  }, [error]);
 
   return (
     <>
@@ -34,7 +52,7 @@ export const RegisterScreen: React.FC<Props> = ({ navigation }) => {
             keyboardType="default"
             label="Nombre"
             placelholder="Ingrese su nombre"
-            value={formik.values.email}
+            value={formik.values.name}
             onChangeText={formik.handleChange("name")}
           />
 
