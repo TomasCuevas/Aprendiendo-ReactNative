@@ -3,7 +3,12 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { useStore } from "zustand";
 
 //* SCREENS *//
-import { LoginScreen, ProtectedScreen, RegisterScreen } from "../../screens";
+import {
+  LoadingScreen,
+  LoginScreen,
+  ProtectedScreen,
+  RegisterScreen,
+} from "../../screens";
 
 //* STORE *//
 import { useAuthStore } from "../../store";
@@ -32,6 +37,8 @@ export const RootStack = () => {
   useEffect(() => {
     checkToken();
   }, []);
+
+  if (status === "checking") return <LoadingScreen />;
 
   return (
     <Stack.Navigator
