@@ -12,7 +12,6 @@ export const authStyles = StyleSheet.create({
     marginTop: 50,
   },
   label: {
-    marginTop: 25,
     color: "#FFF",
     fontWeight: "700",
     fontSize: 18,

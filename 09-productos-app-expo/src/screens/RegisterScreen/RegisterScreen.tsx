@@ -48,37 +48,39 @@ export const RegisterScreen: React.FC<Props> = ({ navigation }) => {
 
           <Text style={authStyles.title}>Registro</Text>
 
-          <FormInput
-            keyboardType="default"
-            label="Nombre"
-            placelholder="Ingrese su nombre"
-            value={formik.values.name}
-            onChangeText={formik.handleChange("name")}
-          />
+          <View style={{ gap: 15, marginTop: 15 }}>
+            <FormInput.Light
+              keyboardType="default"
+              label="Nombre"
+              placelholder="Ingrese su nombre"
+              value={formik.values.name}
+              onChangeText={formik.handleChange("name")}
+            />
 
-          <FormInput
-            keyboardType="email-address"
-            label="Email"
-            placelholder="Ingrese su email"
-            value={formik.values.email}
-            onChangeText={formik.handleChange("email")}
-          />
+            <FormInput.Light
+              keyboardType="email-address"
+              label="Email"
+              placelholder="Ingrese su email"
+              value={formik.values.email}
+              onChangeText={formik.handleChange("email")}
+            />
 
-          <FormInput
-            label="Contraseña"
-            placelholder="**********"
-            value={formik.values.password}
-            isPassword
-            onChangeText={formik.handleChange("password")}
-          />
+            <FormInput.Light
+              label="Contraseña"
+              placelholder="**********"
+              value={formik.values.password}
+              isPassword
+              onChangeText={formik.handleChange("password")}
+            />
 
-          <FormInput
-            label="Repetir contraseña"
-            placelholder="**********"
-            value={formik.values.repeatPassword}
-            isPassword
-            onChangeText={formik.handleChange("repeatPassword")}
-          />
+            <FormInput.Light
+              label="Repetir contraseña"
+              placelholder="**********"
+              value={formik.values.repeatPassword}
+              isPassword
+              onChangeText={formik.handleChange("repeatPassword")}
+            />
+          </View>
 
           <View style={authStyles.buttons__container}>
             <FormButton.Primary

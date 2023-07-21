@@ -47,21 +47,23 @@ export const LoginScreen: React.FC<Props> = ({ navigation }) => {
 
           <Text style={authStyles.title}>Iniciar Sesión</Text>
 
-          <FormInput
-            keyboardType="email-address"
-            label="Email"
-            placelholder="Ingrese su email"
-            value={formik.values.email}
-            onChangeText={formik.handleChange("email")}
-          />
+          <View style={{ gap: 15, marginTop: 15 }}>
+            <FormInput.Light
+              keyboardType="email-address"
+              label="Email"
+              placelholder="Ingrese su email"
+              value={formik.values.email}
+              onChangeText={formik.handleChange("email")}
+            />
 
-          <FormInput
-            label="Contraseña"
-            placelholder="**********"
-            value={formik.values.password}
-            isPassword
-            onChangeText={formik.handleChange("password")}
-          />
+            <FormInput.Light
+              label="Contraseña"
+              placelholder="**********"
+              value={formik.values.password}
+              isPassword
+              onChangeText={formik.handleChange("password")}
+            />
+          </View>
 
           <View style={authStyles.buttons__container}>
             <FormButton.Primary

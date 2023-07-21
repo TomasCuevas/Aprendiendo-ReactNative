@@ -60,6 +60,7 @@ export const ProductsScreen: React.FC<Props> = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 10,
     marginHorizontal: 15,
   },
   product__name: {

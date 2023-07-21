@@ -1,4 +1,4 @@
-import { Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity, StyleProp, ViewStyle } from "react-native";
 
 //* THEME STYLES *//
 import { authStyles } from "../../../theme";
@@ -7,6 +7,7 @@ import { authStyles } from "../../../theme";
 interface Props {
   text: string;
   onPress: any;
+  style?: StyleProp<ViewStyle>;
 }
 
 interface FormButtonsVariants {
@@ -15,10 +16,10 @@ interface FormButtonsVariants {
 }
 
 export const FormButton: FormButtonsVariants = {
-  Primary: ({ text, onPress }) => (
+  Primary: ({ text, onPress, style }) => (
     <TouchableOpacity
       activeOpacity={0.7}
-      style={authStyles.button}
+      style={{ ...authStyles.button, ...(style as any) }}
       onPress={onPress}
     >
       <Text style={authStyles.button__text}>{text}</Text>
