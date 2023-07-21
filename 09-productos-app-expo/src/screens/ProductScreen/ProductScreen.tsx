@@ -8,16 +8,19 @@ import { useFormik } from "formik";
 //* COMPONENTS *//
 import { FormButton, FormInput } from "../../components";
 
+//* HOOKS *//
+import { useCategories } from "../../hooks";
+
 //* INTERFACES *//
 interface Props
   extends StackScreenProps<ProductsStackParams, "ProductScreen"> {}
 
 export const ProductScreen: React.FC<Props> = ({ route, navigation }) => {
   const { id, name = "" } = route.params;
+  const { categories } = useCategories();
 
-  const [selectedLanguage, setSelectedLanguage] = useState();
   const formik = useFormik({
-    initialValues: { name: "" },
+    initialValues: { name: "", category: "" },
     onSubmit: (formValues) => {
       console.log(formValues);
     },
@@ -26,6 +29,8 @@ export const ProductScreen: React.FC<Props> = ({ route, navigation }) => {
   useEffect(() => {
     navigation.setOptions({ title: name ? name : "Nuevo producto" });
   }, []);
+
+  console.log(formik.values);
 
   return (
     <View style={styles.container}>
@@ -42,13 +47,18 @@ export const ProductScreen: React.FC<Props> = ({ route, navigation }) => {
             Categoria:
           </Text>
           <Picker
-            selectedValue={selectedLanguage}
-            onValueChange={(itemValue, itemIndex) =>
-              setSelectedLanguage(itemValue)
-            }
+            selectedValue={formik.values.category}
+            onValueChange={(itemValue) => {
+              formik.setFieldValue("category", itemValue);
+            }}
           >
-            <Picker.Item label="Java" value="java" />
-            <Picker.Item label="JavaScript" value="js" />
+            {categories.map((category) => (
+              <Picker.Item
+                label={category.name}
+                value={category._id}
+                key={category._id}
+              />
+            ))}
           </Picker>
         </View>
 

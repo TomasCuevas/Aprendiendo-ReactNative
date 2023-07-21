@@ -6,10 +6,10 @@ export interface ICategoriesResponse {
 export interface ICategory {
   _id: string;
   name: string;
-  user: User;
+  user: ICreatedBy;
 }
 
-interface User {
+interface ICreatedBy {
   _id: string;
   name: string;
 }
