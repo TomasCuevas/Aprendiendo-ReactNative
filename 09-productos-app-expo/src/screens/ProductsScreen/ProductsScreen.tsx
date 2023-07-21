@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   View,
   Text,
@@ -5,15 +6,32 @@ import {
   FlatList,
   TouchableOpacity,
 } from "react-native";
+import { StackScreenProps } from "@react-navigation/stack";
+import { ProductsStackParams } from "../../navigators/ProductsStack/ProductsStack";
 
 //* HOOK *//
 import { useProducts } from "../../hooks";
 
-//* INTERFACE *//
-interface Props {}
+//* INTERFACES *//
+interface Props
+  extends StackScreenProps<ProductsStackParams, "ProductsScreen"> {}
 
-export const ProductsScreen: React.FC<Props> = () => {
+export const ProductsScreen: React.FC<Props> = ({ navigation }) => {
   const { products } = useProducts();
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity
+          activeOpacity={0.4}
+          style={{ marginRight: 15 }}
+          onPress={() => navigation.navigate("ProductScreen", {})}
+        >
+          <Text>Agregar</Text>
+        </TouchableOpacity>
+      ),
+    });
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -21,7 +39,15 @@ export const ProductsScreen: React.FC<Props> = () => {
         data={products}
         keyExtractor={(product) => product._id}
         renderItem={({ item }) => (
-          <TouchableOpacity activeOpacity={0.4}>
+          <TouchableOpacity
+            activeOpacity={0.4}
+            onPress={() =>
+              navigation.navigate("ProductScreen", {
+                id: item._id,
+                name: item.name,
+              })
+            }
+          >
             <Text style={styles.product__name}>{item.name}</Text>
           </TouchableOpacity>
         )}
