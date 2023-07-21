@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { useStore } from "zustand";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //* SCREENS *//
 import {
@@ -10,9 +11,11 @@ import {
   RegisterScreen,
 } from "../../screens";
 
+//* STACKS *//
+import { ProductsStack } from "../ProductsStack/ProductsStack";
+
 //* STORE *//
 import { useAuthStore } from "../../store";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //* STACK TYPES *//
 export type RootStackParams = {
@@ -48,7 +51,7 @@ export const RootStack = () => {
       }}
     >
       {status === "authenticated" ? (
-        <Stack.Screen name="ProtectedScreen" component={ProtectedScreen} />
+        <Stack.Screen name="ProtectedScreen" component={ProductsStack} />
       ) : (
         <>
           <Stack.Screen name="LoginScreen" component={LoginScreen} />
