@@ -77,7 +77,7 @@ export const useAuthStore = create<useAuthState>((set, get) => ({
       setLogin(data);
     } catch (error: any) {
       set(() => ({ status: "not-authenticated" }));
-      setError(error.response.data.msg);
+      setError(error.response.data.msg || error.response.errors[0].msg);
     }
   },
 
@@ -94,7 +94,7 @@ export const useAuthStore = create<useAuthState>((set, get) => ({
       setLogin(data);
     } catch (error: any) {
       set(() => ({ status: "not-authenticated" }));
-      setError(error.response.data.msg);
+      setError(error.response.data.msg || error.response.errors[0].msg);
     }
   },
 
