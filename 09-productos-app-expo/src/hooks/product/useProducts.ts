@@ -20,6 +20,7 @@ export const useProducts = () => {
   );
 
   return {
+    products: productsQuery.data?.pages.flat() || [],
     productsQuery,
   };
 };
