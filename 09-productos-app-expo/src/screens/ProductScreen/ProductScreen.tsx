@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { View, Text, StyleSheet, ScrollView, Button } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Button,
+  Image,
+} from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { ProductsStackParams } from "../../navigators/ProductsStack/ProductsStack";
 import { Picker } from "@react-native-picker/picker";
@@ -37,6 +44,7 @@ export const ProductScreen: React.FC<Props> = ({ route, navigation }) => {
       formik.setFieldValue("_id", product._id);
       formik.setFieldValue("name", product.name);
       formik.setFieldValue("category", product.category._id);
+      formik.setFieldValue("image", product.image);
     }
   }, []);
 
@@ -87,6 +95,19 @@ export const ProductScreen: React.FC<Props> = ({ route, navigation }) => {
           <Button color="#5858D6" title="Cámara" />
           <Button color="#5858D6" title="Galería" />
         </View>
+
+        {formik.values.image && (
+          <Image
+            source={{ uri: formik.values.image }}
+            style={{
+              width: "100%",
+              height: 300,
+              marginVertical: 20,
+              borderRadius: 15,
+              objectFit: "cover",
+            }}
+          />
+        )}
       </ScrollView>
     </View>
   );
