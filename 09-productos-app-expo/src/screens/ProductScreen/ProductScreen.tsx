@@ -67,6 +67,19 @@ export const ProductScreen: React.FC<Props> = ({ route, navigation }) => {
     await uploadProductImageService(assets[0], _id);
   };
 
+  //! TAKE PHOTO FROM GALERY METHOD
+  const takePhotoFromGalery = async () => {
+    const { assets, canceled } = await launchImageLibraryAsync({
+      aspect: [4, 4],
+      quality: 0.3,
+    });
+    if (canceled === true) return;
+    if (!assets[0].uri) return;
+
+    setImage(assets[0].uri);
+    await uploadProductImageService(assets[0], _id);
+  };
+
   useEffect(() => {
     navigation.setOptions({ title: name });
   }, []);
@@ -129,7 +142,11 @@ export const ProductScreen: React.FC<Props> = ({ route, navigation }) => {
           }}
         >
           <Button color="#5858D6" title="Cámara" onPress={takePhoto} />
-          <Button color="#5858D6" title="Galería" />
+          <Button
+            color="#5858D6"
+            title="Galería"
+            onPress={takePhotoFromGalery}
+          />
         </View>
 
         {image && (
