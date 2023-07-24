@@ -61,6 +61,7 @@ export const FormInputHoc: React.FC<FormInputHocProps> = ({
           ...authStyles.inputField,
           color: theme === "light" ? "#FFF" : "#000",
           borderBottomColor: theme === "light" ? "#FFF" : "#000",
+          paddingHorizontal: 15,
         }}
         secureTextEntry={isPassword}
         selectionColor="#FFF4"

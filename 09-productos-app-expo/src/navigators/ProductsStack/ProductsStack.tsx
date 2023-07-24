@@ -3,10 +3,13 @@ import { createStackNavigator } from "@react-navigation/stack";
 //* SCREENS *//
 import { ProductScreen, ProductsScreen } from "../../screens";
 
+//* INTERFACES *//
+import { IProduct } from "../../interfaces";
+
 //* STACK TYPES *//
 export type ProductsStackParams = {
   ProductsScreen: undefined;
-  ProductScreen: { id?: string; name?: string };
+  ProductScreen: { product?: IProduct };
 };
 
 //* STACK INSTANCE *//

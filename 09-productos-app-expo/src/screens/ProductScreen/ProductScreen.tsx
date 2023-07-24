@@ -16,21 +16,29 @@ interface Props
   extends StackScreenProps<ProductsStackParams, "ProductScreen"> {}
 
 export const ProductScreen: React.FC<Props> = ({ route, navigation }) => {
-  const { id, name = "" } = route.params;
+  const { product } = route.params;
   const { categories } = useCategories();
 
   const formik = useFormik({
-    initialValues: { name: "", category: "" },
+    initialValues: { _id: "", name: "", category: "", image: "" },
     onSubmit: (formValues) => {
       console.log(formValues);
     },
   });
 
   useEffect(() => {
-    navigation.setOptions({ title: name ? name : "Nuevo producto" });
+    navigation.setOptions({
+      title: product?.name ? product.name : "Nuevo producto",
+    });
   }, []);
 
-  console.log(formik.values);
+  useEffect(() => {
+    if (product) {
+      formik.setFieldValue("_id", product._id);
+      formik.setFieldValue("name", product.name);
+      formik.setFieldValue("category", product.category._id);
+    }
+  }, []);
 
   return (
     <View style={styles.container}>

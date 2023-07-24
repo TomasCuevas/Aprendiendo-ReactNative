@@ -38,17 +38,12 @@ export const ProductsScreen: React.FC<Props> = ({ navigation }) => {
       <FlatList
         data={products}
         keyExtractor={(product) => product._id}
-        renderItem={({ item }) => (
+        renderItem={({ item: product }) => (
           <TouchableOpacity
             activeOpacity={0.4}
-            onPress={() =>
-              navigation.navigate("ProductScreen", {
-                id: item._id,
-                name: item.name,
-              })
-            }
+            onPress={() => navigation.navigate("ProductScreen", { product })}
           >
-            <Text style={styles.product__name}>{item.name}</Text>
+            <Text style={styles.product__name}>{product.name}</Text>
           </TouchableOpacity>
         )}
         ItemSeparatorComponent={() => <View style={styles.item__separator} />}

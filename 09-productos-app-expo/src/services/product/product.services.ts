@@ -20,8 +20,8 @@ export const getProductsService = async ({
   }
 };
 
-//! GET PRODUCT
-export const getProductService = async (productId: string) => {
+//! GET UNIQUE PRODUCT
+export const getProductByIdService = async (productId: string) => {
   try {
   } catch (error) {
     throw error;
