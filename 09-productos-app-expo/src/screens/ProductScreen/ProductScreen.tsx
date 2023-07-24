@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   View,
   Text,
@@ -10,6 +10,8 @@ import {
 import { StackScreenProps } from "@react-navigation/stack";
 import { ProductsStackParams } from "../../navigators/ProductsStack/ProductsStack";
 import { Picker } from "@react-native-picker/picker";
+import { useQueryClient } from "@tanstack/react-query";
+import { launchImageLibraryAsync, launchCameraAsync } from "expo-image-picker";
 import { useFormik } from "formik";
 
 //* COMPONENTS *//
@@ -19,63 +21,58 @@ import { FormButton, FormInput } from "../../components";
 import { useCategories, useProduct } from "../../hooks";
 
 //* SERVICES *//
-import { createProductService, updateProductService } from "../../services";
+import { updateProductService } from "../../services";
 
 //* SCREENS *//
 import { LoadingScreen } from "../LoadingScreen/LoadingScreen";
-
-//* QUERY CLIENT *//
-import { queryClient } from "../../../App";
 
 //* INTERFACES *//
 interface Props
   extends StackScreenProps<ProductsStackParams, "ProductScreen"> {}
 
 export const ProductScreen: React.FC<Props> = ({ route, navigation }) => {
-  const { product } = route.params;
+  const {
+    product: { _id, name },
+  } = route.params;
+  const queryClient = useQueryClient();
 
-  const { product: productFromApi, productQuery } = useProduct(
-    product?._id || ""
-  );
+  const { product, productQuery } = useProduct(_id);
   const { categories } = useCategories();
 
   const formik = useFormik({
     initialValues: { _id: "", name: "", category: "", image: "" },
     onSubmit: async (formValues) => {
-      if (formValues._id.length > 0) {
-        try {
-          const response = await updateProductService(formValues);
-          queryClient.refetchQueries([`/allProducts`]);
-          navigation.replace("ProductScreen", { product: response });
-        } catch (error) {}
-      } else {
-        try {
-          const response = await createProductService({
-            category: formValues.category || categories[0]._id,
-            name: formValues.name,
-          });
-
-          queryClient.refetchQueries(["/allProducts"]);
-          navigation.replace("ProductScreen", { product: response });
-        } catch (error) {}
-      }
+      try {
+        const response = await updateProductService(formValues);
+        queryClient.refetchQueries([`/allProducts`]);
+        navigation.replace("ProductScreen", { product: response });
+      } catch (error) {}
     },
   });
 
-  useEffect(() => {
-    navigation.setOptions({
-      title: product?.name ? product.name : "Nuevo producto",
+  const takePhoto = async () => {
+    const { assets, canceled } = await launchCameraAsync({
+      aspect: [4, 4],
+      quality: 0.3,
     });
+    if (canceled === true) return;
+    if (!assets[0].uri) return;
+
+    formik.setFieldValue("image", assets[0].uri);
+  };
+
+  useEffect(() => {
+    navigation.setOptions({ title: name });
   }, []);
 
   useEffect(() => {
-    if (productFromApi) {
-      formik.setFieldValue("_id", productFromApi._id);
-      formik.setFieldValue("name", productFromApi.name);
-      formik.setFieldValue("category", productFromApi.category._id);
-      formik.setFieldValue("image", productFromApi.image);
+    if (product) {
+      formik.setFieldValue("_id", product._id);
+      formik.setFieldValue("name", product.name);
+      formik.setFieldValue("category", product.category._id);
+      formik.setFieldValue("image", product.image);
     }
-  }, [productFromApi]);
+  }, [product]);
 
   if (productQuery.isLoading && productQuery.isFetching)
     return <LoadingScreen />;
@@ -116,19 +113,17 @@ export const ProductScreen: React.FC<Props> = ({ route, navigation }) => {
           style={{ borderColor: "#000", marginTop: 20, borderWidth: 1.2 }}
         />
 
-        {formik.values._id.length > 0 && (
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "center",
-              gap: 10,
-              marginTop: 10,
-            }}
-          >
-            <Button color="#5858D6" title="Cámara" />
-            <Button color="#5858D6" title="Galería" />
-          </View>
-        )}
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "center",
+            gap: 10,
+            marginTop: 10,
+          }}
+        >
+          <Button color="#5858D6" title="Cámara" onPress={takePhoto} />
+          <Button color="#5858D6" title="Galería" />
+        </View>
 
         {formik.values.image && (
           <Image

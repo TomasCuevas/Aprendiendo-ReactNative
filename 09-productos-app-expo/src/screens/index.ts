@@ -1,3 +1,4 @@
+export * from "./CreateProductScreen/CreateProductScreen";
 export * from "./LoadingScreen/LoadingScreen";
 export * from "./LoginScreen/LoginScreen";
 export * from "./ProductScreen/ProductScreen";

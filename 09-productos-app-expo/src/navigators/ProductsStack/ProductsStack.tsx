@@ -1,15 +1,20 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
 //* SCREENS *//
-import { ProductScreen, ProductsScreen } from "../../screens";
+import {
+  CreateProductScreen,
+  ProductScreen,
+  ProductsScreen,
+} from "../../screens";
 
 //* INTERFACES *//
 import { IProduct } from "../../interfaces";
 
 //* STACK TYPES *//
 export type ProductsStackParams = {
+  CreateProductScreen: undefined;
+  ProductScreen: { product: IProduct };
   ProductsScreen: undefined;
-  ProductScreen: { product?: IProduct };
 };
 
 //* STACK INSTANCE *//
@@ -36,6 +41,11 @@ export const ProductsStack = () => {
         name="ProductScreen"
         options={{ title: "Producto" }}
         component={ProductScreen}
+      />
+      <Stack.Screen
+        name="CreateProductScreen"
+        options={{ title: "Nuevo Producto" }}
+        component={CreateProductScreen}
       />
     </Stack.Navigator>
   );

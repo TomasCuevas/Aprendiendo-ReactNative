@@ -40,7 +40,7 @@ export const ProductsScreen: React.FC<Props> = ({ navigation }) => {
             paddingHorizontal: 10,
             paddingVertical: 2,
           }}
-          onPress={() => navigation.navigate("ProductScreen", {})}
+          onPress={() => navigation.navigate("CreateProductScreen")}
         >
           <Text>Agregar</Text>
         </TouchableOpacity>
