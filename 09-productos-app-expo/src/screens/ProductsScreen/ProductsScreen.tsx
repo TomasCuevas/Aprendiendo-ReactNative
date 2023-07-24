@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
   FlatList,
+  RefreshControl,
+  StyleSheet,
+  Text,
   TouchableOpacity,
+  View,
 } from "react-native";
 import { StackScreenProps } from "@react-navigation/stack";
 import { ProductsStackParams } from "../../navigators/ProductsStack/ProductsStack";
@@ -17,14 +18,28 @@ interface Props
   extends StackScreenProps<ProductsStackParams, "ProductsScreen"> {}
 
 export const ProductsScreen: React.FC<Props> = ({ navigation }) => {
-  const { products } = useProducts();
+  const { products, productsQuery } = useProducts();
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const onRefresh = () => {
+    setIsRefreshing(true);
+    productsQuery.refetch();
+
+    setIsRefreshing(false);
+  };
 
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity
           activeOpacity={0.4}
-          style={{ marginRight: 15 }}
+          style={{
+            marginRight: 15,
+            borderWidth: 0.5,
+            borderRadius: 5,
+            paddingHorizontal: 10,
+            paddingVertical: 2,
+          }}
           onPress={() => navigation.navigate("ProductScreen", {})}
         >
           <Text>Agregar</Text>
@@ -36,6 +51,15 @@ export const ProductsScreen: React.FC<Props> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <FlatList
+        refreshControl={
+          <RefreshControl
+            refreshing={isRefreshing}
+            onRefresh={onRefresh}
+            progressViewOffset={100}
+            progressBackgroundColor="#FFF"
+            colors={["#5858D6"]}
+          />
+        }
         data={products}
         keyExtractor={(product) => product._id}
         renderItem={({ item: product }) => (
