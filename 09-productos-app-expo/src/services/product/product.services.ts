@@ -1,4 +1,8 @@
+import { uploadAsync, FileSystemUploadType } from "expo-file-system";
+
 //* INTERFACES *//
+import { ImagePickerAsset } from "expo-image-picker";
+
 import {
   IProduct,
   IProductResponse,
@@ -70,6 +74,28 @@ export const updateProductService = async (
     );
     return data.product;
   } catch (error) {
+    throw error;
+  }
+};
+
+//! UPLOAD PRODUCT IMAGE
+export const uploadProductImageService = async (
+  imageData: ImagePickerAsset,
+  productId: string
+) => {
+  try {
+    const { body } = await uploadAsync(
+      `${process.env.EXPO_PUBLIC_API_BASEURL}/uploads/products/${productId}`,
+      imageData.uri,
+      {
+        httpMethod: "PUT",
+        uploadType: FileSystemUploadType.MULTIPART,
+        fieldName: "file",
+      }
+    );
+
+    return (body as any).model;
+  } catch (error: any) {
     throw error;
   }
 };

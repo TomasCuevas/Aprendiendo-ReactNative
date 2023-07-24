@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   View,
   Text,
@@ -21,7 +21,10 @@ import { FormButton, FormInput } from "../../components";
 import { useCategories, useProduct } from "../../hooks";
 
 //* SERVICES *//
-import { updateProductService } from "../../services";
+import {
+  updateProductService,
+  uploadProductImageService,
+} from "../../services";
 
 //* SCREENS *//
 import { LoadingScreen } from "../LoadingScreen/LoadingScreen";
@@ -39,8 +42,9 @@ export const ProductScreen: React.FC<Props> = ({ route, navigation }) => {
   const { product, productQuery } = useProduct(_id);
   const { categories } = useCategories();
 
+  const [image, setImage] = useState("");
   const formik = useFormik({
-    initialValues: { _id: "", name: "", category: "", image: "" },
+    initialValues: { _id: "", name: "", category: "" },
     onSubmit: async (formValues) => {
       try {
         const response = await updateProductService(formValues);
@@ -50,6 +54,7 @@ export const ProductScreen: React.FC<Props> = ({ route, navigation }) => {
     },
   });
 
+  //! TAKE PHOTO METHOD
   const takePhoto = async () => {
     const { assets, canceled } = await launchCameraAsync({
       aspect: [4, 4],
@@ -58,7 +63,8 @@ export const ProductScreen: React.FC<Props> = ({ route, navigation }) => {
     if (canceled === true) return;
     if (!assets[0].uri) return;
 
-    formik.setFieldValue("image", assets[0].uri);
+    setImage(assets[0].uri);
+    await uploadProductImageService(assets[0], _id);
   };
 
   useEffect(() => {
@@ -71,6 +77,7 @@ export const ProductScreen: React.FC<Props> = ({ route, navigation }) => {
       formik.setFieldValue("name", product.name);
       formik.setFieldValue("category", product.category._id);
       formik.setFieldValue("image", product.image);
+      setImage(product.image || "");
     }
   }, [product]);
 
@@ -125,15 +132,15 @@ export const ProductScreen: React.FC<Props> = ({ route, navigation }) => {
           <Button color="#5858D6" title="Galería" />
         </View>
 
-        {formik.values.image && (
+        {image && (
           <Image
-            source={{ uri: formik.values.image }}
+            source={{ uri: image }}
             style={{
               width: "100%",
-              height: 300,
               marginVertical: 20,
               borderRadius: 15,
               objectFit: "cover",
+              aspectRatio: "4/3",
             }}
           />
         )}

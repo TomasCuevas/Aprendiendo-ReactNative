@@ -16,8 +16,7 @@ export interface IProduct {
   image?: string;
 }
 
-export interface IProductToCreate
-  extends Pick<IProduct, "_id" | "name" | "image"> {
+export interface IProductToCreate extends Pick<IProduct, "_id" | "name"> {
   category: string;
 }
 
