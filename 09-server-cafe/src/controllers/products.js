@@ -66,7 +66,7 @@ const createProduct = async (req, res = response) => {
     .populate("category", "name")
     .execPopulate();
 
-  res.status(201).json({ newProduct });
+  res.status(201).json({ product: newProduct });
 };
 
 //! UPDATE PRODUCT
@@ -102,7 +102,7 @@ const deleteProduct = async (req, res = response) => {
     { new: true }
   );
 
-  res.json(deletedProduct);
+  res.json({ product: deletedProduct });
 };
 
 module.exports = {
