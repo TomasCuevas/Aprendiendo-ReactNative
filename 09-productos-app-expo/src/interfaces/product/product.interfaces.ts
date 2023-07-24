@@ -3,6 +3,10 @@ export interface IProductsResponse {
   products: IProduct[];
 }
 
+export interface IProductResponse {
+  product: IProduct;
+}
+
 export interface IProduct {
   price: number;
   _id: string;

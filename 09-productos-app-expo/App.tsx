@@ -6,7 +6,7 @@ import "react-native-gesture-handler";
 import { RootStack } from "./src/navigators/RootStack/RootStack";
 
 //* QUERY CLIENT *//
-const queryClient = new QueryClient();
+export const queryClient = new QueryClient();
 
 export default function App() {
   return (

@@ -16,8 +16,16 @@ import { useFormik } from "formik";
 import { FormButton, FormInput } from "../../components";
 
 //* HOOKS *//
-import { useCategories } from "../../hooks";
+import { useCategories, useProduct } from "../../hooks";
+
+//* SERVICES *//
 import { createProductService, updateProductService } from "../../services";
+
+//* SCREENS *//
+import { LoadingScreen } from "../LoadingScreen/LoadingScreen";
+
+//* QUERY CLIENT *//
+import { queryClient } from "../../../App";
 
 //* INTERFACES *//
 interface Props
@@ -25,21 +33,30 @@ interface Props
 
 export const ProductScreen: React.FC<Props> = ({ route, navigation }) => {
   const { product } = route.params;
+
+  const { product: productFromApi, productQuery } = useProduct(
+    product?._id || ""
+  );
   const { categories } = useCategories();
 
   const formik = useFormik({
     initialValues: { _id: "", name: "", category: "", image: "" },
     onSubmit: async (formValues) => {
-      if (formValues._id) {
+      if (formValues._id.length > 0) {
         try {
           const response = await updateProductService(formValues);
+          queryClient.refetchQueries([`/allProducts`]);
+          navigation.replace("ProductScreen", { product: response });
         } catch (error) {}
       } else {
         try {
           const response = await createProductService({
-            category: formValues.category,
+            category: formValues.category || categories[0]._id,
             name: formValues.name,
           });
+
+          queryClient.refetchQueries(["/allProducts"]);
+          navigation.replace("ProductScreen", { product: response });
         } catch (error) {}
       }
     },
@@ -52,13 +69,16 @@ export const ProductScreen: React.FC<Props> = ({ route, navigation }) => {
   }, []);
 
   useEffect(() => {
-    if (product) {
-      formik.setFieldValue("_id", product._id);
-      formik.setFieldValue("name", product.name);
-      formik.setFieldValue("category", product.category._id);
-      formik.setFieldValue("image", product.image);
+    if (productFromApi) {
+      formik.setFieldValue("_id", productFromApi._id);
+      formik.setFieldValue("name", productFromApi.name);
+      formik.setFieldValue("category", productFromApi.category._id);
+      formik.setFieldValue("image", productFromApi.image);
     }
-  }, []);
+  }, [productFromApi]);
+
+  if (productQuery.isLoading && productQuery.isFetching)
+    return <LoadingScreen />;
 
   return (
     <View style={styles.container}>
@@ -96,17 +116,19 @@ export const ProductScreen: React.FC<Props> = ({ route, navigation }) => {
           style={{ borderColor: "#000", marginTop: 20, borderWidth: 1.2 }}
         />
 
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            gap: 10,
-            marginTop: 10,
-          }}
-        >
-          <Button color="#5858D6" title="Cámara" />
-          <Button color="#5858D6" title="Galería" />
-        </View>
+        {formik.values._id.length > 0 && (
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              gap: 10,
+              marginTop: 10,
+            }}
+          >
+            <Button color="#5858D6" title="Cámara" />
+            <Button color="#5858D6" title="Galería" />
+          </View>
+        )}
 
         {formik.values.image && (
           <Image
