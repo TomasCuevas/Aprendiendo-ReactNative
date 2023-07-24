@@ -17,6 +17,7 @@ import { FormButton, FormInput } from "../../components";
 
 //* HOOKS *//
 import { useCategories } from "../../hooks";
+import { createProductService, updateProductService } from "../../services";
 
 //* INTERFACES *//
 interface Props
@@ -28,8 +29,19 @@ export const ProductScreen: React.FC<Props> = ({ route, navigation }) => {
 
   const formik = useFormik({
     initialValues: { _id: "", name: "", category: "", image: "" },
-    onSubmit: (formValues) => {
-      console.log(formValues);
+    onSubmit: async (formValues) => {
+      if (formValues._id) {
+        try {
+          const response = await updateProductService(formValues);
+        } catch (error) {}
+      } else {
+        try {
+          const response = await createProductService({
+            category: formValues.category,
+            name: formValues.name,
+          });
+        } catch (error) {}
+      }
     },
   });
 

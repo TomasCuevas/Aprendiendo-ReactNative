@@ -1,5 +1,9 @@
 //* INTERFACES *//
-import { IProduct, IProductsResponse } from "../../interfaces";
+import {
+  IProduct,
+  IProductToCreate,
+  IProductsResponse,
+} from "../../interfaces";
 
 //* AXIOS INSTANCE *//
 import { cafeApi } from "../../api";
@@ -42,7 +46,7 @@ export const createProductService = async (productData: CreateProductProps) => {
 };
 
 //! UPDATE PRODUCT
-export const updateProductService = async (productData: Partial<IProduct>) => {
+export const updateProductService = async (productData: IProductToCreate) => {
   try {
   } catch (error) {
     throw error;
