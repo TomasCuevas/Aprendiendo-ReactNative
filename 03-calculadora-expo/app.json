@@ -1,30 +1,33 @@
 {
   "expo": {
-    "name": "03-calculadora-expo",
-    "slug": "03-calculadora-expo",
+    "name": "Calculadora",
+    "slug": "calculadora-reactnative-expo-2023",
+    "owner": "tomascuevas",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
+    "platforms": ["android"],
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/splash_icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#000"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    },
+    "assetBundlePatterns": ["**/*"],
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.tomascuevas.calculadorareactnativeexpo2023"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/icon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "68a93d4f-b8d4-4f3e-9489-c5a11ed1387c"
+      }
     }
   }
 }
